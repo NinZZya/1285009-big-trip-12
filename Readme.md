@@ -1,7 +1,7 @@
 # Личный проект «Большое путешествие» [![Build status][travis-image]][travis-url]
 
 * Студент: [Сергей Азаров](https://up.htmlacademy.ru/ecmascript/12/user/1285009).
-* Наставник: `Неизвестно`.
+* Наставник: [Александр Мастеров](https://up.htmlacademy.ru/ecmascript/12/user/912463).
 
 ---
 
