@@ -5,7 +5,9 @@ const RenderPosition = {
 };
 
 /**
- * Вставляет element в container на место place (значение RenderPosition)
+ * Вставляет element
+ * в container
+ * на место place (значение RenderPosition или после DOM-элемента plase)
  * @param {Object} container Место вставки элемента
  * @param {Object} element Элемент для вставки
  * @param {string} place Значение RenderPosition
@@ -18,6 +20,9 @@ const render = (container, element, place) => {
       break;
     case RenderPosition.BEFOREEND:
       container.append(element);
+      break;
+    default:
+      container.insertBefore(element, place);
       break;
   }
 };
