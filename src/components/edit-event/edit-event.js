@@ -1,5 +1,5 @@
 import {createEditEventHeaderTemplate} from './edit-event-header/edit-event-header';
-import {createEditEventDetailsTemplate} from './templates/edit-event-details';
+import {createEditEventDetailsTemplate} from './edit-event-detail/edit-event-details';
 
 const createEditEventTemplate = (currentEvent) => {
   return (
