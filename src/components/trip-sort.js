@@ -1,7 +1,6 @@
 import {tripSorts} from '../const';
 
-const DEFAULT = `event`;
-const DISABLEDS = [`day`, `offers`];
+const DEFAULT = tripSorts.keys().next().value;
 const tripSortIcon = (
   `<svg class="trip-sort__direction-icon" width="8" height="10" viewBox="0 0 8 10">
     <path
@@ -10,22 +9,15 @@ const tripSortIcon = (
   </svg>`
 );
 
-const isDisabled = (element) => DISABLEDS.includes(element);
-
 const createTemplateTripSort = () => {
   return (
     `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
+      <span class="trip-sort__item  trip-sort__item--day">
+        Day
+      </span>
 
       ${Array.from(tripSorts)
         .map(([key, value]) => {
-          if (isDisabled(key)) {
-            return (
-              `<span class="trip-sort__item  trip-sort__item--${key}">
-                ${value}
-              </span>`
-            );
-          }
-
           return (
             `<div class="trip-sort__item  trip-sort__item--${key}">
             <input
@@ -43,6 +35,10 @@ const createTemplateTripSort = () => {
           );
         })
         .join(`\n`)}
+
+        <span class="trip-sort__item  trip-sort__item--offers">
+          Offers
+        </span>
     </form>`
   );
 };

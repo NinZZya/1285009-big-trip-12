@@ -5,11 +5,9 @@ const tripFilters = new Map([
 ]);
 
 const tripSorts = new Map([
-  [`day`, `Day`],
   [`event`, `Event`],
   [`time`, `Time`],
   [`price`, `Price`],
-  [`offers`, `Offers`],
 ]);
 
 export {
