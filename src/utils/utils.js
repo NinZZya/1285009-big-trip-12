@@ -39,8 +39,15 @@ const createElement = (template) => {
   return element.firstChild;
 };
 
+const getByKey = (objectsArray, key) => {
+  return objectsArray.find((element) => {
+    return element.key === key;
+  });
+};
+
 export {
   RenderPosition,
   render,
   createElement,
+  getByKey,
 };

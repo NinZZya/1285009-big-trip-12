@@ -1,7 +1,7 @@
-import {tripSorts} from '../const';
+import {sorts} from '../const';
 
-const DEFAULT = tripSorts.keys().next().value;
-const tripSortIcon = (
+const DEFAULT_SORT = sorts.keys().next().value;
+const sortIcon = (
   `<svg class="trip-sort__direction-icon" width="8" height="10" viewBox="0 0 8 10">
     <path
       d="M2.888 4.852V9.694H5.588V4.852L7.91 5.068L4.238 0.00999987L0.548 5.068L2.888 4.852Z"
@@ -16,7 +16,7 @@ const createTemplateTripSort = () => {
         Day
       </span>
 
-      ${Array.from(tripSorts)
+      ${Array.from(sorts)
         .map(([key, value]) => {
           return (
             `<div class="trip-sort__item  trip-sort__item--${key}">
@@ -25,11 +25,11 @@ const createTemplateTripSort = () => {
                 class="trip-sort__input  visually-hidden"
                 type="radio" name="trip-sort"
                 value="sort-${key}"
-                ${key === DEFAULT ? `checked` : ``}
+                ${key === DEFAULT_SORT ? `checked` : ``}
               >
               <label class="trip-sort__btn" for="sort-${key}">
                 ${value}
-                ${key === DEFAULT ? `` : tripSortIcon}
+                ${key === DEFAULT_SORT ? `` : sortIcon}
               </label>
             </div>`
           );

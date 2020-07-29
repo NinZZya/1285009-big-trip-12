@@ -1,11 +1,11 @@
-import {tripFilters} from '../const';
+import {filters} from '../const';
 
-const DEFAULT = tripFilters.keys().next().value;
+const DEFAULT_FILTER = filters.keys().next().value;
 
 const createTemplateTripFilters = () => {
   return (
     `<form class="trip-filters" action="#" method="get">
-      ${Array.from(tripFilters)
+      ${Array.from(filters)
         .map(([key, value]) => {
           return (
             `<div class="trip-filters__filter">
@@ -15,7 +15,7 @@ const createTemplateTripFilters = () => {
                 type="radio"
                 name="trip-filter"
                 value="${key}"
-                ${key === DEFAULT ? `checked` : ``}
+                ${key === DEFAULT_FILTER ? `checked` : ``}
               >
               <label class="trip-filters__filter-label" for="filter-${key}">
                 ${value}
