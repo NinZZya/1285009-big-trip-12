@@ -20,18 +20,18 @@ const createTemplateTripSort = () => {
         .map(([key, value]) => {
           return (
             `<div class="trip-sort__item  trip-sort__item--${key}">
-            <input
-              id="sort-${key}"
-              class="trip-sort__input  visually-hidden"
-              type="radio" name="trip-sort"
-              value="sort-${key}"
-              ${key === DEFAULT ? `checked` : ``}
-            >
-            <label class="trip-sort__btn" for="sort-${key}">
-              ${value}
-              ${key === DEFAULT ? `` : tripSortIcon}
-            </label>
-          </div>`
+              <input
+                id="sort-${key}"
+                class="trip-sort__input  visually-hidden"
+                type="radio" name="trip-sort"
+                value="sort-${key}"
+                ${key === DEFAULT ? `checked` : ``}
+              >
+              <label class="trip-sort__btn" for="sort-${key}">
+                ${value}
+                ${key === DEFAULT ? `` : tripSortIcon}
+              </label>
+            </div>`
           );
         })
         .join(`\n`)}
