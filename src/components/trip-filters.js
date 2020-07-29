@@ -2,7 +2,7 @@ import {filters} from '../const';
 
 const DEFAULT_FILTER = filters.keys().next().value;
 
-const createTemplateTripFilters = () => {
+const createTripFiltersTemplate = () => {
   return (
     `<form class="trip-filters" action="#" method="get">
       ${Array.from(filters)
@@ -31,4 +31,4 @@ const createTemplateTripFilters = () => {
   );
 };
 
-export {createTemplateTripFilters};
+export {createTripFiltersTemplate};

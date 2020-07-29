@@ -11,8 +11,8 @@ const sorts = new Map([
 ]);
 
 const EventType = {
-  TRANSFER: `transfer`,
-  ACTIVITY: `activity`,
+  TRANSFER: `Transfer`,
+  ACTIVITY: `Activity`,
 };
 
 const transfers = [
