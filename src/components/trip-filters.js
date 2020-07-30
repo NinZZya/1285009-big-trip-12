@@ -1,11 +1,11 @@
-import {filters} from '../const';
+import {FILTERS} from '../data';
 
-const DEFAULT_FILTER = filters.keys().next().value;
+const DEFAULT_FILTER = FILTERS.keys().next().value;
 
 const createTripFiltersTemplate = () => {
   return (
     `<form class="trip-filters" action="#" method="get">
-      ${Array.from(filters)
+      ${Array.from(FILTERS)
         .map(([key, value]) => {
           return (
             `<div class="trip-filters__filter">

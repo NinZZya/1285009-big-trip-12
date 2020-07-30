@@ -10,10 +10,10 @@ const createEditEventDestinationTemplate = () => {
 
       <div class="event__photos-container">
         <div class="event__photos-tape">
-          ${Array(PHOTOS_COUNT)
+          ${new Array(PHOTOS_COUNT)
             .fill(``)
             .map((_, index) => `<img class="event__photo" src="img/photos/${index + 1}.jpg" alt="Event photo">`)
-            .join(`\n`)}
+            .join(``)}
         </div>
       </div>
     </section>`

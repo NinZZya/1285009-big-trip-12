@@ -1,5 +1,6 @@
 import {createTripInfoTemplate} from './components/trip-info';
 import {createTripTabsTemplate} from './components/trip-tabs';
+import {createTripControlsTemplate} from './components/trip-controls';
 import {createTripFiltersTemplate} from './components/trip-filters';
 import {createTripSortTemplate} from './components/trip-sort';
 import {createEditEventTemplate} from './components/edit-event/edit-event';
@@ -8,12 +9,14 @@ import {createDayTemplate} from './components/day';
 import {createEventListTemplate} from './components/events';
 import {createEventTemplate} from './components/event';
 import {createHiddenHeaderTemplate} from './components/hidden-header';
+import {createAddNewEventTemplate} from './components/add-new-event';
 import {
   RenderPosition,
   render,
   createElement,
 } from './utils/utils';
 
+const {AFTERBEGIN, BEFOREEND} = RenderPosition;
 const DEFAULT_EVENT = `flight`;
 const DAY_COUNT = 3;
 const EVENT_COUNT = 5;
@@ -22,50 +25,47 @@ const TRIP_TITLE = `Switch trip view`;
 const FILTER_HEADER_LEVEL = 2;
 const FILTER_TITLE = `Filter events`;
 
-const TripSelector = {
-  MAIN: `.trip-main`,
-  CONTROLS: `.trip-controls`,
-  EVENTS: `.trip-events`,
-};
+const MAIN_SELECTOR = `.trip-main`;
+const EVENTS_SELECTOR = `.trip-events`;
 
-// Рендер информации о путешествии
-const tripMain = document.querySelector(TripSelector.MAIN);
-const tripInfo = createElement(createTripInfoTemplate());
-render(tripMain, tripInfo, RenderPosition.AFTERBEGIN);
+const tripMainElement = document.querySelector(MAIN_SELECTOR);
+const tripInfoElement = createElement(createTripInfoTemplate());
+render(tripMainElement, tripInfoElement, AFTERBEGIN);
 
-// Рендер контролов (табов и фильтров)
-const tripControlsElement = tripMain.querySelector(TripSelector.CONTROLS);
+const tripControlsElement = createElement(createTripControlsTemplate());
+render(tripMainElement, tripControlsElement, BEFOREEND);
 const tripHiddenHeaderElement = createElement(
     createHiddenHeaderTemplate(TRIP_HEADER_LEVEL, TRIP_TITLE)
 );
-render(tripControlsElement, tripHiddenHeaderElement, RenderPosition.AFTERBEGIN);
+render(tripControlsElement, tripHiddenHeaderElement, AFTERBEGIN);
 const tripTabsElement = createElement(createTripTabsTemplate());
-render(tripControlsElement, tripTabsElement, RenderPosition.BEFOREEND);
+render(tripControlsElement, tripTabsElement, BEFOREEND);
 const tripFilterHiddenHeaderElement = createElement(
     createHiddenHeaderTemplate(FILTER_HEADER_LEVEL, FILTER_TITLE)
 );
-render(tripControlsElement, tripFilterHiddenHeaderElement, RenderPosition.BEFOREEND);
+render(tripControlsElement, tripFilterHiddenHeaderElement, BEFOREEND);
 const tripFiltersElement = createElement(createTripFiltersTemplate());
-render(tripControlsElement, tripFiltersElement, RenderPosition.BEFOREEND);
+render(tripControlsElement, tripFiltersElement, BEFOREEND);
 
-// Рендер сортировки и изменеие события
-const tripEventsElement = document.querySelector(TripSelector.EVENTS);
+const addNewEventElement = createElement(createAddNewEventTemplate());
+render(tripMainElement, addNewEventElement, BEFOREEND);
+
+const tripEventsElement = document.querySelector(EVENTS_SELECTOR);
 const tripSortElement = createElement(createTripSortTemplate());
-render(tripEventsElement, tripSortElement, RenderPosition.BEFOREEND);
+render(tripEventsElement, tripSortElement, BEFOREEND);
 const tripEditEventElement = createElement(createEditEventTemplate(DEFAULT_EVENT));
-render(tripEventsElement, tripEditEventElement, RenderPosition.BEFOREEND);
+render(tripEventsElement, tripEditEventElement, BEFOREEND);
 
-// Рендер контента
 const daysElement = createElement(createDaysTemplate());
-render(tripEventsElement, daysElement, RenderPosition.BEFOREEND);
+render(tripEventsElement, daysElement, BEFOREEND);
 for (let i = 0; i < DAY_COUNT; i++) {
   const dayElement = createElement(createDayTemplate());
-  render(daysElement, dayElement, RenderPosition.BEFOREEND);
+  render(daysElement, dayElement, BEFOREEND);
   const eventListElement = createElement(createEventListTemplate());
-  render(dayElement, eventListElement, RenderPosition.BEFOREEND);
+  render(dayElement, eventListElement, BEFOREEND);
   for (let j = 0; j < EVENT_COUNT; j++) {
     const eventElement = createElement(createEventTemplate());
-    render(eventListElement, eventElement, RenderPosition.BEFOREEND);
+    render(eventListElement, eventElement, BEFOREEND);
   }
 }
 

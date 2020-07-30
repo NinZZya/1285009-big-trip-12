@@ -1,10 +1,10 @@
-const filters = new Map([
+const FILTERS = new Map([
   [`everything`, `Everything`],
   [`future`, `Future`],
   [`past`, `Past`],
 ]);
 
-const sorts = new Map([
+const SORTS = new Map([
   [`event`, `Event`],
   [`time`, `Time`],
   [`price`, `Price`],
@@ -15,7 +15,7 @@ const EventType = {
   ACTIVITY: `Activity`,
 };
 
-const transfers = [
+const TRANSFERS = [
   {
     key: `taxi`,
     name: `Taxi`,
@@ -53,7 +53,7 @@ const transfers = [
   },
 ];
 
-const activities = [
+const ACTIVITIES = [
   {
     key: `check-in`,
     name: `Check-in`,
@@ -71,12 +71,12 @@ const activities = [
   },
 ];
 
-const events = [
-  ...transfers,
-  ...activities,
+const EVENTS = [
+  ...TRANSFERS,
+  ...ACTIVITIES,
 ];
 
-const offers = [
+const OFFERS = [
   {
     key: `luggage`,
     name: `Add luggage`,
@@ -104,7 +104,7 @@ const offers = [
   },
 ];
 
-const destinations = [
+const DESTINATIONS = [
   `Amsterdam`,
   `Geneva`,
   `Chamonix`,
@@ -112,10 +112,10 @@ const destinations = [
 ];
 
 export {
-  filters,
-  sorts,
+  FILTERS,
+  SORTS,
   EventType,
-  events,
-  destinations,
-  offers,
+  EVENTS,
+  OFFERS,
+  DESTINATIONS,
 };

@@ -1,14 +1,14 @@
 import {isEqual} from '../../../utils/utils';
 import {
   EventType,
-  events,
-} from '../../../const';
+  EVENTS,
+} from '../../../data';
 
 const createTypeGroupTemplate = (groupKey, currentEvent) => {
   return (
     `<fieldset class="event__type-group">
       <legend class="visually-hidden">Transfer</legend>
-      ${events
+      ${EVENTS
         .filter((item) => isEqual(item.type, EventType[groupKey]))
         .map((item) => {
           const {key, name: value} = item;

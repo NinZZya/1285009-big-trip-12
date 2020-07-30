@@ -1,11 +1,11 @@
-import {offers} from '../../../const';
+import {OFFERS} from '../../../data';
 
 const createEditEventOffersTemplate = () => {
   return (
     `<section class="event__section  event__section--offers">
       <h3 class="event__section-title  event__section-title--offers">Offers</h3>
       <div class="event__available-offers">
-        ${offers
+        ${OFFERS
           .map((offer) => {
             const {key, name, price} = offer;
 
@@ -28,7 +28,7 @@ const createEditEventOffersTemplate = () => {
               </div>`
             );
           })
-          .join(`\n`)}
+          .join(``)}
       </div>
     </section>`
   );
