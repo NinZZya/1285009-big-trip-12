@@ -1,29 +1,17 @@
+import {isEqual} from '../../../utils/utils';
 import {
   EventType,
   events,
 } from '../../../const';
-
-/**
- * @param {string} value значение
- * @param {string} type тип
- * @return {boolean}
- */
-
-const filterEventType = (value, type) => value === type;
-
-/**
- * @param {string} groupKey ключ переменной EventType
- * @param {*} currentEvent текущее значение
- */
 
 const createTypeGroupTemplate = (groupKey, currentEvent) => {
   return (
     `<fieldset class="event__type-group">
       <legend class="visually-hidden">Transfer</legend>
       ${events
-        .filter((event) => filterEventType(event.type, EventType[groupKey]))
-        .map((event) => {
-          const {key, value} = event;
+        .filter((item) => isEqual(item.type, EventType[groupKey]))
+        .map((item) => {
+          const {key, name: value} = item;
 
           return (
             `<div class="event__type-item">
@@ -44,7 +32,7 @@ const createTypeGroupTemplate = (groupKey, currentEvent) => {
           </div>`
           );
         })
-        .join(`\n`)}
+        .join(``)}
     </fieldset>`
   );
 };
@@ -69,7 +57,7 @@ const createEditEventTypeListTemplate = (currentEvent) => {
         type="checkbox"
       >
       <div class="event__type-list">
-        ${Object.keys(EventType).map((key) => createTypeGroupTemplate(key, currentEvent))}
+        ${Object.keys(EventType).map((key) => createTypeGroupTemplate(key, currentEvent)).join(``)}
       </div>
     </div>`
   );

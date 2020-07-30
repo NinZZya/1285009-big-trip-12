@@ -7,6 +7,7 @@ import {createDaysTemplate} from './components/days';
 import {createDayTemplate} from './components/day';
 import {createEventListTemplate} from './components/events';
 import {createEventTemplate} from './components/event';
+import {createHiddenHeaderTemplate} from './components/hidden-header';
 import {
   RenderPosition,
   render,
@@ -14,40 +15,57 @@ import {
 } from './utils/utils';
 
 const DEFAULT_EVENT = `flight`;
-const DAYS_COUNT = 3;
-const EVENTS_COUNT = 5;
+const DAY_COUNT = 3;
+const EVENT_COUNT = 5;
+const TRIP_HEADER_LEVEL = 2;
+const TRIP_TITLE = `Switch trip view`;
+const FILTER_HEADER_LEVEL = 2;
+const FILTER_TITLE = `Filter events`;
+
+const TripSelector = {
+  MAIN: `.trip-main`,
+  CONTROLS: `.trip-controls`,
+  EVENTS: `.trip-events`,
+};
 
 // Рендер информации о путешествии
-const tripMain = document.querySelector(`.trip-main`);
+const tripMain = document.querySelector(TripSelector.MAIN);
 const tripInfo = createElement(createTripInfoTemplate());
 render(tripMain, tripInfo, RenderPosition.AFTERBEGIN);
 
 // Рендер контролов (табов и фильтров)
-const tripControlsElement = tripMain.querySelector(`.trip-controls`);
+const tripControlsElement = tripMain.querySelector(TripSelector.CONTROLS);
+const tripHiddenHeaderElement = createElement(
+    createHiddenHeaderTemplate(TRIP_HEADER_LEVEL, TRIP_TITLE)
+);
+render(tripControlsElement, tripHiddenHeaderElement, RenderPosition.AFTERBEGIN);
 const tripTabsElement = createElement(createTripTabsTemplate());
-const tripTabsPlaceElement = tripMain.querySelectorAll(`h2`)[1];
-render(tripControlsElement, tripTabsElement, tripTabsPlaceElement);
+render(tripControlsElement, tripTabsElement, RenderPosition.BEFOREEND);
+const tripFilterHiddenHeaderElement = createElement(
+    createHiddenHeaderTemplate(FILTER_HEADER_LEVEL, FILTER_TITLE)
+);
+render(tripControlsElement, tripFilterHiddenHeaderElement, RenderPosition.BEFOREEND);
 const tripFiltersElement = createElement(createTripFiltersTemplate());
 render(tripControlsElement, tripFiltersElement, RenderPosition.BEFOREEND);
 
 // Рендер сортировки и изменеие события
-const tripEventsElement = document.querySelector(`.trip-events`);
+const tripEventsElement = document.querySelector(TripSelector.EVENTS);
 const tripSortElement = createElement(createTripSortTemplate());
 render(tripEventsElement, tripSortElement, RenderPosition.BEFOREEND);
 const tripEditEventElement = createElement(createEditEventTemplate(DEFAULT_EVENT));
 render(tripEventsElement, tripEditEventElement, RenderPosition.BEFOREEND);
 
 // Рендер контента
-const days = createElement(createDaysTemplate());
-render(tripEventsElement, days, RenderPosition.BEFOREEND);
-for (let i = 0; i < DAYS_COUNT; i++) {
-  const day = createElement(createDayTemplate());
-  render(days, day, RenderPosition.BEFOREEND);
-  const eventList = createElement(createEventListTemplate());
-  render(day, eventList, RenderPosition.BEFOREEND);
-  for (let j = 0; j < EVENTS_COUNT; j++) {
-    const event = createElement(createEventTemplate());
-    render(eventList, event, RenderPosition.BEFOREEND);
+const daysElement = createElement(createDaysTemplate());
+render(tripEventsElement, daysElement, RenderPosition.BEFOREEND);
+for (let i = 0; i < DAY_COUNT; i++) {
+  const dayElement = createElement(createDayTemplate());
+  render(daysElement, dayElement, RenderPosition.BEFOREEND);
+  const eventListElement = createElement(createEventListTemplate());
+  render(dayElement, eventListElement, RenderPosition.BEFOREEND);
+  for (let j = 0; j < EVENT_COUNT; j++) {
+    const eventElement = createElement(createEventTemplate());
+    render(eventListElement, eventElement, RenderPosition.BEFOREEND);
   }
 }
 

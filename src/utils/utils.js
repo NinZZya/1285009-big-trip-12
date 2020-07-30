@@ -4,15 +4,6 @@ const RenderPosition = {
   BEFOREEND: `BEFOREEND`,
 };
 
-/**
- * Вставляет element
- * в container
- * на место place (значение RenderPosition или после DOM-элемента plase)
- * @param {Object} container Место вставки элемента
- * @param {Object} element Элемент для вставки
- * @param {string} place Значение RenderPosition
- */
-
 const render = (container, element, place) => {
   switch (place) {
     case RenderPosition.AFTERBEGIN:
@@ -27,11 +18,6 @@ const render = (container, element, place) => {
   }
 };
 
-/**
- *  Создаёт элемент из шабдона
- * @param {string} template Шаблон элемента
- */
-
 const createElement = (template) => {
   const element = document.createElement(`div`);
   element.innerHTML = template;
@@ -45,9 +31,12 @@ const getByKey = (objectsArray, key) => {
   });
 };
 
+const isEqual = (value1, value2) => value1 === value2;
+
 export {
   RenderPosition,
   render,
   createElement,
   getByKey,
+  isEqual,
 };
