@@ -4,11 +4,13 @@ import {
   destinations,
 } from '../../../const';
 
+const KEY_NAME = `key`;
+
 const createEditEventDestinationTemplate = (currentEvent) => {
   return (
     `<div class="event__field-group  event__field-group--destination">
       <label class="event__label  event__type-output" for="event-destination-1">
-        ${getByKey(events, currentEvent).name} to
+        ${getByKey(events, KEY_NAME, currentEvent).name} to
       </label>
       <input
         class="event__input  event__input--destination"

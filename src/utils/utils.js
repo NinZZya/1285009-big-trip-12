@@ -25,9 +25,9 @@ const createElement = (template) => {
   return element.firstChild;
 };
 
-const getByKey = (objectsArray, key) => {
+const getByKey = (objectsArray, key, keyValue) => {
   return objectsArray.find((element) => {
-    return element.key === key;
+    return element[key] === keyValue;
   });
 };
 
