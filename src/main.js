@@ -27,6 +27,11 @@ import {
   createElement,
 } from './utils/utils';
 
+import {
+  OFFERS,
+  DESTINATIONS,
+} from './data';
+
 const {AFTERBEGIN, BEFOREEND} = RenderPosition;
 const DEFAULT_EVENT = `flight`;
 const DAY_COUNT = 3;
@@ -43,9 +48,13 @@ const EVENTS_SELECTOR = `.trip-events`;
 
 const createEditEvent = () => {
   const tripEditEventElement = createElement(createEditEventTemplate());
-  const editEventHeaderElement = createElement(createEditEventHeaderTemplate(DEFAULT_EVENT));
+  const editEventHeaderElement = createElement(
+      createEditEventHeaderTemplate(DEFAULT_EVENT, DESTINATIONS)
+  );
   render(tripEditEventElement, editEventHeaderElement, BEFOREEND);
-  const editEventDetailsElement = createElement(createEditEventDetailsTemplate());
+  const editEventDetailsElement = createElement(
+      createEditEventDetailsTemplate(OFFERS)
+  );
   render(tripEditEventElement, editEventDetailsElement, BEFOREEND);
 
   return tripEditEventElement;

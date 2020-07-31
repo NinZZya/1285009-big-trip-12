@@ -33,7 +33,16 @@ const DESTINATIONS = [
   `Saint Petersburg`
 ];
 
+const PHOTOS = [
+  `img/photo/1.jpg`,
+  `img/photo/2.jpg`,
+  `img/photo/3.jpg`,
+  `img/photo/4.jpg`,
+  `img/photo/5.jpg`,
+];
+
 export {
   OFFERS,
   DESTINATIONS,
+  PHOTOS,
 };

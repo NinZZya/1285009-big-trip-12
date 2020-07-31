@@ -1,6 +1,4 @@
-const PHOTOS_COUNT = 5;
-
-const createAddEventDestinationTemplate = () => {
+const createAddEventDestinationTemplate = (photos) => {
   return (
     `<section class="event__section  event__section--destination">
       <h3 class="event__section-title  event__section-title--destination">Destination</h3>
@@ -10,9 +8,8 @@ const createAddEventDestinationTemplate = () => {
 
       <div class="event__photos-container">
         <div class="event__photos-tape">
-          ${new Array(PHOTOS_COUNT)
-            .fill(``)
-            .map((_, index) => `<img class="event__photo" src="img/photos/${index + 1}.jpg" alt="Event photo">`)
+          ${photos
+            .map((photo) => `<img class="event__photo" src="${photo}" alt="Event photo">`)
             .join(``)}
         </div>
       </div>

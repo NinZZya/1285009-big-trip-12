@@ -8,10 +8,7 @@ import {
   EVENTS,
 } from '../const';
 
-import {
-  DESTINATIONS,
-} from '../data';
-
+const EVENT_TYPE_KEYS = Object.keys(EventType);
 const KEY_NAME = `key`;
 const FAVORITE_ICON = (
   `<svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">
@@ -73,13 +70,15 @@ const createEditEventTypeListTemplate = (currentEvent) => {
         type="checkbox"
       >
       <div class="event__type-list">
-        ${Object.keys(EventType).map((key) => createTypeGroupTemplate(key, currentEvent)).join(``)}
+        ${EVENT_TYPE_KEYS
+          .map((key) => createTypeGroupTemplate(key, currentEvent))
+          .join(``)}
       </div>
     </div>`
   );
 };
 
-const createEditEventDestinationTemplate = (currentEvent) => {
+const createEditEventDestinationTemplate = (currentEvent, destinations) => {
   return (
     `<div class="event__field-group  event__field-group--destination">
       <label class="event__label  event__type-output" for="event-destination-1">
@@ -92,7 +91,7 @@ const createEditEventDestinationTemplate = (currentEvent) => {
         list="destination-list-1"
       >
       <datalist id="destination-list-1">
-        ${DESTINATIONS
+        ${destinations
           .map((destination) => `<option value="${destination}"></option>`)
           .join(``)}
       </datalist>
@@ -169,11 +168,11 @@ const createEventRollupBtnTemplate = () => {
   );
 };
 
-const createEditEventHeaderTemplate = (currentEvent) => {
+const createEditEventHeaderTemplate = (currentEvent, destinations) => {
   return (
     `<header class="event__header">
       ${createEditEventTypeListTemplate(currentEvent)}
-      ${createEditEventDestinationTemplate(currentEvent)}
+      ${createEditEventDestinationTemplate(currentEvent, destinations)}
       ${createEditEventTimeTemplate()}
       ${createEditEventPriceTemplate()}
       <button class="event__save-btn  btn  btn--blue" type="submit">
