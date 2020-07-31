@@ -1,4 +1,4 @@
-import {FILTERS} from '../data';
+import {FILTERS} from '../const';
 
 const DEFAULT_FILTER = FILTERS.keys().next().value;
 

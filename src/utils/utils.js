@@ -13,8 +13,7 @@ const render = (container, element, place) => {
       container.append(element);
       break;
     default:
-      container.insertBefore(element, place);
-      break;
+      throw new Error(`Unknown render position: ${place}`);
   }
 };
 

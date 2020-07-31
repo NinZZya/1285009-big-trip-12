@@ -1,4 +1,4 @@
-const createAddNewEventTemplate = () => {
+const createAddEventBtnTemplate = () => {
   return (
     `<button
       class="trip-main__event-add-btn  btn  btn--big  btn--yellow"
@@ -9,4 +9,4 @@ const createAddNewEventTemplate = () => {
   );
 };
 
-export {createAddNewEventTemplate};
+export {createAddEventBtnTemplate};

@@ -1,6 +1,6 @@
 const PHOTOS_COUNT = 5;
 
-const createEditEventDestinationTemplate = () => {
+const createAddEventDestinationTemplate = () => {
   return (
     `<section class="event__section  event__section--destination">
       <h3 class="event__section-title  event__section-title--destination">Destination</h3>
@@ -20,4 +20,4 @@ const createEditEventDestinationTemplate = () => {
   );
 };
 
-export {createEditEventDestinationTemplate};
+export {createAddEventDestinationTemplate};

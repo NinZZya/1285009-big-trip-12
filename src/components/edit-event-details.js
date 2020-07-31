@@ -1,4 +1,4 @@
-import {OFFERS} from '../../../data';
+import {OFFERS} from '../data';
 
 const createEditEventOffersTemplate = () => {
   return (
@@ -34,4 +34,12 @@ const createEditEventOffersTemplate = () => {
   );
 };
 
-export {createEditEventOffersTemplate};
+const createEditEventDetailsTemplate = () => {
+  return (
+    `<section class="event__details">
+      ${createEditEventOffersTemplate()}
+    </section>`
+  );
+};
+
+export {createEditEventDetailsTemplate};
