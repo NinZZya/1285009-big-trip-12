@@ -13,7 +13,7 @@ import {createDayTemplate} from './components/day';
 import {createEventListTemplate} from './components/events';
 import {createEventTemplate} from './components/event';
 import {createHiddenHeaderTemplate} from './components/hidden-header';
-import {createAddEventBtnTemplate} from './components/add-event-btn';
+import {createAddEventButtonTemplate} from './components/add-event-button';
 /* eslint-disable-next-line  */
 import {createNoEventsTemplate} from './components/no-events';
 /* eslint-disable-next-line  */
@@ -79,8 +79,8 @@ render(tripControlsElement, tripFilterHiddenHeaderElement, BEFOREEND);
 const tripFiltersElement = createElement(createTripFiltersTemplate());
 render(tripControlsElement, tripFiltersElement, BEFOREEND);
 
-const addEventBtnElement = createElement(createAddEventBtnTemplate());
-render(tripMainElement, addEventBtnElement, BEFOREEND);
+const addEventButtonElement = createElement(createAddEventButtonTemplate());
+render(tripMainElement, addEventButtonElement, BEFOREEND);
 
 const tripEventsElement = document.querySelector(EVENTS_SELECTOR);
 const tripSortElement = createElement(createTripSortTemplate());
