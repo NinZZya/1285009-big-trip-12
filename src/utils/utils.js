@@ -4,6 +4,11 @@ const RenderPosition = {
 };
 
 const render = (container, element, place) => {
+  if (place instanceof Object) {
+    container.insertBefore(element, place);
+    return;
+  }
+
   switch (place) {
     case RenderPosition.AFTERBEGIN:
       container.prepend(element);

@@ -12,7 +12,6 @@ import {createTripDaysTemplate} from './components/trip-days';
 import {createTripDayTemplate} from './components/trip-day';
 import {createTripEventsTemplate} from './components/trip-events';
 import {createTripEventTemplate} from './components/trip-event';
-import {createHiddenHeaderTemplate} from './components/hidden-header';
 import {createAddTripEventButtonTemplate} from './components/add-trip-event-button';
 /* eslint-disable-next-line  */
 import {createTripEventMessageTemplate} from './components/trip-event-message';
@@ -34,15 +33,8 @@ const {AFTERBEGIN, BEFOREEND} = RenderPosition;
 const DEFAULT_EVENT = `Flight`;
 const DAY_COUNT = 3;
 const EVENT_COUNT = 5;
-const TRIP_HEADER_LEVEL = 2;
-const TRIP_TITLE = `Switch trip view`;
-const FILTER_HEADER_LEVEL = 2;
-const FILTER_TITLE = `Filter events`;
 const EDIT_EVENT_DAY = 0;
 const EDIT_EVENT = 1;
-
-const MAIN_SELECTOR = `.trip-main`;
-const EVENTS_SELECTOR = `.trip-events`;
 
 const createTripEventEditor = () => {
   const tripEventEditorElement = createElement(createTripEventEditorTemplate());
@@ -58,29 +50,22 @@ const createTripEventEditor = () => {
   return tripEventEditorElement;
 };
 
-const tripMainElement = document.querySelector(MAIN_SELECTOR);
+const tripMainElement = document.querySelector(`.trip-main`);
 const tripInfoElement = createElement(createTripInfoTemplate());
 render(tripMainElement, tripInfoElement, AFTERBEGIN);
 
 const tripControlsElement = createElement(createTripControlsTemplate());
 render(tripMainElement, tripControlsElement, BEFOREEND);
-const tripHiddenHeaderElement = createElement(
-    createHiddenHeaderTemplate(TRIP_HEADER_LEVEL, TRIP_TITLE)
-);
-render(tripControlsElement, tripHiddenHeaderElement, AFTERBEGIN);
+const tripFilterEventsHeaderElement = tripControlsElement.querySelector(`#trip-filter-events`);
 const tripTabsElement = createElement(createTripTabsTemplate());
-render(tripControlsElement, tripTabsElement, BEFOREEND);
-const tripFilterHiddenHeaderElement = createElement(
-    createHiddenHeaderTemplate(FILTER_HEADER_LEVEL, FILTER_TITLE)
-);
-render(tripControlsElement, tripFilterHiddenHeaderElement, BEFOREEND);
+render(tripControlsElement, tripTabsElement, tripFilterEventsHeaderElement);
 const tripFiltersElement = createElement(createTripFiltersTemplate());
 render(tripControlsElement, tripFiltersElement, BEFOREEND);
 
 const addEventButtonElement = createElement(createAddTripEventButtonTemplate());
 render(tripMainElement, addEventButtonElement, BEFOREEND);
 
-const tripEventsElement = document.querySelector(EVENTS_SELECTOR);
+const tripEventsElement = document.querySelector(`.trip-events`);
 const tripSortElement = createElement(createTripSortTemplate());
 render(tripEventsElement, tripSortElement, BEFOREEND);
 
