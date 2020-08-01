@@ -7,19 +7,19 @@ import {createTripEventEditorTemplate} from './components/trip-event-editor';
 import {createTripEventEditorHeaderTemplate} from './components/trip-event-editor-header';
 import {createTripEventEditorDetailsTemplate} from './components/trip-event-editor-details';
 /* eslint-disable-next-line */
-import {createAddEventDestinationTemplate} from './components/add-event-destination';
-import {createDaysTemplate} from './components/days';
-import {createDayTemplate} from './components/day';
+import {createTripEventEditorDestinationTemplate} from './components/trip-event-editor-destination';
+import {createTripDaysTemplate} from './components/trip-days';
+import {createTripDayTemplate} from './components/trip-day';
 import {createTripEventsTemplate} from './components/trip-events';
 import {createTripEventTemplate} from './components/trip-event';
 import {createHiddenHeaderTemplate} from './components/hidden-header';
-import {createAddEventButtonTemplate} from './components/add-event-button';
+import {createAddTripEventButtonTemplate} from './components/add-trip-event-button';
 /* eslint-disable-next-line  */
 import {createNoEventsTemplate} from './components/no-events';
 /* eslint-disable-next-line  */
 import {createLoadingTemplate} from './components/loading';
 /* eslint-disable-next-line  */
-import {createStatisticsTemplate} from './components/statistics';
+import {createStatisticsTemplate} from './components/trip-statistics';
 
 import {
   RenderPosition,
@@ -48,14 +48,14 @@ const EVENTS_SELECTOR = `.trip-events`;
 
 const createTripEventEditor = () => {
   const tripEventEditorElement = createElement(createTripEventEditorTemplate());
-  const editEventHeaderElement = createElement(
+  const tripEventEditorHeaderElement = createElement(
       createTripEventEditorHeaderTemplate(DEFAULT_EVENT, DESTINATIONS)
   );
-  render(tripEventEditorElement, editEventHeaderElement, BEFOREEND);
-  const editEventDetailsElement = createElement(
+  render(tripEventEditorElement, tripEventEditorHeaderElement, BEFOREEND);
+  const tripEventEditorDetailsElement = createElement(
       createTripEventEditorDetailsTemplate(OFFERS)
   );
-  render(tripEventEditorElement, editEventDetailsElement, BEFOREEND);
+  render(tripEventEditorElement, tripEventEditorDetailsElement, BEFOREEND);
 
   return tripEventEditorElement;
 };
@@ -79,7 +79,7 @@ render(tripControlsElement, tripFilterHiddenHeaderElement, BEFOREEND);
 const tripFiltersElement = createElement(createTripFiltersTemplate());
 render(tripControlsElement, tripFiltersElement, BEFOREEND);
 
-const addEventButtonElement = createElement(createAddEventButtonTemplate());
+const addEventButtonElement = createElement(createAddTripEventButtonTemplate());
 render(tripMainElement, addEventButtonElement, BEFOREEND);
 
 const tripEventsElement = document.querySelector(EVENTS_SELECTOR);
@@ -87,13 +87,13 @@ const tripSortElement = createElement(createTripSortTemplate());
 render(tripEventsElement, tripSortElement, BEFOREEND);
 
 
-const daysElement = createElement(createDaysTemplate());
-render(tripEventsElement, daysElement, BEFOREEND);
+const tripDaysElement = createElement(createTripDaysTemplate());
+render(tripEventsElement, tripDaysElement, BEFOREEND);
 for (let i = 0; i < DAY_COUNT; i++) {
-  const dayElement = createElement(createDayTemplate());
-  render(daysElement, dayElement, BEFOREEND);
+  const tripDayElement = createElement(createTripDayTemplate());
+  render(tripDaysElement, tripDayElement, BEFOREEND);
   const eventListElement = createElement(createTripEventsTemplate());
-  render(dayElement, eventListElement, BEFOREEND);
+  render(tripDayElement, eventListElement, BEFOREEND);
   for (let j = 0; j < EVENT_COUNT; j++) {
     if (i === EDIT_EVENT_DAY && j === EDIT_EVENT) {
       const wrapper = createElement(`<li class="trip-events__item"></li>`);
