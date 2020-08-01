@@ -3,15 +3,15 @@ import {createTripTabsTemplate} from './components/trip-tabs';
 import {createTripControlsTemplate} from './components/trip-controls';
 import {createTripFiltersTemplate} from './components/trip-filters';
 import {createTripSortTemplate} from './components/trip-sort';
-import {createEditEventTemplate} from './components/edit-event';
-import {createEditEventHeaderTemplate} from './components/edit-event-header';
-import {createEditEventDetailsTemplate} from './components/edit-event-details';
+import {createTripEventEditorTemplate} from './components/trip-event-editor';
+import {createTripEventEditorHeaderTemplate} from './components/trip-event-editor-header';
+import {createTripEventEditorDetailsTemplate} from './components/trip-event-editor-details';
 /* eslint-disable-next-line */
 import {createAddEventDestinationTemplate} from './components/add-event-destination';
 import {createDaysTemplate} from './components/days';
 import {createDayTemplate} from './components/day';
-import {createEventListTemplate} from './components/events';
-import {createEventTemplate} from './components/event';
+import {createTripEventsTemplate} from './components/trip-events';
+import {createTripEventTemplate} from './components/trip-event';
 import {createHiddenHeaderTemplate} from './components/hidden-header';
 import {createAddEventButtonTemplate} from './components/add-event-button';
 /* eslint-disable-next-line  */
@@ -33,7 +33,7 @@ import {
 } from './data';
 
 const {AFTERBEGIN, BEFOREEND} = RenderPosition;
-const DEFAULT_EVENT = `flight`;
+const DEFAULT_EVENT = `Flight`;
 const DAY_COUNT = 3;
 const EVENT_COUNT = 5;
 const TRIP_HEADER_LEVEL = 2;
@@ -46,18 +46,18 @@ const EDIT_EVENT = 1;
 const MAIN_SELECTOR = `.trip-main`;
 const EVENTS_SELECTOR = `.trip-events`;
 
-const createEditEvent = () => {
-  const tripEditEventElement = createElement(createEditEventTemplate());
+const createTripEventEditor = () => {
+  const tripEventEditorElement = createElement(createTripEventEditorTemplate());
   const editEventHeaderElement = createElement(
-      createEditEventHeaderTemplate(DEFAULT_EVENT, DESTINATIONS)
+      createTripEventEditorHeaderTemplate(DEFAULT_EVENT, DESTINATIONS)
   );
-  render(tripEditEventElement, editEventHeaderElement, BEFOREEND);
+  render(tripEventEditorElement, editEventHeaderElement, BEFOREEND);
   const editEventDetailsElement = createElement(
-      createEditEventDetailsTemplate(OFFERS)
+      createTripEventEditorDetailsTemplate(OFFERS)
   );
-  render(tripEditEventElement, editEventDetailsElement, BEFOREEND);
+  render(tripEventEditorElement, editEventDetailsElement, BEFOREEND);
 
-  return tripEditEventElement;
+  return tripEventEditorElement;
 };
 
 const tripMainElement = document.querySelector(MAIN_SELECTOR);
@@ -92,18 +92,17 @@ render(tripEventsElement, daysElement, BEFOREEND);
 for (let i = 0; i < DAY_COUNT; i++) {
   const dayElement = createElement(createDayTemplate());
   render(daysElement, dayElement, BEFOREEND);
-  const eventListElement = createElement(createEventListTemplate());
+  const eventListElement = createElement(createTripEventsTemplate());
   render(dayElement, eventListElement, BEFOREEND);
   for (let j = 0; j < EVENT_COUNT; j++) {
     if (i === EDIT_EVENT_DAY && j === EDIT_EVENT) {
-      // временный костыль
       const wrapper = createElement(`<li class="trip-events__item"></li>`);
-      const tripEditEventElement = createEditEvent();
+      const tripEditEventElement = createTripEventEditor();
       render(wrapper, tripEditEventElement, BEFOREEND);
       render(eventListElement, wrapper, BEFOREEND);
     } else {
-      const eventElement = createElement(createEventTemplate());
-      render(eventListElement, eventElement, BEFOREEND);
+      const tripEventElement = createElement(createTripEventTemplate());
+      render(eventListElement, tripEventElement, BEFOREEND);
     }
   }
 }

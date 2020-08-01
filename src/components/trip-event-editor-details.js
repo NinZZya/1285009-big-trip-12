@@ -1,4 +1,4 @@
-const createEditEventOffersTemplate = (offers) => {
+const createTripEventEditorOffersTemplate = (offers) => {
   return (
     `<section class="event__section  event__section--offers">
       <h3 class="event__section-title  event__section-title--offers">
@@ -34,12 +34,12 @@ const createEditEventOffersTemplate = (offers) => {
   );
 };
 
-const createEditEventDetailsTemplate = (offers) => {
+const createTripEventEditorDetailsTemplate = (offers) => {
   return (
     `<section class="event__details">
-      ${createEditEventOffersTemplate(offers)}
+      ${createTripEventEditorOffersTemplate(offers)}
     </section>`
   );
 };
 
-export {createEditEventDetailsTemplate};
+export {createTripEventEditorDetailsTemplate};

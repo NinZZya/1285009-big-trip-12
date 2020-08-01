@@ -1,15 +1,18 @@
 import {
-  isEqual,
-  getByKey,
-} from '../utils/utils';
-
-import {
-  EventType,
-  EVENTS,
+  eventGroupToTypes,
+  eventTypePreposition,
 } from '../const';
 
-const EVENT_TYPE_KEYS = Object.keys(EventType);
-const KEY_NAME = `key`;
+const groupTypes = Object.entries(eventGroupToTypes);
+const prepositions = Object.keys(eventTypePreposition);
+
+const getEventTypeWithPreposition = (currentType) => {
+  const preposition = prepositions
+    .find((key) => eventTypePreposition[key].includes(currentType));
+
+  return preposition ? `${currentType} ${preposition}` : ``;
+};
+
 const FAVORITE_ICON = (
   `<svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">
       <path d="M14 21l-8.22899 4.3262 1.57159-9.1631L.685209 9.67376 9.8855 8.33688 14 0l4.1145 8.33688 9.2003 1.33688-6.6574 6.48934 1.5716 9.1631L14 21z">
@@ -17,30 +20,29 @@ const FAVORITE_ICON = (
   </svg>`
 );
 
-const createTypeGroupTemplate = (groupKey, currentEvent) => {
+const createTypeGroupTemplate = (groupName, types, currentType) => {
   return (
     `<fieldset class="event__type-group">
-      <legend class="visually-hidden">Transfer</legend>
-      ${EVENTS
-        .filter((item) => isEqual(item.type, EventType[groupKey]))
-        .map((item) => {
-          const {key, name: value} = item;
+      <legend class="visually-hidden">${groupName}</legend>
+      ${types
+        .map((type, i) => {
+          const id = type.toLowerCase();
 
           return (
             `<div class="event__type-item">
             <input
-              id="event-type-${key}-1"
+              id="event-type-${id}-${i}"
               class="event__type-input  visually-hidden"
               type="radio"
               name="event-type"
-              value="${key}"
-              ${key === currentEvent ? `checked` : ``}
+              value="${type}"
+              ${id === currentType ? `checked` : ``}
             >
             <label
-              class="event__type-label event__type-label--${key}"
-              for="event-type-${key}-1"
+              class="event__type-label event__type-label--${id}"
+              for="event-type-${id}-${i}"
             >
-              ${value}
+              ${type}
             </label>
           </div>`
           );
@@ -50,7 +52,7 @@ const createTypeGroupTemplate = (groupKey, currentEvent) => {
   );
 };
 
-const createEditEventTypeListTemplate = (currentEvent) => {
+const createTripEventEditorTypeListTemplate = (currentType) => {
   return (
     `<div class="event__type-wrapper">
       <label class="event__type  event__type-btn" for="event-type-toggle-1">
@@ -70,19 +72,19 @@ const createEditEventTypeListTemplate = (currentEvent) => {
         type="checkbox"
       >
       <div class="event__type-list">
-        ${EVENT_TYPE_KEYS
-          .map((key) => createTypeGroupTemplate(key, currentEvent))
+        ${groupTypes
+          .map(([groupName, types]) => createTypeGroupTemplate(groupName, types, currentType))
           .join(``)}
       </div>
     </div>`
   );
 };
 
-const createEditEventDestinationTemplate = (currentEvent, destinations) => {
+const createTripEventEditorDestinationTemplate = (currentType, destinations) => {
   return (
     `<div class="event__field-group  event__field-group--destination">
       <label class="event__label  event__type-output" for="event-destination-1">
-        ${getByKey(EVENTS, KEY_NAME, currentEvent).name} to
+        ${getEventTypeWithPreposition(currentType)}
       </label>
       <input
         class="event__input  event__input--destination"
@@ -99,7 +101,7 @@ const createEditEventDestinationTemplate = (currentEvent, destinations) => {
   );
 };
 
-const createEditEventTimeTemplate = () => {
+const createTripEventEditorTimeTemplate = () => {
   return (
     `<div class="event__field-group  event__field-group--time">
       <label class="visually-hidden" for="event-start-time-1">
@@ -126,7 +128,7 @@ const createEditEventTimeTemplate = () => {
   );
 };
 
-const createEditEventPriceTemplate = () => {
+const createTripEventEditorPriceTemplate = () => {
   return (
     `<div class="event__field-group  event__field-group--price">
       <label class="event__label" for="event-price-1">
@@ -168,13 +170,13 @@ const createEventRollupBtnTemplate = () => {
   );
 };
 
-const createEditEventHeaderTemplate = (currentEvent, destinations) => {
+const createTripEventEditorHeaderTemplate = (currentType, destinations) => {
   return (
     `<header class="event__header">
-      ${createEditEventTypeListTemplate(currentEvent)}
-      ${createEditEventDestinationTemplate(currentEvent, destinations)}
-      ${createEditEventTimeTemplate()}
-      ${createEditEventPriceTemplate()}
+      ${createTripEventEditorTypeListTemplate(currentType)}
+      ${createTripEventEditorDestinationTemplate(currentType, destinations)}
+      ${createTripEventEditorTimeTemplate()}
+      ${createTripEventEditorPriceTemplate()}
       <button class="event__save-btn  btn  btn--blue" type="submit">
         Save
       </button>
@@ -187,4 +189,4 @@ const createEditEventHeaderTemplate = (currentEvent, destinations) => {
   );
 };
 
-export {createEditEventHeaderTemplate};
+export {createTripEventEditorHeaderTemplate};

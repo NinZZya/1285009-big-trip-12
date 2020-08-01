@@ -24,18 +24,8 @@ const createElement = (template) => {
   return element.firstChild;
 };
 
-const getByKey = (objectsArray, key, keyValue) => {
-  return objectsArray.find((element) => {
-    return element[key] === keyValue;
-  });
-};
-
-const isEqual = (value1, value2) => value1 === value2;
-
 export {
   RenderPosition,
   render,
   createElement,
-  getByKey,
-  isEqual,
 };
