@@ -1,4 +1,3 @@
-// Позиция вставки элемкнта для функции render
 const RenderPosition = {
   AFTERBEGIN: `AFTERBEGIN`,
   BEFOREEND: `BEFOREEND`,

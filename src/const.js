@@ -23,9 +23,15 @@ const eventTypePreposition = {
   in: activities,
 };
 
+const TripEventMessage = {
+  LOADING: `Loading...`,
+  NO_EVENTS: `Click New Event to create your first point`,
+};
+
 export {
   FILTERS,
   SORTS,
   eventGroupToTypes,
   eventTypePreposition,
+  TripEventMessage,
 };

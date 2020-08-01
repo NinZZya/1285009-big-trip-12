@@ -15,9 +15,7 @@ import {createTripEventTemplate} from './components/trip-event';
 import {createHiddenHeaderTemplate} from './components/hidden-header';
 import {createAddTripEventButtonTemplate} from './components/add-trip-event-button';
 /* eslint-disable-next-line  */
-import {createNoEventsTemplate} from './components/no-events';
-/* eslint-disable-next-line  */
-import {createLoadingTemplate} from './components/loading';
+import {createTripEventMessageTemplate} from './components/trip-event-message';
 /* eslint-disable-next-line  */
 import {createStatisticsTemplate} from './components/trip-statistics';
 
