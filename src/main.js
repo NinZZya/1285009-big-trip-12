@@ -10,7 +10,7 @@ import {createTripEventEditorDetailsTemplate} from './components/trip-event-edit
 import {createTripEventEditorDestinationTemplate} from './components/trip-event-editor-destination';
 import {createDaysTemplate} from './components/days/days';
 import {createDayTemplate} from './components/day/day';
-import {createTripEventsListTemplate} from './components/trip-events-list';
+import {createPointsListTemplate} from './components/points-list/points-list';
 import {createTripEventTemplate} from './components/trip-event';
 import {createAddPointButtonTemplate} from './components/add-point-button/add-point-button';
 /* eslint-disable-next-line  */
@@ -71,17 +71,17 @@ render(tripEventsElement, daysElement, BEFOREEND);
 for (let i = 0; i < 3; i++) {
   const dayElement = createElement(createDayTemplate());
   render(daysElement, dayElement, BEFOREEND);
-  const tripEventsListElement = createElement(createTripEventsListTemplate());
-  render(dayElement, tripEventsListElement, BEFOREEND);
+  const pointsListElement = createElement(createPointsListTemplate());
+  render(dayElement, pointsListElement, BEFOREEND);
   for (let j = 0; j < 3; j++) {
     if (i === 0 && j === 1) {
       const wrapper = createElement(`<li class="trip-events__item"></li>`);
       const tripEditEventElement = createTripEventEditor();
       render(wrapper, tripEditEventElement, BEFOREEND);
-      render(tripEventsListElement, wrapper, BEFOREEND);
+      render(pointsListElement, wrapper, BEFOREEND);
     } else {
       const tripEventElement = createElement(createTripEventTemplate());
-      render(tripEventsListElement, tripEventElement, BEFOREEND);
+      render(pointsListElement, tripEventElement, BEFOREEND);
     }
   }
 }
