@@ -13,6 +13,7 @@ import {createDayTemplate} from './components/day/day';
 import {createPointsListTemplate} from './components/points-list/points-list';
 import {createPointsItemTemplate} from './components/points-item/points-item';
 import {createPointTemplate} from './components/point/point';
+import {createOfferTemplate} from './components/point/templates';
 import {createAddPointButtonTemplate} from './components/add-point-button/add-point-button';
 /* eslint-disable-next-line  */
 import {createPointMessageTemplate} from './components/point-message/point-message';
@@ -83,6 +84,10 @@ for (let i = 0; i < 3; i++) {
     } else {
       const pointElement = createElement(createPointTemplate());
       render(pointsListElement, pointElement, BEFOREEND);
+      const offersElement = pointElement.querySelector(`.event__selected-offers`);
+      const offerElement = createElement(createOfferTemplate());
+      render(offersElement, offerElement, BEFOREEND);
+
     }
   }
 }
