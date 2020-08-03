@@ -3,11 +3,11 @@ import {createTabsTemplate} from './components/tabs/tabs';
 import {createControlsTemplate} from './components/controls/controls';
 import {createFiltersTemplate} from './components/filters/filters';
 import {createSortTemplate} from './components/sort/sort';
-import {createTripEventEditorTemplate} from './components/trip-event-editor';
-import {createTripEventEditorHeaderTemplate} from './components/trip-event-editor-header';
-import {createTripEventEditorDetailsTemplate} from './components/trip-event-editor-details';
+import {createPointEditorTemplate} from './components/point-editor/point-editor';
+import {createTripEventEditorHeaderTemplate} from './components/point-editor/header';
+import {createDetailsTemplate} from './components/point-editor/details';
 /* eslint-disable-next-line */
-import {createTripEventEditorDestinationTemplate} from './components/trip-event-editor-destination';
+import {createDestinationTemplate} from './components/point-editor/destination';
 import {createDaysTemplate} from './components/days/days';
 import {createDayTemplate} from './components/day/day';
 import {createPointsListTemplate} from './components/points-list/points-list';
@@ -34,18 +34,18 @@ import {
 
 const {AFTERBEGIN, BEFOREEND} = RenderPosition;
 
-const createTripEventEditor = () => {
-  const tripEventEditorElement = createElement(createTripEventEditorTemplate());
+const createPointEditor = () => {
+  const pointEditorElement = createElement(createPointEditorTemplate());
   const tripEventEditorHeaderElement = createElement(
       createTripEventEditorHeaderTemplate(DEFAULT_TYPE, DESTINATIONS)
   );
-  render(tripEventEditorElement, tripEventEditorHeaderElement, BEFOREEND);
-  const tripEventEditorDetailsElement = createElement(
-      createTripEventEditorDetailsTemplate(OFFERS)
+  render(pointEditorElement, tripEventEditorHeaderElement, BEFOREEND);
+  const detailsElement = createElement(
+      createDetailsTemplate(OFFERS)
   );
-  render(tripEventEditorElement, tripEventEditorDetailsElement, BEFOREEND);
+  render(pointEditorElement, detailsElement, BEFOREEND);
 
-  return tripEventEditorElement;
+  return pointEditorElement;
 };
 
 const tripMainElement = document.querySelector(`.trip-main`);
@@ -79,8 +79,8 @@ for (let i = 0; i < 3; i++) {
     const pointsItemElement = createElement(createPointsItemTemplate());
     render(pointsListElement, pointsItemElement, BEFOREEND);
     if (i === 0 && j === 1) {
-      const tripEditEventElement = createTripEventEditor();
-      render(pointsItemElement, tripEditEventElement, BEFOREEND);
+      const pointEditorElement = createPointEditor();
+      render(pointsItemElement, pointEditorElement, BEFOREEND);
     } else {
       const pointElement = createElement(createPointTemplate());
       render(pointsListElement, pointElement, BEFOREEND);

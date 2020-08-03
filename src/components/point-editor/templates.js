@@ -1,7 +1,7 @@
 import {
   eventGroupToTypes,
   eventTypePreposition,
-} from '../const';
+} from '../../const';
 
 const groupTypes = Object.entries(eventGroupToTypes);
 const prepositions = Object.keys(eventTypePreposition);
@@ -170,23 +170,43 @@ const createEventRollupBtnTemplate = () => {
   );
 };
 
-const createTripEventEditorHeaderTemplate = (currentType, destinations) => {
+// Details templates (details.js)
+const createOffersTemplate = (offers) => {
   return (
-    `<header class="event__header">
-      ${createTripEventEditorTypeListTemplate(currentType)}
-      ${createTripEventEditorDestinationTemplate(currentType, destinations)}
-      ${createTripEventEditorTimeTemplate()}
-      ${createTripEventEditorPriceTemplate()}
-      <button class="event__save-btn  btn  btn--blue" type="submit">
-        Save
-      </button>
-      <button class="event__reset-btn" type="reset">
-        Cancel
-      </button>
-      ${createFavoriteEventTemplate()}
-      ${createEventRollupBtnTemplate()}
-    </header>`
+    `<section class="event__section  event__section--offers">
+      <h3 class="event__section-title  event__section-title--offers">
+        Offers
+      </h3>
+      <div class="event__available-offers">
+        ${offers
+          .map((offer) => {
+            const {key, name, price} = offer;
+
+            return (
+              `<div class="event__offer-selector">
+                <input
+                  class="event__offer-checkbox  visually-hidden"
+                  id="event-offer-${key}-1"
+                  type="checkbox" name="event-offer-${key}"
+                >
+                 <label class="event__offer-label" for="event-offer-${key}-1">
+                  <span class="event__offer-title">
+                    ${name}
+                  </span>
+                  &plus;
+                  &euro;&nbsp;<span class="event__offer-price">
+                    ${price}
+                 </span>
+                </label>
+              </div>`
+            );
+          })
+          .join(``)}
+      </div>
+    </section>`
   );
 };
 
-export {createTripEventEditorHeaderTemplate};
+export {
+  createOffersTemplate,
+};

@@ -15,17 +15,17 @@ const SORTS = new Map([
 const transfers = [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight`];
 const activities = [`Check-in`, `Sightseeing`, `Restaurant`];
 
-const eventGroupToTypes = {
+const pointGroupToTypes = {
   Transfer: transfers,
   Activity: activities,
 };
 
-const eventTypePreposition = {
+const pointTypePreposition = {
   to: transfers,
   in: activities,
 };
 
-const TripEventMessage = {
+const PointMessage = {
   LOADING: `Loading...`,
   NO_EVENTS: `Click New Event to create your first point`,
 };
