@@ -15,7 +15,7 @@ import {createPointsItemTemplate} from './components/points-item/points-item';
 import {createPointTemplate} from './components/point/point';
 import {createAddPointButtonTemplate} from './components/add-point-button/add-point-button';
 /* eslint-disable-next-line  */
-import {createTripEventMessageTemplate} from './components/trip-event-message';
+import {createPointMessageTemplate} from './components/point-message/point-message';
 /* eslint-disable-next-line  */
 import {createStatisticsTemplate} from './components/statistics/statistics';
 
