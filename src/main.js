@@ -9,7 +9,7 @@ import {createTripEventEditorDetailsTemplate} from './components/trip-event-edit
 /* eslint-disable-next-line */
 import {createTripEventEditorDestinationTemplate} from './components/trip-event-editor-destination';
 import {createTripDaysListTemplate} from './components/trip-days-list';
-import {createTripDayTemplate} from './components/trip-day';
+import {createDayTemplate} from './components/day/day';
 import {createTripEventsListTemplate} from './components/trip-events-list';
 import {createTripEventTemplate} from './components/trip-event';
 import {createAddTripEventButtonTemplate} from './components/add-trip-event-button';
@@ -69,10 +69,10 @@ const tripDaysListElement = createElement(createTripDaysListTemplate());
 render(tripEventsElement, tripDaysListElement, BEFOREEND);
 
 for (let i = 0; i < 3; i++) {
-  const tripDayElement = createElement(createTripDayTemplate());
-  render(tripDaysListElement, tripDayElement, BEFOREEND);
+  const dayElement = createElement(createDayTemplate());
+  render(tripDaysListElement, dayElement, BEFOREEND);
   const tripEventsListElement = createElement(createTripEventsListTemplate());
-  render(tripDayElement, tripEventsListElement, BEFOREEND);
+  render(dayElement, tripEventsListElement, BEFOREEND);
   for (let j = 0; j < 3; j++) {
     if (i === 0 && j === 1) {
       const wrapper = createElement(`<li class="trip-events__item"></li>`);
