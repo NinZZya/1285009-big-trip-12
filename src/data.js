@@ -41,7 +41,7 @@ const PHOTOS = [
   `img/photo/5.jpg`,
 ];
 
-const DEFAULT_TYPE = `Flight`;
+const DEFAULT_TYPE = `flight`;
 
 export {
   DEFAULT_TYPE,

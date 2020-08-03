@@ -1,4 +1,8 @@
 import {
+  toFirstUpperCase,
+} from '../../utils/utils';
+
+import {
   pointGroupToTypes,
   pointTypeToPreposition,
 } from '../../const';
@@ -13,8 +17,9 @@ const FAVORITE_ICON = (
 const groupTypes = Object.entries(pointGroupToTypes);
 
 const getPointTypeWithPreposition = (currentType) => {
-  const preposition = pointTypeToPreposition[currentType];
-  return preposition ? `${preposition} ${preposition}` : ``;
+  const key = toFirstUpperCase(currentType);
+  const preposition = pointTypeToPreposition.get(key);
+  return preposition ? `${key} ${preposition}` : ``;
 };
 
 // Header templates (header.js)

@@ -9,7 +9,7 @@ const Type = {
   ACTIVITY: `Activity`,
 };
 
-const TRANSFERS = [`Taxi`, `Bus`, `tTrain`, `Ship`, `Transport`, `Drive`, `Flight`];
+const TRANSFERS = [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight`];
 const ACTVITIES = [`Check-in`, `Sightseeing`, `Restaurant`];
 
 const pointGroupToTypes = {
@@ -26,14 +26,14 @@ const pointTypeToPreposition = new Map();
 TRANSFERS
   .forEach((transfer) => (
     pointTypeToPreposition.set(
-        transfer.toLowerCase(),
+        transfer,
         preposition[[Type.TRANSFER]])
   ));
 
 ACTVITIES
   .forEach((activity) => (
     pointTypeToPreposition.set(
-        activity.toLowerCase(),
+        activity,
         preposition[[Type.ACTIVITY]])
   ));
 
