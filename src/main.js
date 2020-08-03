@@ -8,7 +8,7 @@ import {createTripEventEditorHeaderTemplate} from './components/trip-event-edito
 import {createTripEventEditorDetailsTemplate} from './components/trip-event-editor-details';
 /* eslint-disable-next-line */
 import {createTripEventEditorDestinationTemplate} from './components/trip-event-editor-destination';
-import {createTripDaysListTemplate} from './components/trip-days-list';
+import {createDaysListTemplate} from './components/days-list/days-list';
 import {createDayTemplate} from './components/day/day';
 import {createTripEventsListTemplate} from './components/trip-events-list';
 import {createTripEventTemplate} from './components/trip-event';
@@ -65,12 +65,12 @@ const tripEventsElement = document.querySelector(`.trip-events`);
 const sortElement = createElement(createSortTemplate());
 render(tripEventsElement, sortElement, BEFOREEND);
 
-const tripDaysListElement = createElement(createTripDaysListTemplate());
-render(tripEventsElement, tripDaysListElement, BEFOREEND);
+const daysListElement = createElement(createDaysListTemplate());
+render(tripEventsElement, daysListElement, BEFOREEND);
 
 for (let i = 0; i < 3; i++) {
   const dayElement = createElement(createDayTemplate());
-  render(tripDaysListElement, dayElement, BEFOREEND);
+  render(daysListElement, dayElement, BEFOREEND);
   const tripEventsListElement = createElement(createTripEventsListTemplate());
   render(dayElement, tripEventsListElement, BEFOREEND);
   for (let j = 0; j < 3; j++) {
