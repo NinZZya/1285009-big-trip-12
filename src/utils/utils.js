@@ -1,20 +1,23 @@
 const RenderPosition = {
+  BEFOREBEGIN: `BEFOREBEGIN`,
   AFTERBEGIN: `AFTERBEGIN`,
   BEFOREEND: `BEFOREEND`,
+  AFTEREND: `AFTEREND`,
 };
 
-const render = (container, element, place) => {
-  if (place instanceof Object) {
-    container.insertBefore(element, place);
-    return;
-  }
-
+const render = (element1, element2, place) => {
   switch (place) {
+    case RenderPosition.BEFOREBEGIN:
+      element1.before(element2);
+      break;
     case RenderPosition.AFTERBEGIN:
-      container.prepend(element);
+      element1.prepend(element2);
       break;
     case RenderPosition.BEFOREEND:
-      container.append(element);
+      element1.append(element2);
+      break;
+    case RenderPosition.AFTEREND:
+      element1.after(element2);
       break;
     default:
       throw new Error(`Unknown render position: ${place}`);

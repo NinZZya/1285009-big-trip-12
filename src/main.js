@@ -32,7 +32,11 @@ import {
   DESTINATIONS,
 } from './data';
 
-const {AFTERBEGIN, BEFOREEND} = RenderPosition;
+const {
+  BEFOREBEGIN,
+  AFTERBEGIN,
+  BEFOREEND,
+} = RenderPosition;
 
 const createPointEditor = () => {
   const pointEditorElement = createElement(createPointEditorTemplate());
@@ -56,7 +60,7 @@ const controlsElement = createElement(createControlsTemplate());
 render(tripMainElement, controlsElement, BEFOREEND);
 const tripFilterEventsHeaderElement = controlsElement.querySelector(`#trip-filter-events`);
 const tabsElement = createElement(createTabsTemplate());
-render(controlsElement, tabsElement, tripFilterEventsHeaderElement);
+render(tripFilterEventsHeaderElement, tabsElement, BEFOREBEGIN);
 const filtersElement = createElement(createFiltersTemplate());
 render(controlsElement, filtersElement, BEFOREEND);
 
