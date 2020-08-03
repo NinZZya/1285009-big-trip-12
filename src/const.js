@@ -12,18 +12,25 @@ const SORTS = new Map([
   [`price`, `Price`],
 ]);
 
+type = {
+  transfer: `Transfer`,
+  activity: `Activity`,
+}
+
 const transfers = [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight`];
 const activities = [`Check-in`, `Sightseeing`, `Restaurant`];
 
 const pointGroupToTypes = {
-  Transfer: transfers,
-  Activity: activities,
+  [type.transfer]: transfers,
+  [type.activity]: activities,
 };
 
-const pointTypePreposition = {
-  to: transfers,
-  in: activities,
+preposition = {
+  [type.transfer]: `to`,
+  [type.activity]: `in`,
 };
+
+const pointTypeToPreposition = new Map();
 
 const PointMessage = {
   LOADING: `Loading...`,

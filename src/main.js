@@ -1,24 +1,24 @@
-import {createInfoTemplate} from './components/info/info';
-import {createTabsTemplate} from './components/tabs/tabs';
-import {createControlsTemplate} from './components/controls/controls';
-import {createFiltersTemplate} from './components/filters/filters';
-import {createSortTemplate} from './components/sort/sort';
-import {createPointEditorTemplate} from './components/point-editor/point-editor';
-import {createTripEventEditorHeaderTemplate} from './components/point-editor/header';
-import {createDetailsTemplate} from './components/point-editor/details';
+import {createInfoTemplate} from './view/info/info';
+import {createTabsTemplate} from './view/tabs/tabs';
+import {createControlsTemplate} from './view/controls/controls';
+import {createFiltersTemplate} from './view/filters/filters';
+import {createSortTemplate} from './view/sort/sort';
+import {createPointEditorTemplate} from './view/point-editor/point-editor';
+import {createTripEventEditorHeaderTemplate} from './view/point-editor/header';
+import {createDetailsTemplate} from './view/point-editor/details';
 /* eslint-disable-next-line */
-import {createDestinationTemplate} from './components/point-editor/destination';
-import {createDaysTemplate} from './components/days/days';
-import {createDayTemplate} from './components/day/day';
-import {createPointsListTemplate} from './components/points-list/points-list';
-import {createPointsItemTemplate} from './components/points-item/points-item';
-import {createPointTemplate} from './components/point/point';
-import {createOfferTemplate} from './components/point/templates';
-import {createAddPointButtonTemplate} from './components/add-point-button/add-point-button';
+import {createDestinationTemplate} from './view/point-editor/destination';
+import {createDaysTemplate} from './view/days/days';
+import {createDayTemplate} from './view/day/day';
+import {createPointsListTemplate} from './view/points-list/points-list';
+import {createPointsItemTemplate} from './view/points-item/points-item';
+import {createPointTemplate} from './view/point/point';
+import {createOfferTemplate} from './view/point/templates';
+import {createAddPointButtonTemplate} from './view/add-point-button/add-point-button';
 /* eslint-disable-next-line  */
-import {createPointMessageTemplate} from './components/point-message/point-message';
+import {createPointMessageTemplate} from './view/point-message/point-message';
 /* eslint-disable-next-line  */
-import {createStatisticsTemplate} from './components/statistics/statistics';
+import {createStatisticsTemplate} from './view/statistics/statistics';
 
 import {
   RenderPosition,
