@@ -1,4 +1,4 @@
-import {createTripInfoTemplate} from './components/trip-info';
+import {createInfoTemplate} from './components/info/info';
 import {createTabsTemplate} from './components/tabs/tabs';
 import {createTripControlsTemplate} from './components/trip-controls';
 import {createTripFiltersTemplate} from './components/trip-filters';
@@ -47,8 +47,8 @@ const createTripEventEditor = () => {
 };
 
 const tripMainElement = document.querySelector(`.trip-main`);
-const tripInfoElement = createElement(createTripInfoTemplate());
-render(tripMainElement, tripInfoElement, AFTERBEGIN);
+const infoElement = createElement(createInfoTemplate());
+render(tripMainElement, infoElement, AFTERBEGIN);
 
 const tripControlsElement = createElement(createTripControlsTemplate());
 render(tripMainElement, tripControlsElement, BEFOREEND);
