@@ -1,4 +1,4 @@
-import {SORTS} from '../const';
+import {SORTS} from '../../const';
 
 const DEFAULT_SORT = SORTS.keys().next().value;
 const SORT_ICON = (
@@ -9,7 +9,7 @@ const SORT_ICON = (
   </svg>`
 );
 
-const createTripSortTemplate = () => {
+const createSortTemplate = () => {
   return (
     `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
       <span class="trip-sort__item  trip-sort__item--day">
@@ -43,4 +43,4 @@ const createTripSortTemplate = () => {
   );
 };
 
-export {createTripSortTemplate};
+export {createSortTemplate};

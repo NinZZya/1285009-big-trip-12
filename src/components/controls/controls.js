@@ -1,4 +1,4 @@
-const createTripControlsTemplate = () => {
+const createControlsTemplate = () => {
   return (
     `<div class="trip-main__trip-controls  trip-controls">
       <h2 id="trip-header-swich-view" class="visually-hidden">Switch trip view</h2>
@@ -7,4 +7,4 @@ const createTripControlsTemplate = () => {
   );
 };
 
-export {createTripControlsTemplate};
+export {createControlsTemplate};

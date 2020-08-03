@@ -1,22 +1,24 @@
-import {createTripInfoTemplate} from './components/trip-info';
-import {createTripTabsTemplate} from './components/trip-tabs';
-import {createTripControlsTemplate} from './components/trip-controls';
-import {createTripFiltersTemplate} from './components/trip-filters';
-import {createTripSortTemplate} from './components/trip-sort';
-import {createTripEventEditorTemplate} from './components/trip-event-editor';
-import {createTripEventEditorHeaderTemplate} from './components/trip-event-editor-header';
-import {createTripEventEditorDetailsTemplate} from './components/trip-event-editor-details';
+import {createInfoTemplate} from './components/info/info';
+import {createTabsTemplate} from './components/tabs/tabs';
+import {createControlsTemplate} from './components/controls/controls';
+import {createFiltersTemplate} from './components/filters/filters';
+import {createSortTemplate} from './components/sort/sort';
+import {createPointEditorTemplate} from './components/point-editor/point-editor';
+import {createTripEventEditorHeaderTemplate} from './components/point-editor/header';
+import {createDetailsTemplate} from './components/point-editor/details';
 /* eslint-disable-next-line */
-import {createTripEventEditorDestinationTemplate} from './components/trip-event-editor-destination';
-import {createTripDaysListTemplate} from './components/trip-days-list';
-import {createTripDayTemplate} from './components/trip-day';
-import {createTripEventsListTemplate} from './components/trip-events-list';
-import {createTripEventTemplate} from './components/trip-event';
-import {createAddTripEventButtonTemplate} from './components/add-trip-event-button';
+import {createDestinationTemplate} from './components/point-editor/destination';
+import {createDaysTemplate} from './components/days/days';
+import {createDayTemplate} from './components/day/day';
+import {createPointsListTemplate} from './components/points-list/points-list';
+import {createPointsItemTemplate} from './components/points-item/points-item';
+import {createPointTemplate} from './components/point/point';
+import {createOfferTemplate} from './components/point/templates';
+import {createAddPointButtonTemplate} from './components/add-point-button/add-point-button';
 /* eslint-disable-next-line  */
-import {createTripEventMessageTemplate} from './components/trip-event-message';
+import {createPointMessageTemplate} from './components/point-message/point-message';
 /* eslint-disable-next-line  */
-import {createStatisticsTemplate} from './components/trip-statistics';
+import {createStatisticsTemplate} from './components/statistics/statistics';
 
 import {
   RenderPosition,
@@ -32,57 +34,60 @@ import {
 
 const {AFTERBEGIN, BEFOREEND} = RenderPosition;
 
-const createTripEventEditor = () => {
-  const tripEventEditorElement = createElement(createTripEventEditorTemplate());
+const createPointEditor = () => {
+  const pointEditorElement = createElement(createPointEditorTemplate());
   const tripEventEditorHeaderElement = createElement(
       createTripEventEditorHeaderTemplate(DEFAULT_TYPE, DESTINATIONS)
   );
-  render(tripEventEditorElement, tripEventEditorHeaderElement, BEFOREEND);
-  const tripEventEditorDetailsElement = createElement(
-      createTripEventEditorDetailsTemplate(OFFERS)
+  render(pointEditorElement, tripEventEditorHeaderElement, BEFOREEND);
+  const detailsElement = createElement(
+      createDetailsTemplate(OFFERS)
   );
-  render(tripEventEditorElement, tripEventEditorDetailsElement, BEFOREEND);
+  render(pointEditorElement, detailsElement, BEFOREEND);
 
-  return tripEventEditorElement;
+  return pointEditorElement;
 };
 
 const tripMainElement = document.querySelector(`.trip-main`);
-const tripInfoElement = createElement(createTripInfoTemplate());
-render(tripMainElement, tripInfoElement, AFTERBEGIN);
+const infoElement = createElement(createInfoTemplate());
+render(tripMainElement, infoElement, AFTERBEGIN);
 
-const tripControlsElement = createElement(createTripControlsTemplate());
-render(tripMainElement, tripControlsElement, BEFOREEND);
-const tripFilterEventsHeaderElement = tripControlsElement.querySelector(`#trip-filter-events`);
-const tripTabsElement = createElement(createTripTabsTemplate());
-render(tripControlsElement, tripTabsElement, tripFilterEventsHeaderElement);
-const tripFiltersElement = createElement(createTripFiltersTemplate());
-render(tripControlsElement, tripFiltersElement, BEFOREEND);
+const controlsElement = createElement(createControlsTemplate());
+render(tripMainElement, controlsElement, BEFOREEND);
+const tripFilterEventsHeaderElement = controlsElement.querySelector(`#trip-filter-events`);
+const tabsElement = createElement(createTabsTemplate());
+render(controlsElement, tabsElement, tripFilterEventsHeaderElement);
+const filtersElement = createElement(createFiltersTemplate());
+render(controlsElement, filtersElement, BEFOREEND);
 
-const addEventButtonElement = createElement(createAddTripEventButtonTemplate());
-render(tripMainElement, addEventButtonElement, BEFOREEND);
+const addPointButtonElement = createElement(createAddPointButtonTemplate());
+render(tripMainElement, addPointButtonElement, BEFOREEND);
 
 const tripEventsElement = document.querySelector(`.trip-events`);
-const tripSortElement = createElement(createTripSortTemplate());
-render(tripEventsElement, tripSortElement, BEFOREEND);
+const sortElement = createElement(createSortTemplate());
+render(tripEventsElement, sortElement, BEFOREEND);
 
-
-const tripDaysListElement = createElement(createTripDaysListTemplate());
-render(tripEventsElement, tripDaysListElement, BEFOREEND);
+const daysElement = createElement(createDaysTemplate());
+render(tripEventsElement, daysElement, BEFOREEND);
 
 for (let i = 0; i < 3; i++) {
-  const tripDayElement = createElement(createTripDayTemplate());
-  render(tripDaysListElement, tripDayElement, BEFOREEND);
-  const tripEventsListElement = createElement(createTripEventsListTemplate());
-  render(tripDayElement, tripEventsListElement, BEFOREEND);
+  const dayElement = createElement(createDayTemplate());
+  render(daysElement, dayElement, BEFOREEND);
+  const pointsListElement = createElement(createPointsListTemplate());
+  render(dayElement, pointsListElement, BEFOREEND);
   for (let j = 0; j < 3; j++) {
+    const pointsItemElement = createElement(createPointsItemTemplate());
+    render(pointsListElement, pointsItemElement, BEFOREEND);
     if (i === 0 && j === 1) {
-      const wrapper = createElement(`<li class="trip-events__item"></li>`);
-      const tripEditEventElement = createTripEventEditor();
-      render(wrapper, tripEditEventElement, BEFOREEND);
-      render(tripEventsListElement, wrapper, BEFOREEND);
+      const pointEditorElement = createPointEditor();
+      render(pointsItemElement, pointEditorElement, BEFOREEND);
     } else {
-      const tripEventElement = createElement(createTripEventTemplate());
-      render(tripEventsListElement, tripEventElement, BEFOREEND);
+      const pointElement = createElement(createPointTemplate());
+      render(pointsListElement, pointElement, BEFOREEND);
+      const offersElement = pointElement.querySelector(`.event__selected-offers`);
+      const offerElement = createElement(createOfferTemplate());
+      render(offersElement, offerElement, BEFOREEND);
+
     }
   }
 }

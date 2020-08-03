@@ -1,4 +1,4 @@
-const createTripEventEditorDestinationTemplate = (photos) => {
+const createDestinationTemplate = (photos) => {
   return (
     `<section class="event__section  event__section--destination">
       <h3 class="event__section-title  event__section-title--destination">Destination</h3>
@@ -17,4 +17,4 @@ const createTripEventEditorDestinationTemplate = (photos) => {
   );
 };
 
-export {createTripEventEditorDestinationTemplate};
+export {createDestinationTemplate};

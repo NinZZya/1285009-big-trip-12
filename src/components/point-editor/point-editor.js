@@ -1,8 +1,8 @@
-const createTripEventEditorTemplate = () => {
+const createPointEditorTemplate = () => {
   return (
     `<form class="event  event--edit" action="#" method="post">
     </form>`
   );
 };
 
-export {createTripEventEditorTemplate};
+export {createPointEditorTemplate};
