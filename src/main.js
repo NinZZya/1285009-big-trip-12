@@ -12,7 +12,7 @@ import {createDaysListTemplate} from './components/days-list/days-list';
 import {createDayTemplate} from './components/day/day';
 import {createTripEventsListTemplate} from './components/trip-events-list';
 import {createTripEventTemplate} from './components/trip-event';
-import {createAddTripEventButtonTemplate} from './components/add-trip-event-button';
+import {createAddPointButtonTemplate} from './components/add-point-button/add-point-button';
 /* eslint-disable-next-line  */
 import {createTripEventMessageTemplate} from './components/trip-event-message';
 /* eslint-disable-next-line  */
@@ -58,8 +58,8 @@ render(controlsElement, tabsElement, tripFilterEventsHeaderElement);
 const filtersElement = createElement(createFiltersTemplate());
 render(controlsElement, filtersElement, BEFOREEND);
 
-const addEventButtonElement = createElement(createAddTripEventButtonTemplate());
-render(tripMainElement, addEventButtonElement, BEFOREEND);
+const addPointButtonElement = createElement(createAddPointButtonTemplate());
+render(tripMainElement, addPointButtonElement, BEFOREEND);
 
 const tripEventsElement = document.querySelector(`.trip-events`);
 const sortElement = createElement(createSortTemplate());
