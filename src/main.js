@@ -1,5 +1,5 @@
 import {createTripInfoTemplate} from './components/trip-info';
-import {createTripTabsTemplate} from './components/trip-tabs';
+import {createTabsTemplate} from './components/tabs/tabs';
 import {createTripControlsTemplate} from './components/trip-controls';
 import {createTripFiltersTemplate} from './components/trip-filters';
 import {createTripSortTemplate} from './components/trip-sort';
@@ -53,8 +53,8 @@ render(tripMainElement, tripInfoElement, AFTERBEGIN);
 const tripControlsElement = createElement(createTripControlsTemplate());
 render(tripMainElement, tripControlsElement, BEFOREEND);
 const tripFilterEventsHeaderElement = tripControlsElement.querySelector(`#trip-filter-events`);
-const tripTabsElement = createElement(createTripTabsTemplate());
-render(tripControlsElement, tripTabsElement, tripFilterEventsHeaderElement);
+const tabsElement = createElement(createTabsTemplate());
+render(tripControlsElement, tabsElement, tripFilterEventsHeaderElement);
 const tripFiltersElement = createElement(createTripFiltersTemplate());
 render(tripControlsElement, tripFiltersElement, BEFOREEND);
 

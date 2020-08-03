@@ -1,4 +1,4 @@
-const createTripTabsTemplate = () => {
+const createTabsTemplate = () => {
   return (
     `<nav class="trip-controls__trip-tabs  trip-tabs">
       <a class="trip-tabs__btn  trip-tabs__btn--active" href="#">
@@ -11,4 +11,4 @@ const createTripTabsTemplate = () => {
   );
 };
 
-export {createTripTabsTemplate};
+export {createTabsTemplate};
