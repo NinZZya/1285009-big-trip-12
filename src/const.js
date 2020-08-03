@@ -1,36 +1,41 @@
 const TABS = [`Table`, `Stats`];
 
-const FILTERS = new Map([
-  [`everything`, `Everything`],
-  [`future`, `Future`],
-  [`past`, `Past`],
-]);
+const FILTERS = [`Everything`, `Future`, `Past`];
 
-const SORTS = new Map([
-  [`event`, `Event`],
-  [`time`, `Time`],
-  [`price`, `Price`],
-]);
+const SORTS = [`Event`, `Time`, `Price`];
 
-type = {
-  transfer: `Transfer`,
-  activity: `Activity`,
-}
-
-const transfers = [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight`];
-const activities = [`Check-in`, `Sightseeing`, `Restaurant`];
-
-const pointGroupToTypes = {
-  [type.transfer]: transfers,
-  [type.activity]: activities,
+const Type = {
+  TRANSFER: `Transfer`,
+  ACTIVITY: `Activity`,
 };
 
-preposition = {
-  [type.transfer]: `to`,
-  [type.activity]: `in`,
+const TRANSFERS = [`Taxi`, `Bus`, `tTrain`, `Ship`, `Transport`, `Drive`, `Flight`];
+const ACTVITIES = [`Check-in`, `Sightseeing`, `Restaurant`];
+
+const pointGroupToTypes = {
+  [Type.TRANSFER]: TRANSFERS,
+  [Type.activity]: ACTVITIES,
+};
+
+const preposition = {
+  [Type.TRANSFER]: `to`,
+  [Type.ACTIVITY]: `in`,
 };
 
 const pointTypeToPreposition = new Map();
+TRANSFERS
+  .forEach((transfer) => (
+    pointTypeToPreposition.set(
+        transfer.toLowerCase(),
+        preposition[[Type.TRANSFER]])
+  ));
+
+ACTVITIES
+  .forEach((activity) => (
+    pointTypeToPreposition.set(
+        activity.toLowerCase(),
+        preposition[[Type.ACTIVITY]])
+  ));
 
 const PointMessage = {
   LOADING: `Loading...`,
@@ -41,7 +46,7 @@ export {
   TABS,
   FILTERS,
   SORTS,
-  eventGroupToTypes,
-  eventTypePreposition,
-  TripEventMessage,
+  pointGroupToTypes,
+  pointTypeToPreposition,
+  PointMessage,
 };
