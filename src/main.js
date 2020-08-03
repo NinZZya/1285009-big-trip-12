@@ -1,7 +1,7 @@
 import {createInfoTemplate} from './components/info/info';
 import {createTabsTemplate} from './components/tabs/tabs';
-import {createTripControlsTemplate} from './components/trip-controls';
-import {createTripFiltersTemplate} from './components/trip-filters';
+import {createControlsTemplate} from './components/controls/controls';
+import {createFiltersTemplate} from './components/filters/filters';
 import {createTripSortTemplate} from './components/trip-sort';
 import {createTripEventEditorTemplate} from './components/trip-event-editor';
 import {createTripEventEditorHeaderTemplate} from './components/trip-event-editor-header';
@@ -50,13 +50,15 @@ const tripMainElement = document.querySelector(`.trip-main`);
 const infoElement = createElement(createInfoTemplate());
 render(tripMainElement, infoElement, AFTERBEGIN);
 
-const tripControlsElement = createElement(createTripControlsTemplate());
-render(tripMainElement, tripControlsElement, BEFOREEND);
-const tripFilterEventsHeaderElement = tripControlsElement.querySelector(`#trip-filter-events`);
+const controlsElement = createElement(createControlsTemplate());
+render(tripMainElement, controlsElement, BEFOREEND);
+const tripFilterEventsHeaderElement = controlsElement.querySelector(`#trip-filter-events`);
 const tabsElement = createElement(createTabsTemplate());
-render(tripControlsElement, tabsElement, tripFilterEventsHeaderElement);
-const tripFiltersElement = createElement(createTripFiltersTemplate());
-render(tripControlsElement, tripFiltersElement, BEFOREEND);
+render(controlsElement, tabsElement, tripFilterEventsHeaderElement);
+console.log(controlsElement)
+const filtersElement = createElement(createFiltersTemplate());
+console.log(filtersElement)
+render(controlsElement, filtersElement, BEFOREEND);
 
 const addEventButtonElement = createElement(createAddTripEventButtonTemplate());
 render(tripMainElement, addEventButtonElement, BEFOREEND);
@@ -64,7 +66,6 @@ render(tripMainElement, addEventButtonElement, BEFOREEND);
 const tripEventsElement = document.querySelector(`.trip-events`);
 const tripSortElement = createElement(createTripSortTemplate());
 render(tripEventsElement, tripSortElement, BEFOREEND);
-
 
 const tripDaysListElement = createElement(createTripDaysListTemplate());
 render(tripEventsElement, tripDaysListElement, BEFOREEND);
