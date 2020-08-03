@@ -2,7 +2,7 @@ import {createInfoTemplate} from './components/info/info';
 import {createTabsTemplate} from './components/tabs/tabs';
 import {createControlsTemplate} from './components/controls/controls';
 import {createFiltersTemplate} from './components/filters/filters';
-import {createTripSortTemplate} from './components/trip-sort';
+import {createSortTemplate} from './components/sort/sort';
 import {createTripEventEditorTemplate} from './components/trip-event-editor';
 import {createTripEventEditorHeaderTemplate} from './components/trip-event-editor-header';
 import {createTripEventEditorDetailsTemplate} from './components/trip-event-editor-details';
@@ -55,17 +55,15 @@ render(tripMainElement, controlsElement, BEFOREEND);
 const tripFilterEventsHeaderElement = controlsElement.querySelector(`#trip-filter-events`);
 const tabsElement = createElement(createTabsTemplate());
 render(controlsElement, tabsElement, tripFilterEventsHeaderElement);
-console.log(controlsElement)
 const filtersElement = createElement(createFiltersTemplate());
-console.log(filtersElement)
 render(controlsElement, filtersElement, BEFOREEND);
 
 const addEventButtonElement = createElement(createAddTripEventButtonTemplate());
 render(tripMainElement, addEventButtonElement, BEFOREEND);
 
 const tripEventsElement = document.querySelector(`.trip-events`);
-const tripSortElement = createElement(createTripSortTemplate());
-render(tripEventsElement, tripSortElement, BEFOREEND);
+const sortElement = createElement(createSortTemplate());
+render(tripEventsElement, sortElement, BEFOREEND);
 
 const tripDaysListElement = createElement(createTripDaysListTemplate());
 render(tripEventsElement, tripDaysListElement, BEFOREEND);
