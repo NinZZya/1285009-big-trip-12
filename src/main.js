@@ -16,7 +16,7 @@ import {createAddTripEventButtonTemplate} from './components/add-trip-event-butt
 /* eslint-disable-next-line  */
 import {createTripEventMessageTemplate} from './components/trip-event-message';
 /* eslint-disable-next-line  */
-import {createStatisticsTemplate} from './components/trip-statistics';
+import {createStatisticsTemplate} from './components/statistics/statistics';
 
 import {
   RenderPosition,
