@@ -1,3 +1,5 @@
+const TABS = [`Table`, `Stats`];
+
 const FILTERS = new Map([
   [`everything`, `Everything`],
   [`future`, `Future`],
@@ -29,6 +31,7 @@ const TripEventMessage = {
 };
 
 export {
+  TABS,
   FILTERS,
   SORTS,
   eventGroupToTypes,
