@@ -1,19 +1,21 @@
-import {createInfoTemplate} from './view/info/info';
-import {createTabsTemplate} from './view/tabs/tabs';
-import {createControlsTemplate} from './view/controls/controls';
-import {createFiltersTemplate} from './view/filters/filters';
-import {createSortTemplate} from './view/sort/sort';
-import {createPointEditorTemplate} from './view/point-editor/point-editor';
-import {createDaysTemplate} from './view/days/days';
-import {createDayTemplate} from './view/day/day';
-import {createPointsListTemplate} from './view/points-list/points-list';
-import {createPointsItemTemplate} from './view/points-item/points-item';
-import {createPointTemplate} from './view/point/point';
-import {createAddPointButtonTemplate} from './view/add-point-button/add-point-button';
-/* eslint-disable-next-line  */
-import {createPointMessageTemplate} from './view/point-message/point-message';
-/* eslint-disable-next-line  */
-import {createStatisticsTemplate} from './view/statistics/statistics';
+import {
+  createInfoTemplate,
+  createTabsTemplate,
+  createControlsTemplate,
+  createFiltersTemplate,
+  createSortTemplate,
+  createPointEditorTemplate,
+  createDaysTemplate,
+  createDayTemplate,
+  createPointsListTemplate,
+  createPointsItemTemplate,
+  createPointTemplate,
+  createAddPointButtonTemplate,
+  /* eslint-disable-next-line */
+  createPointMessageTemplate,
+  /* eslint-disable-next-line */
+  createStatisticsTemplate,
+} from './view/';
 
 import {
   RenderPosition,
@@ -66,4 +68,3 @@ for (let i = 0; i < 3; i++) {
     }
   }
 }
-
