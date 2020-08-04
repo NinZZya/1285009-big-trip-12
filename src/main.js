@@ -35,6 +35,7 @@ import {
 const {
   BEFORE_BEGIN,
   AFTER_BEGIN,
+  BEFORE_END,
 } = RenderPosition;
 
 const createPointEditor = () => {
@@ -42,11 +43,11 @@ const createPointEditor = () => {
   const tripEventEditorHeaderElement = createElement(
       createTripEventEditorHeaderTemplate(DEFAULT_TYPE, DESTINATIONS)
   );
-  render(pointEditorElement, tripEventEditorHeaderElement);
+  render(pointEditorElement, tripEventEditorHeaderElement, BEFORE_END);
   const detailsElement = createElement(
       createDetailsTemplate(OFFERS)
   );
-  render(pointEditorElement, detailsElement);
+  render(pointEditorElement, detailsElement, BEFORE_END);
 
   return pointEditorElement;
 };
@@ -56,40 +57,40 @@ const infoElement = createElement(createInfoTemplate());
 render(tripMainElement, infoElement, AFTER_BEGIN);
 
 const controlsElement = createElement(createControlsTemplate());
-render(tripMainElement, controlsElement);
+render(tripMainElement, controlsElement, BEFORE_END);
 const tripFilterEventsHeaderElement = controlsElement.querySelector(`#trip-filter-events`);
 const tabsElement = createElement(createTabsTemplate());
 render(tripFilterEventsHeaderElement, tabsElement, BEFORE_BEGIN);
 const filtersElement = createElement(createFiltersTemplate());
-render(controlsElement, filtersElement);
+render(controlsElement, filtersElement, BEFORE_END);
 
 const addPointButtonElement = createElement(createAddPointButtonTemplate());
-render(tripMainElement, addPointButtonElement);
+render(tripMainElement, addPointButtonElement, BEFORE_END);
 
 const tripEventsElement = document.querySelector(`.trip-events`);
 const sortElement = createElement(createSortTemplate());
-render(tripEventsElement, sortElement);
+render(tripEventsElement, sortElement, BEFORE_END);
 
 const daysElement = createElement(createDaysTemplate());
-render(tripEventsElement, daysElement);
+render(tripEventsElement, daysElement, BEFORE_END);
 
 for (let i = 0; i < 3; i++) {
   const dayElement = createElement(createDayTemplate());
-  render(daysElement, dayElement);
+  render(daysElement, dayElement, BEFORE_END);
   const pointsListElement = createElement(createPointsListTemplate());
-  render(dayElement, pointsListElement);
+  render(dayElement, pointsListElement, BEFORE_END);
   for (let j = 0; j < 3; j++) {
     const pointsItemElement = createElement(createPointsItemTemplate());
-    render(pointsListElement, pointsItemElement);
+    render(pointsListElement, pointsItemElement, BEFORE_END);
     if (i === 0 && j === 1) {
       const pointEditorElement = createPointEditor();
-      render(pointsItemElement, pointEditorElement);
+      render(pointsItemElement, pointEditorElement, BEFORE_END);
     } else {
       const pointElement = createElement(createPointTemplate());
-      render(pointsListElement, pointElement);
+      render(pointsListElement, pointElement, BEFORE_END);
       const offersElement = pointElement.querySelector(`.event__selected-offers`);
       const offerElement = createElement(createOfferTemplate());
-      render(offersElement, offerElement);
+      render(offersElement, offerElement, BEFORE_END);
 
     }
   }
