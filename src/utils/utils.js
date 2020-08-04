@@ -1,26 +1,3 @@
-const RenderPosition = {
-  AFTERBEGIN: `AFTERBEGIN`,
-  BEFOREEND: `BEFOREEND`,
-};
-
-const render = (container, element, place) => {
-  if (place instanceof Object) {
-    container.insertBefore(element, place);
-    return;
-  }
-
-  switch (place) {
-    case RenderPosition.AFTERBEGIN:
-      container.prepend(element);
-      break;
-    case RenderPosition.BEFOREEND:
-      container.append(element);
-      break;
-    default:
-      throw new Error(`Unknown render position: ${place}`);
-  }
-};
-
 const createElement = (template) => {
   const element = document.createElement(`div`);
   element.innerHTML = template;
@@ -28,8 +5,9 @@ const createElement = (template) => {
   return element.firstChild;
 };
 
+const toFirstUpperCase = (word) => word[0].toUpperCase() + word.slice(1);
+
 export {
-  RenderPosition,
-  render,
   createElement,
+  toFirstUpperCase,
 };

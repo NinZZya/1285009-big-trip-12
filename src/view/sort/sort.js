@@ -1,6 +1,6 @@
-import {SORTS} from '../const';
+import {SORTS} from './data';
 
-const DEFAULT_SORT = SORTS.keys().next().value;
+const DEFAULT_SORT = 0;
 const SORT_ICON = (
   `<svg class="trip-sort__direction-icon" width="8" height="10" viewBox="0 0 8 10">
     <path
@@ -9,7 +9,7 @@ const SORT_ICON = (
   </svg>`
 );
 
-const createTripSortTemplate = () => {
+const createSortTemplate = () => {
   return (
     `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
       <span class="trip-sort__item  trip-sort__item--day">
@@ -17,7 +17,8 @@ const createTripSortTemplate = () => {
       </span>
 
       ${Array.from(SORTS)
-        .map(([key, value]) => {
+        .map((sort, index) => {
+          const key = sort.toLowerCase();
           return (
             `<div class="trip-sort__item  trip-sort__item--${key}">
               <input
@@ -28,13 +29,13 @@ const createTripSortTemplate = () => {
                 ${key === DEFAULT_SORT ? `checked` : ``}
               >
               <label class="trip-sort__btn" for="sort-${key}">
-                ${value}
-                ${key === DEFAULT_SORT ? `` : SORT_ICON}
+                ${sort}
+                ${index === DEFAULT_SORT ? `` : SORT_ICON}
               </label>
             </div>`
           );
         })
-        .join(`\n`)}
+        .join(``)}
 
         <span class="trip-sort__item  trip-sort__item--offers">
           Offers
@@ -43,4 +44,4 @@ const createTripSortTemplate = () => {
   );
 };
 
-export {createTripSortTemplate};
+export {createSortTemplate};

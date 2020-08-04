@@ -1,17 +1,11 @@
 import {
-  eventGroupToTypes,
-  eventTypePreposition,
-} from '../const';
+  pointGroupToTypes,
+} from './data';
 
-const groupTypes = Object.entries(eventGroupToTypes);
-const prepositions = Object.keys(eventTypePreposition);
+import {
+  getPointTypeWithPreposition,
+} from './type-preposition';
 
-const getEventTypeWithPreposition = (currentType) => {
-  const preposition = prepositions
-    .find((key) => eventTypePreposition[key].includes(currentType));
-
-  return preposition ? `${currentType} ${preposition}` : ``;
-};
 
 const FAVORITE_ICON = (
   `<svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">
@@ -19,6 +13,10 @@ const FAVORITE_ICON = (
       </path>
   </svg>`
 );
+
+const groupTypes = Object.entries(pointGroupToTypes);
+
+// Header templates (header.js)
 
 const createTypeGroupTemplate = (groupName, types, currentType) => {
   return (
@@ -52,7 +50,7 @@ const createTypeGroupTemplate = (groupName, types, currentType) => {
   );
 };
 
-const createTripEventEditorTypeListTemplate = (currentType) => {
+const createTypeListTemplate = (currentType) => {
   return (
     `<div class="event__type-wrapper">
       <label class="event__type  event__type-btn" for="event-type-toggle-1">
@@ -80,11 +78,11 @@ const createTripEventEditorTypeListTemplate = (currentType) => {
   );
 };
 
-const createTripEventEditorDestinationTemplate = (currentType, destinations) => {
+const createDestinationTemplate = (currentType, destinations) => {
   return (
     `<div class="event__field-group  event__field-group--destination">
       <label class="event__label  event__type-output" for="event-destination-1">
-        ${getEventTypeWithPreposition(currentType)}
+        ${getPointTypeWithPreposition(currentType)}
       </label>
       <input
         class="event__input  event__input--destination"
@@ -101,7 +99,7 @@ const createTripEventEditorDestinationTemplate = (currentType, destinations) => 
   );
 };
 
-const createTripEventEditorTimeTemplate = () => {
+const createTimeTemplate = () => {
   return (
     `<div class="event__field-group  event__field-group--time">
       <label class="visually-hidden" for="event-start-time-1">
@@ -128,7 +126,7 @@ const createTripEventEditorTimeTemplate = () => {
   );
 };
 
-const createTripEventEditorPriceTemplate = () => {
+const createPriceTemplate = () => {
   return (
     `<div class="event__field-group  event__field-group--price">
       <label class="event__label" for="event-price-1">
@@ -146,7 +144,23 @@ const createTripEventEditorPriceTemplate = () => {
   );
 };
 
-const createFavoriteEventTemplate = () => {
+const createSaveButtonTemplate = () => {
+  return (
+    `<button class="event__save-btn  btn  btn--blue" type="submit">
+      Save
+    </button>`
+  );
+};
+
+const createCancelButtonTemplate = () => {
+  return (
+    `<button class="event__reset-btn" type="reset">
+      Cancel
+    </button>`
+  );
+};
+
+const createFavoriteTemplate = () => {
   return (
     `<input
       id="event-favorite-1"
@@ -160,7 +174,7 @@ const createFavoriteEventTemplate = () => {
   );
 };
 
-const createEventRollupBtnTemplate = () => {
+const createRollupButtonTemplate = () => {
   return (
     `<button class="event__rollup-btn" type="button">
       <span class="visually-hidden">
@@ -170,23 +184,52 @@ const createEventRollupBtnTemplate = () => {
   );
 };
 
-const createTripEventEditorHeaderTemplate = (currentType, destinations) => {
+// Details templates (details.js)
+
+const createOffersTemplate = (offers) => {
   return (
-    `<header class="event__header">
-      ${createTripEventEditorTypeListTemplate(currentType)}
-      ${createTripEventEditorDestinationTemplate(currentType, destinations)}
-      ${createTripEventEditorTimeTemplate()}
-      ${createTripEventEditorPriceTemplate()}
-      <button class="event__save-btn  btn  btn--blue" type="submit">
-        Save
-      </button>
-      <button class="event__reset-btn" type="reset">
-        Cancel
-      </button>
-      ${createFavoriteEventTemplate()}
-      ${createEventRollupBtnTemplate()}
-    </header>`
+    `<section class="event__section  event__section--offers">
+      <h3 class="event__section-title  event__section-title--offers">
+        Offers
+      </h3>
+      <div class="event__available-offers">
+        ${offers
+          .map((offer) => {
+            const {key, name, price} = offer;
+
+            return (
+              `<div class="event__offer-selector">
+                <input
+                  class="event__offer-checkbox  visually-hidden"
+                  id="event-offer-${key}-1"
+                  type="checkbox" name="event-offer-${key}"
+                >
+                 <label class="event__offer-label" for="event-offer-${key}-1">
+                  <span class="event__offer-title">
+                    ${name}
+                  </span>
+                  &plus;
+                  &euro;&nbsp;<span class="event__offer-price">
+                    ${price}
+                 </span>
+                </label>
+              </div>`
+            );
+          })
+          .join(``)}
+      </div>
+    </section>`
   );
 };
 
-export {createTripEventEditorHeaderTemplate};
+export {
+  createTypeListTemplate,
+  createDestinationTemplate,
+  createTimeTemplate,
+  createPriceTemplate,
+  createSaveButtonTemplate,
+  createCancelButtonTemplate,
+  createFavoriteTemplate,
+  createRollupButtonTemplate,
+  createOffersTemplate,
+};

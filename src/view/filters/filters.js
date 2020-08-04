@@ -1,12 +1,13 @@
-import {FILTERS} from '../const';
+import {FILTERS} from './data';
 
-const DEFAULT_FILTER = FILTERS.keys().next().value;
+const DEFAULT_FILTER = 0;
 
-const createTripFiltersTemplate = () => {
+const createFiltersTemplate = () => {
   return (
     `<form class="trip-filters" action="#" method="get">
-      ${Array.from(FILTERS)
-        .map(([key, value]) => {
+      ${FILTERS
+        .map((filter, index) => {
+          const key = filter.toLowerCase();
           return (
             `<div class="trip-filters__filter">
               <input
@@ -15,15 +16,15 @@ const createTripFiltersTemplate = () => {
                 type="radio"
                 name="trip-filter"
                 value="${key}"
-                ${key === DEFAULT_FILTER ? `checked` : ``}
+                ${index === DEFAULT_FILTER ? `checked` : ``}
               >
               <label class="trip-filters__filter-label" for="filter-${key}">
-                ${value}
+                ${filter}
               </label>
             </div>`
           );
         })
-        .join(`\n`)}
+        .join(``)}
       <button class="visually-hidden" type="submit">
         Accept filter
       </button>
@@ -31,4 +32,4 @@ const createTripFiltersTemplate = () => {
   );
 };
 
-export {createTripFiltersTemplate};
+export {createFiltersTemplate};
