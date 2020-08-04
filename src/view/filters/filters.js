@@ -1,4 +1,4 @@
-import {FILTERS} from '../../const';
+import {FILTERS} from './data';
 
 const DEFAULT_FILTER = 0;
 

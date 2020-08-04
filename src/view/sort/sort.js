@@ -1,4 +1,4 @@
-import {SORTS} from '../../const';
+import {SORTS} from './data';
 
 const DEFAULT_SORT = 0;
 const SORT_ICON = (

@@ -5,7 +5,7 @@ import {
 import {
   pointGroupToTypes,
   pointTypeToPreposition,
-} from '../../const';
+} from './data';
 
 const FAVORITE_ICON = (
   `<svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">
@@ -17,9 +17,9 @@ const FAVORITE_ICON = (
 const groupTypes = Object.entries(pointGroupToTypes);
 
 const getPointTypeWithPreposition = (currentType) => {
-  const key = toFirstUpperCase(currentType);
-  const preposition = pointTypeToPreposition.get(key);
-  return preposition ? `${key} ${preposition}` : ``;
+  const printType = toFirstUpperCase(currentType);
+  const preposition = pointTypeToPreposition[currentType];
+  return preposition ? `${printType} ${preposition}` : ``;
 };
 
 // Header templates (header.js)

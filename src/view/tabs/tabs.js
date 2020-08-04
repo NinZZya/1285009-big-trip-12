@@ -1,4 +1,4 @@
-import {TABS} from '../../const';
+import {TABS} from './data';
 
 const DEFAULT_TAB = 0;
 
