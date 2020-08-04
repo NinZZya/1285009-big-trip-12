@@ -8,4 +8,6 @@ const createOfferTemplate = () => {
   );
 };
 
-export {createOfferTemplate};
+export {
+  createOfferTemplate
+};

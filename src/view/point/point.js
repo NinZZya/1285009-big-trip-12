@@ -1,3 +1,7 @@
+import {
+  createOfferTemplate
+} from './templates';
+
 const createPointTemplate = () => {
   return (
     `<div class="event">
@@ -21,6 +25,7 @@ const createPointTemplate = () => {
 
       <h4 class="visually-hidden">Offers:</h4>
       <ul class="event__selected-offers">
+        ${createOfferTemplate()}
       </ul>
 
       <button class="event__rollup-btn" type="button">
