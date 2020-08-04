@@ -1,11 +1,11 @@
 import {
-  toFirstUpperCase,
-} from '../../utils/utils';
+  pointGroupToTypes,
+} from './data';
 
 import {
-  pointGroupToTypes,
-  pointTypeToPreposition,
-} from './data';
+  getPointTypeWithPreposition,
+} from './type-preposition';
+
 
 const FAVORITE_ICON = (
   `<svg class="event__favorite-icon" width="28" height="28" viewBox="0 0 28 28">
@@ -15,12 +15,6 @@ const FAVORITE_ICON = (
 );
 
 const groupTypes = Object.entries(pointGroupToTypes);
-
-const getPointTypeWithPreposition = (currentType) => {
-  const printType = toFirstUpperCase(currentType);
-  const preposition = pointTypeToPreposition[currentType];
-  return preposition ? `${printType} ${preposition}` : ``;
-};
 
 // Header templates (header.js)
 
