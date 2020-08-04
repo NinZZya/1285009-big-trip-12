@@ -4,7 +4,7 @@ const FILTERS = [`Everything`, `Future`, `Past`];
 
 const SORTS = [`Event`, `Time`, `Price`];
 
-const PointType = {
+const PointGroup = {
   TRANSFER: `Transfer`,
   ACTIVITY: `Activity`,
 };
@@ -13,13 +13,13 @@ const TRANSFERS = [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight
 const ACTVITIES = [`Check-in`, `Sightseeing`, `Restaurant`];
 
 const pointGroupToTypes = {
-  [PointType.TRANSFER]: TRANSFERS,
-  [PointType.ACTIVITY]: ACTVITIES,
+  [PointGroup.TRANSFER]: TRANSFERS,
+  [PointGroup.ACTIVITY]: ACTVITIES,
 };
 
-const preposition = {
-  [PointType.TRANSFER]: `to`,
-  [PointType.ACTIVITY]: `in`,
+const pointGroupToPreposition = {
+  [PointGroup.TRANSFER]: `to`,
+  [PointGroup.ACTIVITY]: `in`,
 };
 
 const pointTypeToPreposition = new Map();
@@ -27,14 +27,14 @@ TRANSFERS
   .forEach((transfer) => (
     pointTypeToPreposition.set(
         transfer,
-        preposition[PointType.TRANSFER])
+        pointGroupToPreposition[PointGroup.TRANSFER])
   ));
 
 ACTVITIES
   .forEach((activity) => (
     pointTypeToPreposition.set(
         activity,
-        preposition[PointType.ACTIVITY])
+        pointGroupToPreposition[PointGroup.ACTIVITY])
   ));
 
 const PointMessage = {
