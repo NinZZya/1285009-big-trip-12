@@ -21,7 +21,7 @@ import {
   RenderPosition,
   render,
   createElement,
-} from './utils/';
+} from './utils/dom';
 
 const {
   BEFORE_BEGIN,

@@ -25,7 +25,15 @@ const render = (element1, element2, place = RenderPosition.BEFORE_END) => {
   }
 };
 
+const createElement = (template) => {
+  const element = document.createElement(`div`);
+  element.innerHTML = template;
+
+  return element.firstChild;
+};
+
 export {
   RenderPosition,
   render,
+  createElement,
 };

@@ -1,25 +1,32 @@
 const TRANSFERS = [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight`];
 const ACTVITIES = [`Check-in`, `Sightseeing`, `Restaurant`];
 
-const PREPOSITION_TRANSFER = `to`;
-const PREPOSITION_ACTIVITY = `in`;
+const PointGropType = {
+  TRANSFER: `Transfer`,
+  ACTVITY: `Activity`,
+};
 
 const pointGroupToTypes = {
-  Transfer: TRANSFERS,
-  Activity: ACTVITIES,
+  [PointGropType.TRANSFER]: TRANSFERS,
+  [PointGropType.ACTVITY]: ACTVITIES,
+};
+
+const pointGropTypeToPreposition = {
+  [PointGropType.TRANSFER]: `to`,
+  [PointGropType.ACTVITY]: `in`,
 };
 
 const pointTypeToPreposition = {
-  'taxi': PREPOSITION_TRANSFER,
-  'bus': PREPOSITION_TRANSFER,
-  'train': PREPOSITION_TRANSFER,
-  'ship': PREPOSITION_TRANSFER,
-  'transport': PREPOSITION_TRANSFER,
-  'drive': PREPOSITION_TRANSFER,
-  'flight': PREPOSITION_TRANSFER,
-  'check-in': PREPOSITION_ACTIVITY,
-  'sightseeing': PREPOSITION_ACTIVITY,
-  'restaurant': PREPOSITION_ACTIVITY,
+  'taxi': pointGropTypeToPreposition[PointGropType.TRANSFER],
+  'bus': pointGropTypeToPreposition[PointGropType.TRANSFER],
+  'train': pointGropTypeToPreposition[PointGropType.TRANSFER],
+  'ship': pointGropTypeToPreposition[PointGropType.TRANSFER],
+  'transport': pointGropTypeToPreposition[PointGropType.TRANSFER],
+  'drive': pointGropTypeToPreposition[PointGropType.TRANSFER],
+  'flight': pointGropTypeToPreposition[PointGropType.TRANSFER],
+  'check-in': pointGropTypeToPreposition[PointGropType.ACTVITY],
+  'sightseeing': pointGropTypeToPreposition[PointGropType.ACTVITY],
+  'restaurant': pointGropTypeToPreposition[PointGropType.ACTVITY],
 };
 
 export {
