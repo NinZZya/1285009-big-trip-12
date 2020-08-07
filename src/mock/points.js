@@ -11,7 +11,7 @@ import {extend} from '../utils/utils';
 const moveDateConfig = {
   minute: 10,
   hour: 3,
-  day: 1
+  day: 7,
 };
 
 const POINT_TYPES = [
@@ -78,7 +78,7 @@ const PHOTOS = [
 
 
 const generatePoint = () => {
-  const date = getRandomDate({});
+  const date = getRandomDate(moveDateConfig);
   return {
     type: getRandomArrayValue(POINT_TYPES),
     destination: getRandomArrayValue(DESTINATIONS),
