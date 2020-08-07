@@ -1,13 +1,18 @@
 import {
+  MoveDate,
   getRandomInt,
   getRandomArrayValue,
   getRandomArray,
+  getRandomDate,
 } from '../utils/randomizer';
 
-// 1 min = 6 0000 millisecond
-const MINUTE = 60000;
-const HOUR = 60 * MINUTE;
-const DAY = 24 * HOUR;
+import {extend} from '../utils/utils';
+
+const moveDateConfig = {
+  minute: 10,
+  hour: 3,
+  day: 1
+};
 
 const POINT_TYPES = [
   `Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight`,
@@ -73,17 +78,18 @@ const PHOTOS = [
 
 
 const generatePoint = () => {
-  const date = new Date();
+  const date = getRandomDate({});
   return {
     type: getRandomArrayValue(POINT_TYPES),
     destination: getRandomArrayValue(DESTINATIONS),
-    start: +date,
-    end: (
-      +date
-      + getRandomInt(10 * MINUTE, 180 * MINUTE)
-      + getRandomInt(0, 3 * HOUR)
-      + getRandomInt(0, 1 * DAY)
-    ),
+    start: date,
+    end: getRandomDate(extend(
+        moveDateConfig,
+        {
+          date,
+          move: MoveDate.FUTURE,
+        }
+    )),
     price: getRandomInt(15, 500),
     description: getRandomArray(
         DESCRIPTIONS, getRandomInt(1, DESCRIPTIONS.length)
