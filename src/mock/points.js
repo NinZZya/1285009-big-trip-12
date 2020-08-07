@@ -4,12 +4,10 @@ import {
   getRandomArray,
 } from '../utils/randomizer';
 
-import {
-  convertToPrintDate,
-} from '../utils/date';
-
 // 1 min = 6 0000 millisecond
 const MINUTE = 60000;
+const HOUR = 60 * MINUTE;
+const DAY = 24 * HOUR;
 
 const POINT_TYPES = [
   `Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight`,
@@ -79,9 +77,12 @@ const generatePoint = () => {
   return {
     type: getRandomArrayValue(POINT_TYPES),
     destination: getRandomArrayValue(DESTINATIONS),
-    start: convertToPrintDate(date),
-    end: convertToPrintDate(
-        +date + getRandomInt(10 * MINUTE, 180 * MINUTE)
+    start: +date,
+    end: (
+      +date
+      + getRandomInt(10 * MINUTE, 180 * MINUTE)
+      + getRandomInt(0, 3 * HOUR)
+      + getRandomInt(0, 1 * DAY)
     ),
     price: getRandomInt(15, 500),
     description: getRandomArray(
