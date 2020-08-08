@@ -11,7 +11,7 @@ import {
 
 const createTripEventEditorHeaderTemplate = (point, destinations) => {
   const {
-    type: pointType,
+    type,
     destination,
     start,
     end,
@@ -20,8 +20,8 @@ const createTripEventEditorHeaderTemplate = (point, destinations) => {
   } = point;
   return (
     `<header class="event__header">
-      ${createTypeListTemplate(pointType)}
-      ${createDestinationTemplate(pointType, destination, destinations)}
+      ${createTypeListTemplate(type)}
+      ${createDestinationTemplate(type, destination, destinations)}
       ${createTimeTemplate({start, end})}
       ${createPriceTemplate(price)}
       ${createSaveButtonTemplate()}
