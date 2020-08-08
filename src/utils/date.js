@@ -8,7 +8,7 @@ const formatter = new Intl.DateTimeFormat([], {
   timeZone: `UTC`
 });
 
-const convertToPrintDate = (date) => formatter.format(date).replace(`,`, ``);
+const convertToDateWithDash = (date) => formatter.format(date).replace(`,`, ``);
 const convertToShortDateWithDash = (value) => {
   const date = new Date(value);
   let month = `` + (date.getMonth() + 1);
@@ -27,6 +27,6 @@ const convertToShortDateWithDash = (value) => {
 };
 
 export {
-  convertToPrintDate,
+  convertToDateWithDash,
   convertToShortDateWithDash,
 };

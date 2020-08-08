@@ -9,16 +9,24 @@ import {
   createRollupButtonTemplate,
 } from './templates';
 
-const createTripEventEditorHeaderTemplate = (currentType, destinations) => {
+const createTripEventEditorHeaderTemplate = (point, destinations) => {
+  const {
+    type: pointType,
+    destination,
+    start,
+    end,
+    price,
+    isFavorite,
+  } = point;
   return (
     `<header class="event__header">
-      ${createTypeListTemplate(currentType)}
-      ${createDestinationTemplate(currentType, destinations)}
-      ${createTimeTemplate()}
-      ${createPriceTemplate()}
+      ${createTypeListTemplate(pointType)}
+      ${createDestinationTemplate(pointType, destination, destinations)}
+      ${createTimeTemplate({start, end})}
+      ${createPriceTemplate(price)}
       ${createSaveButtonTemplate()}
       ${createCancelButtonTemplate()}
-      ${createFavoriteTemplate()}
+      ${createFavoriteTemplate(isFavorite)}
       ${createRollupButtonTemplate()}
     </header>`
   );

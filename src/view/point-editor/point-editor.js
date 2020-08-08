@@ -3,17 +3,14 @@ import {createDetailsTemplate} from './details';
 /* eslint-disable-next-line */
 import {createDestinationTemplate} from './destination';
 
-import {
-  DEFAULT_TYPE,
-  DESTINATIONS,
-  OFFERS,
-} from '../../data';
+import {DESTINATIONS} from '../../mock/points';
 
-const createPointEditorTemplate = () => {
+const createPointEditorTemplate = (point) => {
+
   return (
     `<form class="event  event--edit" action="#" method="post">
-      ${createTripEventEditorHeaderTemplate(DEFAULT_TYPE, DESTINATIONS)}
-      ${createDetailsTemplate(OFFERS)}
+      ${createTripEventEditorHeaderTemplate(point, DESTINATIONS)}
+      ${createDetailsTemplate(point)}
     </form>`
   );
 };

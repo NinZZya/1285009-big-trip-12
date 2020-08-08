@@ -1,5 +1,6 @@
 import {
   MoveDate,
+  getRandomBool,
   getRandomInt,
   getRandomArrayValue,
   getRandomArray,
@@ -15,8 +16,8 @@ const moveDateConfig = {
 };
 
 const POINT_TYPES = [
-  `Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight`,
-  `Check-in`, `Sightseeng`, `Restaurant`
+  `taxi`, `bus`, `train`, `ship`, `transport`, `drive`, `flight`,
+  `check-in`, `sightseeng`, `restaurant`
 ];
 const DESCRIPTIONS = [
   `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
@@ -96,6 +97,7 @@ const generatePoint = () => {
     ).join(` `),
     photos: getRandomArray(PHOTOS, getRandomInt(1, 5)),
     offers: getRandomArray(OFFERS, getRandomInt(1, DESCRIPTIONS.length)),
+    isFavorite: getRandomBool(),
   };
 };
 
@@ -103,4 +105,5 @@ const generatePoints = (count) => new Array(count).fill().map(generatePoint);
 
 export {
   generatePoints,
+  DESTINATIONS,
 };
