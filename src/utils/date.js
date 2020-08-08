@@ -1,3 +1,8 @@
+// 1 min = 6 0000 millisecond
+const MINUTE = 60 * 1000;
+const HOUR = 60 * MINUTE;
+const DAY = 23 * HOUR;
+
 const formatter = new Intl.DateTimeFormat([], {
   year: `2-digit`,
   month: `numeric`,
@@ -8,25 +13,45 @@ const formatter = new Intl.DateTimeFormat([], {
   timeZone: `UTC`
 });
 
+const formatterHhMm = new Intl.DateTimeFormat([], {
+  hour: `2-digit`,
+  minute: `2-digit`,
+  hour12: false,
+  timeZone: `UTC`
+});
+
+const getPrintValue = (value) => {
+  let printValue = `` + value;
+  if (printValue.length < 2) {
+    return `0${printValue}`;
+  }
+
+  return printValue;
+};
+
 const convertToDateWithDash = (date) => formatter.format(date).replace(`,`, ``);
+const convertToHhMm = (date) => formatterHhMm.format(date);
 const convertToShortDateWithDash = (value) => {
   const date = new Date(value);
-  let month = `` + (date.getMonth() + 1);
-  let day = `` + date.getDate();
+  const month = getPrintValue(date.getMonth() + 1);
+  const day = getPrintValue(date.getDate());
   const year = date.getFullYear();
-
-  if (month.length < 2) {
-    month = `0` + month;
-  }
-
-  if (day.length < 2) {
-    day = `0` + day;
-  }
 
   return [year, month, day].join(`-`);
 };
+const diffDate = (date1, date2) => {
+  const subValue = ((+date1) - (+date2));
+  const day = Math.floor(subValue / DAY);
+  const hour = Math.floor((subValue - day * DAY) / HOUR);
+  const minute = Math.floor((subValue - day * DAY - hour * HOUR) / MINUTE);
+  return {day, hour, minute};
+};
+
 
 export {
   convertToDateWithDash,
+  convertToHhMm,
   convertToShortDateWithDash,
+  diffDate,
+  getPrintValue,
 };

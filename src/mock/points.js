@@ -17,7 +17,7 @@ const moveDateConfig = {
 
 const POINT_TYPES = [
   `taxi`, `bus`, `train`, `ship`, `transport`, `drive`, `flight`,
-  `check-in`, `sightseeng`, `restaurant`
+  `check-in`, `sightseeing`, `restaurant`
 ];
 const DESCRIPTIONS = [
   `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
