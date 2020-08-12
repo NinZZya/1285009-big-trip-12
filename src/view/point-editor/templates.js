@@ -98,8 +98,8 @@ const createDestinationTemplate = (currentType, destination, destinations) => {
 };
 
 const createTimeTemplate = ({start, end}) => {
-  const printStart = convertToDateWithDash(start);
-  const printEnd = convertToDateWithDash(end);
+  const timeStart = convertToDateWithDash(start);
+  const timeEnd = convertToDateWithDash(end);
   return (
     `<div class="event__field-group  event__field-group--time">
       <label class="visually-hidden" for="event-start-time-1">
@@ -110,7 +110,7 @@ const createTimeTemplate = ({start, end}) => {
         id="event-start-time-1"
         type="text"
         name="event-start-time"
-        value="${printStart}"
+        value="${timeStart}"
       >
       &mdash;
       <label class="visually-hidden" for="event-end-time-1">
@@ -120,7 +120,7 @@ const createTimeTemplate = ({start, end}) => {
         class="event__input  event__input--time"
         id="event-end-time-1"
         type="text" name="event-end-time"
-        value="${printEnd}"
+        value="${timeEnd}"
       >
     </div>`
   );
