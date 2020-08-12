@@ -1,9 +1,10 @@
-const createOfferTemplate = () => {
+const createOfferTemplate = (offer) => {
+  const {name, price} = offer;
   return (
     `<li class="event__offer">
-      <span class="event__offer-title">Order Uber</span>
+      <span class="event__offer-title">${name}</span>
       &plus;
-      &euro;&nbsp;<span class="event__offer-price">20</span>
+      &euro;&nbsp;<span class="event__offer-price">${price}</span>
     </li>`
   );
 };

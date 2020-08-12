@@ -1,10 +1,6 @@
-import {
-  pointGroupToTypes,
-} from './data';
-
-import {
-  getPointTypeWithPreposition,
-} from './type-preposition';
+import {pointGroupToTypes} from './data';
+import {convertToDateWithDash} from '../../utils/date';
+import {getPointTypeWithPreposition} from './type-preposition';
 
 
 const FAVORITE_ICON = (
@@ -19,6 +15,7 @@ const groupTypes = Object.entries(pointGroupToTypes);
 // Header templates (header.js)
 
 const createTypeGroupTemplate = (groupName, types, currentType) => {
+
   return (
     `<fieldset class="event__type-group">
       <legend class="visually-hidden">${groupName}</legend>
@@ -59,7 +56,7 @@ const createTypeListTemplate = (currentType) => {
           class="event__type-icon"
           width="17"
           height="17"
-          src="img/icons/flight.png"
+          src="img/icons/${currentType}.png"
           alt="Event type icon"
         >
       </label>
@@ -78,7 +75,8 @@ const createTypeListTemplate = (currentType) => {
   );
 };
 
-const createDestinationTemplate = (currentType, destinations) => {
+const createDestinationTemplate = (currentType, destination, destinations) => {
+
   return (
     `<div class="event__field-group  event__field-group--destination">
       <label class="event__label  event__type-output" for="event-destination-1">
@@ -87,19 +85,21 @@ const createDestinationTemplate = (currentType, destinations) => {
       <input
         class="event__input  event__input--destination"
         id="event-destination-1" type="text" name="event-destination"
-        value="Geneva"
+        value="${destination}"
         list="destination-list-1"
       >
       <datalist id="destination-list-1">
         ${destinations
-          .map((destination) => `<option value="${destination}"></option>`)
+          .map((item) => `<option value="${item}"></option>`)
           .join(``)}
       </datalist>
     </div>`
   );
 };
 
-const createTimeTemplate = () => {
+const createTimeTemplate = ({start, end}) => {
+  const timeStart = convertToDateWithDash(start);
+  const timeEnd = convertToDateWithDash(end);
   return (
     `<div class="event__field-group  event__field-group--time">
       <label class="visually-hidden" for="event-start-time-1">
@@ -110,7 +110,7 @@ const createTimeTemplate = () => {
         id="event-start-time-1"
         type="text"
         name="event-start-time"
-        value="18/03/19 00:00"
+        value="${timeStart}"
       >
       &mdash;
       <label class="visually-hidden" for="event-end-time-1">
@@ -120,13 +120,13 @@ const createTimeTemplate = () => {
         class="event__input  event__input--time"
         id="event-end-time-1"
         type="text" name="event-end-time"
-        value="18/03/19 00:00"
+        value="${timeEnd}"
       >
     </div>`
   );
 };
 
-const createPriceTemplate = () => {
+const createPriceTemplate = (price) => {
   return (
     `<div class="event__field-group  event__field-group--price">
       <label class="event__label" for="event-price-1">
@@ -138,7 +138,7 @@ const createPriceTemplate = () => {
         id="event-price-1"
         type="text"
         name="event-price"
-        value=""
+        value="${price}"
       >
     </div>`
   );
@@ -160,12 +160,13 @@ const createCancelButtonTemplate = () => {
   );
 };
 
-const createFavoriteTemplate = () => {
+const createFavoriteTemplate = (isFavorite) => {
   return (
     `<input
       id="event-favorite-1"
       class="event__favorite-checkbox  visually-hidden"
       type="checkbox" name="event-favorite"
+      ${isFavorite ? `checked` : ``}
     >
       <label class="event__favorite-btn" for="event-favorite-1">
       <span class="visually-hidden">Add to favorite</span>

@@ -1,13 +1,7 @@
-const createElement = (template) => {
-  const element = document.createElement(`div`);
-  element.innerHTML = template;
-
-  return element.firstChild;
-};
-
 const toFirstUpperCase = (word) => word[0].toUpperCase() + word.slice(1);
+const extend = (a, ...b) => Object.assign({}, a, ...b);
 
 export {
-  createElement,
   toFirstUpperCase,
+  extend,
 };

@@ -10,8 +10,7 @@ import {
   createPointsListTemplate,
   createPointsItemTemplate,
   createPointTemplate,
-  createAddPointButtonTemplate,
-  /* eslint-disable-next-line */
+  createNewPointButtonTemplate,
   createPointMessageTemplate,
   /* eslint-disable-next-line */
   createStatisticsTemplate,
@@ -21,13 +20,27 @@ import {
   RenderPosition,
   render,
   createElement,
-} from './utils/';
+} from './utils/dom';
+
+import {
+  convertToShortDateWithDash,
+} from './utils/date';
+
+import {
+  generatePoints,
+  DESTINATIONS,
+} from './mock/points';
+
+import {PointMessage} from './const';
 
 const {
   BEFORE_BEGIN,
   AFTER_BEGIN,
   BEFORE_END,
 } = RenderPosition;
+
+const POINTS_COUNT = 20;
+const points = generatePoints(POINTS_COUNT);
 
 const tripMainElement = document.querySelector(`.trip-main`);
 const infoElement = createElement(createInfoTemplate());
@@ -41,30 +54,56 @@ render(tripFilterEventsHeaderElement, tabsElement, BEFORE_BEGIN);
 const filtersElement = createElement(createFiltersTemplate());
 render(controlsElement, filtersElement, BEFORE_END);
 
-const addPointButtonElement = createElement(createAddPointButtonTemplate());
-render(tripMainElement, addPointButtonElement, BEFORE_END);
+const newPointButtonElement = createElement(createNewPointButtonTemplate());
+render(tripMainElement, newPointButtonElement, BEFORE_END);
 
 const tripEventsElement = document.querySelector(`.trip-events`);
-const sortElement = createElement(createSortTemplate());
-render(tripEventsElement, sortElement, BEFORE_END);
 
-const daysElement = createElement(createDaysTemplate());
-render(tripEventsElement, daysElement, BEFORE_END);
+if (points.length > 0) {
+  const sortElement = createElement(createSortTemplate());
+  render(tripEventsElement, sortElement, BEFORE_END);
+  const daysElement = createElement(createDaysTemplate());
+  render(tripEventsElement, daysElement, BEFORE_END);
 
-for (let i = 0; i < 3; i++) {
-  const dayElement = createElement(createDayTemplate());
-  render(daysElement, dayElement, BEFORE_END);
-  const pointsListElement = createElement(createPointsListTemplate());
-  render(dayElement, pointsListElement, BEFORE_END);
-  for (let j = 0; j < 3; j++) {
-    const pointsItemElement = createElement(createPointsItemTemplate());
-    render(pointsListElement, pointsItemElement, BEFORE_END);
-    if (i === 0 && j === 1) {
-      const pointEditorElement = createElement(createPointEditorTemplate());
-      render(pointsItemElement, pointEditorElement, BEFORE_END);
-    } else {
-      const pointElement = createElement(createPointTemplate());
-      render(pointsListElement, pointElement, BEFORE_END);
-    }
-  }
+  let currentDay = null;
+  let dayCount = 0;
+  let dayElement = null;
+  let pointsListElement = null;
+
+  points
+    .sort((a, b) => a.start - b.start)
+    .forEach((point, index) => {
+      const pointDay = convertToShortDateWithDash(point.start);
+
+      if (currentDay !== pointDay) {
+        currentDay = pointDay;
+        dayCount++;
+        dayElement = createElement(createDayTemplate(
+            {
+              dayCount,
+              date: point.start,
+              dateTimeFormat: currentDay,
+            }
+        ));
+        render(daysElement, dayElement, BEFORE_END);
+        pointsListElement = createElement(createPointsListTemplate());
+        render(dayElement, pointsListElement, BEFORE_END);
+      }
+
+      const pointsItemElement = createElement(createPointsItemTemplate());
+      render(pointsListElement, pointsItemElement, BEFORE_END);
+
+      if (index === 0) {
+        const pointEditorElement = createElement(createPointEditorTemplate(point, DESTINATIONS));
+        render(pointsItemElement, pointEditorElement, BEFORE_END);
+      } else {
+        const pointElement = createElement(createPointTemplate(point));
+        render(pointsListElement, pointElement, BEFORE_END);
+      }
+    });
+} else {
+  const pointMessageNoEventsElement = createElement(
+      createPointMessageTemplate(PointMessage.NO_EVENTS)
+  );
+  render(tripEventsElement, pointMessageNoEventsElement, BEFORE_END);
 }
