@@ -1,6 +1,8 @@
 import {createOfferTemplate} from './templates';
 import {convertToHhMm, diffDate, getPrintValue} from '../../utils/date';
 
+const OFFERS_COUNT = 3;
+
 const printDateValue = (value, postfix) => {
   return `${value > 0 ? `${getPrintValue(value)}${postfix}` : ``}`;
 };
@@ -39,7 +41,7 @@ const createPointTemplate = (point) => {
 
       <h4 class="visually-hidden">Offers:</h4>
       <ul class="event__selected-offers">
-        ${offers.slice(0, 3).map(createOfferTemplate).join(``)}
+        ${offers.slice(0, OFFERS_COUNT).map(createOfferTemplate).join(``)}
       </ul>
 
       <button class="event__rollup-btn" type="button">

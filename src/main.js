@@ -14,7 +14,6 @@ import {
   createPointMessageTemplate,
   /* eslint-disable-next-line */
   createStatisticsTemplate,
-  PointMessage,
 } from './view/';
 
 import {
@@ -29,7 +28,10 @@ import {
 
 import {
   generatePoints,
+  DESTINATIONS,
 } from './mock/points';
+
+import {PointMessage} from './const';
 
 const {
   BEFORE_BEGIN,
@@ -57,7 +59,7 @@ render(tripMainElement, newPointButtonElement, BEFORE_END);
 
 const tripEventsElement = document.querySelector(`.trip-events`);
 
-if (points.length) {
+if (points.length > 0) {
   const sortElement = createElement(createSortTemplate());
   render(tripEventsElement, sortElement, BEFORE_END);
   const daysElement = createElement(createDaysTemplate());
@@ -92,7 +94,7 @@ if (points.length) {
       render(pointsListElement, pointsItemElement, BEFORE_END);
 
       if (index === 0) {
-        const pointEditorElement = createElement(createPointEditorTemplate(point));
+        const pointEditorElement = createElement(createPointEditorTemplate(point, DESTINATIONS));
         render(pointsItemElement, pointEditorElement, BEFORE_END);
       } else {
         const pointElement = createElement(createPointTemplate(point));
@@ -100,8 +102,8 @@ if (points.length) {
       }
     });
 } else {
-  const pointMessageNoEvents = createElement(
+  const pointMessageNoEventsElement = createElement(
       createPointMessageTemplate(PointMessage.NO_EVENTS)
   );
-  render(tripEventsElement, pointMessageNoEvents, BEFORE_END);
+  render(tripEventsElement, pointMessageNoEventsElement, BEFORE_END);
 }

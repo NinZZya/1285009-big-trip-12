@@ -12,7 +12,6 @@ import {createPointTemplate} from './point/point';
 import {createNewPointButtonTemplate} from './new-point-button/new-point-button';
 import {createPointMessageTemplate} from './point-message/point-message';
 import {createStatisticsTemplate} from './statistics/statistics';
-import {PointMessage} from './point-message/data';
 
 export {
   createInfoTemplate,
@@ -29,5 +28,4 @@ export {
   createNewPointButtonTemplate,
   createPointMessageTemplate,
   createStatisticsTemplate,
-  PointMessage,
 };
