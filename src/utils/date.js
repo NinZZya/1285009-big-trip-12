@@ -21,21 +21,14 @@ const formatterHhMm = new Intl.DateTimeFormat([], {
   timeZone: `UTC`
 });
 
-const getPrintValue = (value) => {
-  let printValue = `` + value;
-  if (printValue.length < 2) {
-    return `0${printValue}`;
-  }
-
-  return printValue;
-};
+const convertNumberOfDate = (value) => String(value).padStart(2, `0`);
 
 const convertToDateWithDash = (date) => formatter.format(date).replace(`,`, ``);
 const convertToHhMm = (date) => formatterHhMm.format(date);
 const convertToShortDateWithDash = (value) => {
   const date = new Date(value);
-  const month = getPrintValue(date.getMonth() + 1);
-  const day = getPrintValue(date.getDate());
+  const month = convertNumberOfDate(date.getMonth() + 1);
+  const day = convertNumberOfDate(date.getDate());
   const year = date.getFullYear();
 
   return [year, month, day].join(`-`);
@@ -54,5 +47,5 @@ export {
   convertToHhMm,
   convertToShortDateWithDash,
   diffDate,
-  getPrintValue,
+  convertNumberOfDate,
 };

@@ -1,11 +1,16 @@
 import {createOfferTemplate} from './templates';
-import {convertToHhMm, diffDate, getPrintValue} from '../../utils/date';
+import {
+  convertToHhMm,
+  diffDate,
+  convertNumberOfDate,
+  convertToShortDateWithDash
+} from '../../utils/date';
 
 const OFFERS_COUNT = 3;
 
-const printDateValue = (value, postfix) => {
-  return `${value > 0 ? `${getPrintValue(value)}${postfix}` : ``}`;
-};
+const convertDay = (day) => day > 0
+  ? `${convertNumberOfDate(day)}D`
+  : ``;
 
 const createPointTemplate = (point) => {
   const {
@@ -17,7 +22,11 @@ const createPointTemplate = (point) => {
   } = point;
   const duration = diffDate(end, start);
   const {day, hour, minute} = duration;
-  const printDuration = `${printDateValue(day, `D`)} ${printDateValue(hour, `H`)} ${getPrintValue(minute)}M`;
+  const durationValue = `${convertDay(day)} ${convertNumberOfDate(hour)}H ${convertNumberOfDate(minute)}M`;
+  const dateStart = convertToShortDateWithDash(start);
+  const dateEnd = convertToShortDateWithDash(end);
+  const timeStart = convertToHhMm(start);
+  const timeEnd = convertToHhMm(end);
 
   return (
     `<div class="event">
@@ -28,11 +37,11 @@ const createPointTemplate = (point) => {
 
       <div class="event__schedule">
         <p class="event__time">
-          <time class="event__start-time" datetime="2019-03-18T10:30">${convertToHhMm(start)}</time>
+          <time class="event__start-time" datetime="${dateStart}T${timeStart}">${timeStart}</time>
           &mdash;
-          <time class="event__end-time" datetime="2019-03-18T11:00">${convertToHhMm(end)}</time>
+          <time class="event__end-time" datetime="${dateEnd}T${timeEnd}">${timeEnd}</time>
         </p>
-        <p class="event__duration">${printDuration}</p>
+        <p class="event__duration">${durationValue}</p>
       </div>
 
       <p class="event__price">
