@@ -10,7 +10,7 @@ import {
   createPointsListTemplate,
   createPointsItemTemplate,
   createPointTemplate,
-  createAddPointButtonTemplate,
+  createNewPointButtonTemplate,
   createPointMessageTemplate,
   /* eslint-disable-next-line */
   createStatisticsTemplate,
@@ -52,8 +52,8 @@ render(tripFilterEventsHeaderElement, tabsElement, BEFORE_BEGIN);
 const filtersElement = createElement(createFiltersTemplate());
 render(controlsElement, filtersElement, BEFORE_END);
 
-const addPointButtonElement = createElement(createAddPointButtonTemplate());
-render(tripMainElement, addPointButtonElement, BEFORE_END);
+const newPointButtonElement = createElement(createNewPointButtonTemplate());
+render(tripMainElement, newPointButtonElement, BEFORE_END);
 
 const tripEventsElement = document.querySelector(`.trip-events`);
 

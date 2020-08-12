@@ -1,4 +1,4 @@
-const createAddPointButtonTemplate = () => {
+const createNewPointButtonTemplate = () => {
   return (
     `<button
       class="trip-main__event-add-btn  btn  btn--big  btn--yellow"
@@ -9,4 +9,4 @@ const createAddPointButtonTemplate = () => {
   );
 };
 
-export {createAddPointButtonTemplate};
+export {createNewPointButtonTemplate};

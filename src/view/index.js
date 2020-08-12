@@ -9,7 +9,7 @@ import {createDayTemplate} from './day/day';
 import {createPointsListTemplate} from './points-list/points-list';
 import {createPointsItemTemplate} from './points-item/points-item';
 import {createPointTemplate} from './point/point';
-import {createAddPointButtonTemplate} from './add-point-button/add-point-button';
+import {createNewPointButtonTemplate} from './new-point-button/new-point-button';
 import {createPointMessageTemplate} from './point-message/point-message';
 import {createStatisticsTemplate} from './statistics/statistics';
 import {PointMessage} from './point-message/data';
@@ -26,7 +26,7 @@ export {
   createPointsListTemplate,
   createPointsItemTemplate,
   createPointTemplate,
-  createAddPointButtonTemplate,
+  createNewPointButtonTemplate,
   createPointMessageTemplate,
   createStatisticsTemplate,
   PointMessage,
