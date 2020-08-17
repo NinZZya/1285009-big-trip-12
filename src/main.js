@@ -3,14 +3,14 @@ import {
   ControlsView,
   TabsView,
   FiltersView,
-  SortView,
   NewPointButtonView,
-  createPointEditorTemplate,
-  createDaysTemplate,
+  SortView,
+  DaysView,
   createDayTemplate,
   createPointsListTemplate,
   createPointsItemTemplate,
   createPointTemplate,
+  createPointEditorTemplate,
   createPointMessageTemplate,
   /* eslint-disable-next-line */
   createStatisticsTemplate,
@@ -62,8 +62,8 @@ const tripEventsElement = document.querySelector(`.trip-events`);
 if (points.length > 0) {
   const sortView = new SortView();
   render(tripEventsElement, sortView, BEFORE_END);
-  const daysElement = createElement(createDaysTemplate());
-  render(tripEventsElement, daysElement, BEFORE_END);
+  const daysView = new DaysView();
+  render(tripEventsElement, daysView, BEFORE_END);
 
   let currentDay = null;
   let dayCount = 0;
@@ -85,7 +85,7 @@ if (points.length > 0) {
               dateTimeFormat: currentDay,
             }
         ));
-        render(daysElement, dayElement, BEFORE_END);
+        render(daysView, dayElement, BEFORE_END);
         pointsListElement = createElement(createPointsListTemplate());
         render(dayElement, pointsListElement, BEFORE_END);
       }

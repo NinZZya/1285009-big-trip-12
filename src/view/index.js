@@ -4,8 +4,8 @@ import TabsView from './tabs/tabs';
 import FiltersView from './filters/filters';
 import SortView from './sort/sort';
 import NewPointButtonView from './new-point-button/new-point-button';
+import DaysView from './days/days';
 import {createPointEditorTemplate} from './point-editor/point-editor';
-import {createDaysTemplate} from './days/days';
 import {createDayTemplate} from './day/day';
 import {createPointsListTemplate} from './points-list/points-list';
 import {createPointsItemTemplate} from './points-item/points-item';
@@ -20,8 +20,8 @@ export {
   FiltersView,
   SortView,
   NewPointButtonView,
+  DaysView,
   createPointEditorTemplate,
-  createDaysTemplate,
   createDayTemplate,
   createPointsListTemplate,
   createPointsItemTemplate,
