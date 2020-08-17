@@ -1,7 +1,15 @@
+import AbstractView from '../abstract/abstract';
+
 const createPointsListTemplate = () => {
   return (
     `<ul class="trip-events__list"></ul>`
   );
 };
 
-export {createPointsListTemplate};
+class PointsListView extends AbstractView {
+  getTemplate() {
+    return createPointsListTemplate();
+  }
+}
+
+export default PointsListView;

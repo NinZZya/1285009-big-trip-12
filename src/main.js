@@ -7,7 +7,7 @@ import {
   SortView,
   DaysView,
   DayView,
-  createPointsListTemplate,
+  PointsListView,
   createPointsItemTemplate,
   createPointTemplate,
   createPointEditorTemplate,
@@ -68,7 +68,7 @@ if (points.length > 0) {
   let currentDay = null;
   let dayCount = 0;
   let dayElement = null;
-  let pointsListElement = null;
+  let pointsListView = null;
 
   points
     .sort((a, b) => a.start - b.start)
@@ -86,19 +86,19 @@ if (points.length > 0) {
             }
         );
         render(daysView, dayElement, BEFORE_END);
-        pointsListElement = createElement(createPointsListTemplate());
-        render(dayElement, pointsListElement, BEFORE_END);
+        pointsListView = new PointsListView();
+        render(dayElement, pointsListView, BEFORE_END);
       }
 
       const pointsItemElement = createElement(createPointsItemTemplate());
-      render(pointsListElement, pointsItemElement, BEFORE_END);
+      render(pointsListView, pointsItemElement, BEFORE_END);
 
       if (index === 0) {
         const pointEditorElement = createElement(createPointEditorTemplate(point, DESTINATIONS));
         render(pointsItemElement, pointEditorElement, BEFORE_END);
       } else {
         const pointElement = createElement(createPointTemplate(point));
-        render(pointsListElement, pointElement, BEFORE_END);
+        render(pointsListView, pointElement, BEFORE_END);
       }
     });
 } else {
