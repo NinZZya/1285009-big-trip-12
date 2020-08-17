@@ -1,3 +1,4 @@
+import AbstractView from '../abstract/abstract';
 import {TABS} from './data';
 
 const DEFAULT_TAB = 0;
@@ -19,4 +20,10 @@ const createTabsTemplate = () => {
   );
 };
 
-export {createTabsTemplate};
+class TabsView extends AbstractView {
+  getTemplate() {
+    return createTabsTemplate();
+  }
+}
+
+export default TabsView;
