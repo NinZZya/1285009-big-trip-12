@@ -4,13 +4,13 @@ import {
   TabsView,
   FiltersView,
   SortView,
+  NewPointButtonView,
   createPointEditorTemplate,
   createDaysTemplate,
   createDayTemplate,
   createPointsListTemplate,
   createPointsItemTemplate,
   createPointTemplate,
-  createNewPointButtonTemplate,
   createPointMessageTemplate,
   /* eslint-disable-next-line */
   createStatisticsTemplate,
@@ -54,8 +54,8 @@ render(tripFilterEventsHeaderElement, tabsView, BEFORE_BEGIN);
 const filtersView = new FiltersView();
 render(controlsView, filtersView, BEFORE_END);
 
-const newPointButtonElement = createElement(createNewPointButtonTemplate());
-render(tripMainElement, newPointButtonElement, BEFORE_END);
+const newPointButtonView = new NewPointButtonView();
+render(tripMainElement, newPointButtonView, BEFORE_END);
 
 const tripEventsElement = document.querySelector(`.trip-events`);
 
