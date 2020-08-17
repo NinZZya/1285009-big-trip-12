@@ -8,7 +8,7 @@ import {
   DaysView,
   DayView,
   PointsListView,
-  createPointsItemTemplate,
+  PointItemView,
   createPointTemplate,
   createPointEditorTemplate,
   createPointMessageTemplate,
@@ -90,12 +90,12 @@ if (points.length > 0) {
         render(dayElement, pointsListView, BEFORE_END);
       }
 
-      const pointsItemElement = createElement(createPointsItemTemplate());
-      render(pointsListView, pointsItemElement, BEFORE_END);
+      const pointsItemView = new PointItemView();
+      render(pointsListView, pointsItemView, BEFORE_END);
 
       if (index === 0) {
         const pointEditorElement = createElement(createPointEditorTemplate(point, DESTINATIONS));
-        render(pointsItemElement, pointEditorElement, BEFORE_END);
+        render(pointsItemView, pointEditorElement, BEFORE_END);
       } else {
         const pointElement = createElement(createPointTemplate(point));
         render(pointsListView, pointElement, BEFORE_END);
