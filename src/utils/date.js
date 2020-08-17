@@ -14,22 +14,24 @@ const formatter = new Intl.DateTimeFormat([], {
   timeZone: `UTC`
 });
 
-const formatterHhMm = new Intl.DateTimeFormat([], {
-  hour: `2-digit`,
-  minute: `2-digit`,
-  hour12: false,
-  timeZone: `UTC`
-});
-
 export const convertNumberOfDate = (value) => String(value).padStart(2, `0`);
 /**
  * @param {date} date
  * @return {date} 17/08/20 18:00
  */
 export const formatDateYyyyMmDdHhMmWithDash = (date) => formatter.format(date).replace(`,`, ``);
-export const formatDateHhMm = (date) => formatterHhMm.format(date);
-export const formatDateYyyyMmDdWithDash = (value) => new Date(value).toISOString().split(`T`)[0];
 
+/**
+ * @param {date} date
+ * @return {date} 2020-08-17T18:00
+ */
+export const formatDateISODdMmYyyyHhMm = (date) => date.toISOString().slice(0, 16);
+
+/**
+ * @param {date} date1
+ * @param {date} date2
+ * @return {object} {day: number, hour: number, minutes: number}
+ */
 export const diffDate = (date1, date2) => {
   const subValue = ((+date1) - (+date2));
   const day = Math.floor(subValue / DAY);
