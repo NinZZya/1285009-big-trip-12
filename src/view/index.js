@@ -11,7 +11,7 @@ import PointItemView from './points-item/points-item';
 import PointView from './point/point';
 import {createPointEditorTemplate} from './point-editor/point-editor';
 import PointMessageView from './point-message/point-message';
-import {createStatisticsTemplate} from './statistics/statistics';
+import StatisticsView from './statistics/statistics';
 
 export {
   InfoView,
@@ -27,5 +27,5 @@ export {
   PointView,
   createPointEditorTemplate,
   PointMessageView,
-  createStatisticsTemplate,
+  StatisticsView,
 };

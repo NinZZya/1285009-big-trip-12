@@ -13,7 +13,7 @@ import {
   createPointEditorTemplate,
   PointMessageView,
   /* eslint-disable-next-line */
-  createStatisticsTemplate,
+  StatisticsView,
 } from './view/';
 
 import {

@@ -1,3 +1,5 @@
+import AbstractView from '../abstract/abstract';
+
 const createStatisticsTemplate = () => {
   return (
     `<section class="statistics">
@@ -20,4 +22,10 @@ const createStatisticsTemplate = () => {
   );
 };
 
-export {createStatisticsTemplate};
+class StatisticsView extends AbstractView {
+  getTemplate() {
+    return createStatisticsTemplate();
+  }
+}
+
+export default StatisticsView;
