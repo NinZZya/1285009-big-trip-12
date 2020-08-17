@@ -11,7 +11,7 @@ import {
   PointItemView,
   PointView,
   createPointEditorTemplate,
-  createPointMessageTemplate,
+  PointMessageView,
   /* eslint-disable-next-line */
   createStatisticsTemplate,
 } from './view/';
@@ -102,8 +102,6 @@ if (points.length > 0) {
       }
     });
 } else {
-  const pointMessageNoEventsElement = createElement(
-      createPointMessageTemplate(PointMessage.NO_EVENTS)
-  );
-  render(tripEventsElement, pointMessageNoEventsElement, BEFORE_END);
+  const pointMessageNoEventsView = new PointMessageView(PointMessage.NO_EVENTS);
+  render(tripEventsElement, pointMessageNoEventsView, BEFORE_END);
 }

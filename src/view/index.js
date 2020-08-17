@@ -10,7 +10,7 @@ import PointsListView from './points-list/points-list';
 import PointItemView from './points-item/points-item';
 import PointView from './point/point';
 import {createPointEditorTemplate} from './point-editor/point-editor';
-import {createPointMessageTemplate} from './point-message/point-message';
+import PointMessageView from './point-message/point-message';
 import {createStatisticsTemplate} from './statistics/statistics';
 
 export {
@@ -26,6 +26,6 @@ export {
   PointItemView,
   PointView,
   createPointEditorTemplate,
-  createPointMessageTemplate,
+  PointMessageView,
   createStatisticsTemplate,
 };
