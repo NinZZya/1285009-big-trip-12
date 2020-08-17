@@ -92,13 +92,8 @@ if (points.length > 0) {
       const pointsItemView = new PointItemView();
       render(pointsListView, pointsItemView, BEFORE_END);
 
-      if (index === 0) {
-        const pointEditorView = new PointEditorView(point, DESTINATIONS);
-        render(pointsItemView, pointEditorView, BEFORE_END);
-      } else {
-        const pointView = new PointView(point);
-        render(pointsListView, pointView, BEFORE_END);
-      }
+      const pointView = new PointView(point);
+      render(pointsListView, pointView, BEFORE_END);
     });
 } else {
   const pointMessageNoEventsView = new PointMessageView(PointMessage.NO_EVENTS);
