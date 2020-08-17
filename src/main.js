@@ -1,5 +1,5 @@
 import {
-  createInfoTemplate,
+  InfoView,
   createTabsTemplate,
   createControlsTemplate,
   createFiltersTemplate,
@@ -43,8 +43,8 @@ const POINTS_COUNT = 20;
 const points = generatePoints(POINTS_COUNT);
 
 const tripMainElement = document.querySelector(`.trip-main`);
-const infoElement = createElement(createInfoTemplate());
-render(tripMainElement, infoElement, AFTER_BEGIN);
+const infoView = new InfoView();
+render(tripMainElement, infoView, AFTER_BEGIN);
 
 const controlsElement = createElement(createControlsTemplate());
 render(tripMainElement, controlsElement, BEFORE_END);

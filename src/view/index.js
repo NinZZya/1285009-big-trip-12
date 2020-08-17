@@ -1,4 +1,4 @@
-import {createInfoTemplate} from './info/info';
+import InfoView from './info/info';
 import {createTabsTemplate} from './tabs/tabs';
 import {createControlsTemplate} from './controls/controls';
 import {createFiltersTemplate} from './filters/filters';
@@ -14,7 +14,7 @@ import {createPointMessageTemplate} from './point-message/point-message';
 import {createStatisticsTemplate} from './statistics/statistics';
 
 export {
-  createInfoTemplate,
+  InfoView,
   createTabsTemplate,
   createControlsTemplate,
   createFiltersTemplate,
