@@ -2,8 +2,7 @@ import AbstractView from '../abstract/abstract';
 import {createOfferTemplate} from './templates';
 import {
   diffDate,
-  formatDateHhMm,
-  formatDateYyyyMmDdWithDash,
+  formatDateISODdMmYyyyHhMm,
   convertNumberOfDate,
 } from '../../utils/date';
 
@@ -25,10 +24,10 @@ const createPointTemplate = (point) => {
   const duration = diffDate(end, start);
   const {day, hour, minute} = duration;
   const durationValue = `${convertDayTitle(day)} ${convertNumberOfDate(hour)}H ${convertNumberOfDate(minute)}M`;
-  const dateStart = formatDateYyyyMmDdWithDash(start);
-  const dateEnd = formatDateYyyyMmDdWithDash(end);
-  const timeStart = formatDateHhMm(start);
-  const timeEnd = formatDateHhMm(end);
+  const dateStart = new Date(start);
+  const dateEnd = new Date(end);
+  const formatedStartDate = formatDateISODdMmYyyyHhMm(dateStart);
+  const formatedEndDate = formatDateISODdMmYyyyHhMm(dateEnd);
 
   return (
     `<div class="event">
@@ -39,9 +38,9 @@ const createPointTemplate = (point) => {
 
       <div class="event__schedule">
         <p class="event__time">
-          <time class="event__start-time" datetime="${dateStart}T${timeStart}">${timeStart}</time>
+          <time class="event__start-time" datetime="${formatedStartDate}">${formatedStartDate.split(`T`)[1]}</time>
           &mdash;
-          <time class="event__end-time" datetime="${dateEnd}T${timeEnd}">${timeEnd}</time>
+          <time class="event__end-time" datetime="${formatedEndDate}">${formatedEndDate.split(`T`)[1]}</time>
         </p>
         <p class="event__duration">${durationValue}</p>
       </div>

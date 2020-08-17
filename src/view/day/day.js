@@ -8,11 +8,11 @@ const convertToTitle = (value) => {
   return `${month} ${day}`;
 };
 
-const getDayInfoTemplate = ({dayCount, date, dateTimeFormat}) => {
+const getDayInfoTemplate = ({dayCount, date}) => {
   return (
     `<div class="day__info">
       <span class="day__counter">${dayCount}</span>
-      <time class="day__date" datetime=${dateTimeFormat}>
+      <time class="day__date" datetime=${date}>
         ${convertToTitle(date)}
       </time>
     </div>`
@@ -22,7 +22,7 @@ const getDayInfoTemplate = ({dayCount, date, dateTimeFormat}) => {
 const createDayTemplate = (dayData) => {
   return (
     `<li class="trip-days__item  day">
-    ${dayData ? getDayInfoTemplate(dayData) : `<div class="day__info"></div>`}
+    ${dayData.isCountRender ? getDayInfoTemplate(dayData) : `<div class="day__info"></div>`}
     </li>`
   );
 };
