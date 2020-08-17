@@ -18,10 +18,13 @@ const createTripEventEditorHeaderTemplate = (point, destinations) => {
     price,
     isFavorite,
   } = point;
+
   return (
     `<header class="event__header">
       ${createTypeListTemplate(type)}
-      ${createDestinationTemplate(type, destination, destinations)}
+      ${destination
+      ? createDestinationTemplate(type, destination, destinations)
+      : ``}
       ${createTimeTemplate({start, end})}
       ${createPriceTemplate(price)}
       ${createSaveButtonTemplate()}

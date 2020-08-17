@@ -1,3 +1,4 @@
+import AbstractView from '../abstract/abstract';
 import {createTripEventEditorHeaderTemplate} from './header';
 import {createDetailsTemplate} from './details';
 /* eslint-disable-next-line */
@@ -13,4 +14,16 @@ const createPointEditorTemplate = (point, destinations) => {
   );
 };
 
-export {createPointEditorTemplate};
+class PointEditorView extends AbstractView {
+  constructor(point, destinations) {
+    super();
+    this._point = point;
+    this._destinations = destinations;
+  }
+
+  getTemplate() {
+    return createPointEditorTemplate(this._point, this._destinations);
+  }
+}
+
+export default PointEditorView;

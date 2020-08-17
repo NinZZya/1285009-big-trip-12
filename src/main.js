@@ -10,7 +10,7 @@ import {
   PointsListView,
   PointItemView,
   PointView,
-  createPointEditorTemplate,
+  PointEditorView,
   PointMessageView,
   /* eslint-disable-next-line */
   StatisticsView,
@@ -19,7 +19,6 @@ import {
 import {
   RenderPosition,
   render,
-  createElement,
 } from './utils/dom';
 
 import {
@@ -94,8 +93,8 @@ if (points.length > 0) {
       render(pointsListView, pointsItemView, BEFORE_END);
 
       if (index === 0) {
-        const pointEditorElement = createElement(createPointEditorTemplate(point, DESTINATIONS));
-        render(pointsItemView, pointEditorElement, BEFORE_END);
+        const pointEditorView = new PointEditorView(point, DESTINATIONS);
+        render(pointsItemView, pointEditorView, BEFORE_END);
       } else {
         const pointView = new PointView(point);
         render(pointsListView, pointView, BEFORE_END);
