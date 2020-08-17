@@ -1,3 +1,5 @@
+import AbstractView from '../abstract/abstract';
+
 const createControlsTemplate = () => {
   return (
     `<div class="trip-main__trip-controls  trip-controls">
@@ -7,4 +9,10 @@ const createControlsTemplate = () => {
   );
 };
 
-export {createControlsTemplate};
+class ControlsView extends AbstractView {
+  getTemplate() {
+    return createControlsTemplate();
+  }
+}
+
+export default ControlsView;
