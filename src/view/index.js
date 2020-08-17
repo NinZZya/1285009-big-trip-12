@@ -1,7 +1,7 @@
 import InfoView from './info/info';
 import ControlsView from './controls/controls';
 import TabsView from './tabs/tabs';
-import {createFiltersTemplate} from './filters/filters';
+import FiltersView from './filters/filters';
 import {createSortTemplate} from './sort/sort';
 import {createPointEditorTemplate} from './point-editor/point-editor';
 import {createDaysTemplate} from './days/days';
@@ -17,7 +17,7 @@ export {
   InfoView,
   TabsView,
   ControlsView,
-  createFiltersTemplate,
+  FiltersView,
   createSortTemplate,
   createPointEditorTemplate,
   createDaysTemplate,

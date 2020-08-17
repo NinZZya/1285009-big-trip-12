@@ -2,7 +2,7 @@ import {
   InfoView,
   ControlsView,
   TabsView,
-  createFiltersTemplate,
+  FiltersView,
   createSortTemplate,
   createPointEditorTemplate,
   createDaysTemplate,
@@ -51,8 +51,8 @@ render(tripMainElement, controlsView, BEFORE_END);
 const tripFilterEventsHeaderElement = controlsView.getElement().querySelector(`#trip-filter-events`);
 const tabsView = new TabsView();
 render(tripFilterEventsHeaderElement, tabsView, BEFORE_BEGIN);
-const filtersElement = createElement(createFiltersTemplate());
-render(controlsView, filtersElement, BEFORE_END);
+const filtersView = new FiltersView();
+render(controlsView, filtersView, BEFORE_END);
 
 const newPointButtonElement = createElement(createNewPointButtonTemplate());
 render(tripMainElement, newPointButtonElement, BEFORE_END);
