@@ -19,10 +19,11 @@ import {
 import {
   RenderPosition,
   render,
+  replace,
 } from './utils/dom';
 
 import {
-  formatDateYyyyMmDdWithDash,
+  formatDateISODdMmYyyyHhMm,
 } from './utils/date';
 
 import {
@@ -39,7 +40,51 @@ const {
 } = RenderPosition;
 
 const POINTS_COUNT = 20;
-const points = generatePoints(POINTS_COUNT);
+const POINTS = generatePoints(POINTS_COUNT);
+
+const reducePointByDay = (days, point) => {
+  const date = new Date(point.start);
+  const dayDate = formatDateISODdMmYyyyHhMm(date)
+      .toString()
+      .split(`T`)[0];
+
+  if (Array.isArray(days[dayDate])) {
+    days[dayDate].push(point);
+  } else {
+    days[dayDate] = [point];
+  }
+
+  return days;
+};
+
+const groupPointsByDays = (points) => points
+  .sort((less, more) => less.start - more.start)
+  .reduce(reducePointByDay, {});
+
+const renderPointsItemsWithItems = (pointsListView, point) => {
+  const pointsItemView = new PointItemView();
+  const pointView = new PointView(point);
+  const pointEdidorView = new PointEditorView(point, DESTINATIONS);
+
+  pointView.setEditClickHandler(() => {
+    replace(pointEdidorView, pointView);
+  });
+
+  pointEdidorView.setFormSubmitHandler(() => {
+    replace(pointView, pointEdidorView);
+  });
+
+  pointEdidorView.setFormResetHandler(() => {
+    replace(pointView, pointEdidorView);
+  });
+
+  pointEdidorView.setRollupButtonClickHandler(() => {
+    replace(pointView, pointEdidorView);
+  });
+
+  render(pointsListView, pointsItemView, BEFORE_END);
+  render(pointsItemView, pointView, BEFORE_END);
+};
 
 const tripMainElement = document.querySelector(`.trip-main`);
 const infoView = new InfoView();
@@ -58,42 +103,29 @@ render(tripMainElement, newPointButtonView, BEFORE_END);
 
 const tripEventsElement = document.querySelector(`.trip-events`);
 
-if (points.length > 0) {
+if (POINTS.length > 0) {
   const sortView = new SortView();
   render(tripEventsElement, sortView, BEFORE_END);
   const daysView = new DaysView();
   render(tripEventsElement, daysView, BEFORE_END);
+  const days = groupPointsByDays(POINTS);
 
-  let currentDay = null;
-  let dayCount = 0;
-  let dayElement = null;
-  let pointsListView = null;
+  Object.entries(days)
+    .forEach(([date, points], counter) => {
+      const dayView = new DayView(
+          {
+            dayCount: counter + 1,
+            isCountRender: POINTS.length > 1,
+            date,
+          }
+      );
+      render(daysView, dayView, BEFORE_END);
+      const pointsListView = new PointsListView();
+      render(dayView, pointsListView, BEFORE_END);
 
-  points
-    .sort((a, b) => a.start - b.start)
-    .forEach((point, index) => {
-      const pointDay = formatDateYyyyMmDdWithDash(point.start);
-
-      if (currentDay !== pointDay) {
-        currentDay = pointDay;
-        dayCount++;
-        dayElement = new DayView(
-            {
-              dayCount,
-              date: point.start,
-              dateTimeFormat: currentDay,
-            }
-        );
-        render(daysView, dayElement, BEFORE_END);
-        pointsListView = new PointsListView();
-        render(dayElement, pointsListView, BEFORE_END);
-      }
-
-      const pointsItemView = new PointItemView();
-      render(pointsListView, pointsItemView, BEFORE_END);
-
-      const pointView = new PointView(point);
-      render(pointsListView, pointView, BEFORE_END);
+      points.forEach((point) => {
+        renderPointsItemsWithItems(pointsListView, point);
+      });
     });
 } else {
   const pointMessageNoEventsView = new PointMessageView(PointMessage.NO_EVENTS);
