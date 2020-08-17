@@ -22,7 +22,11 @@ const formatterHhMm = new Intl.DateTimeFormat([], {
 });
 
 export const convertNumberOfDate = (value) => String(value).padStart(2, `0`);
-export const convertToDateWithDash = (date) => formatter.format(date).replace(`,`, ``);
+/**
+ * @param {date} date
+ * @return {date} 17/08/20 18:00
+ */
+export const formatDateYyyyMmDdHhMmWithDash = (date) => formatter.format(date).replace(`,`, ``);
 export const formatDateHhMm = (date) => formatterHhMm.format(date);
 export const formatDateYyyyMmDdWithDash = (value) => new Date(value).toISOString().split(`T`)[0];
 

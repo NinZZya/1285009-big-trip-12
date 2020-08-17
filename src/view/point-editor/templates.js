@@ -1,5 +1,5 @@
 import {pointGroupToTypes} from './data';
-import {convertToDateWithDash} from '../../utils/date';
+import {formatDateYyyyMmDdHhMmWithDash} from '../../utils/date';
 import {getPointTypeWithPreposition} from './type-preposition';
 
 
@@ -98,8 +98,8 @@ const createDestinationTemplate = (currentType, destination, destinations) => {
 };
 
 const createTimeTemplate = ({start, end}) => {
-  const timeStart = convertToDateWithDash(start);
-  const timeEnd = convertToDateWithDash(end);
+  const timeStart = formatDateYyyyMmDdHhMmWithDash(start);
+  const timeEnd = formatDateYyyyMmDdHhMmWithDash(end);
   return (
     `<div class="event__field-group  event__field-group--time">
       <label class="visually-hidden" for="event-start-time-1">
