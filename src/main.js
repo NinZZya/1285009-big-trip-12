@@ -9,7 +9,7 @@ import {
   DayView,
   PointsListView,
   PointItemView,
-  createPointTemplate,
+  PointView,
   createPointEditorTemplate,
   createPointMessageTemplate,
   /* eslint-disable-next-line */
@@ -97,8 +97,8 @@ if (points.length > 0) {
         const pointEditorElement = createElement(createPointEditorTemplate(point, DESTINATIONS));
         render(pointsItemView, pointEditorElement, BEFORE_END);
       } else {
-        const pointElement = createElement(createPointTemplate(point));
-        render(pointsListView, pointElement, BEFORE_END);
+        const pointView = new PointView(point);
+        render(pointsListView, pointView, BEFORE_END);
       }
     });
 } else {

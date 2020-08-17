@@ -1,3 +1,4 @@
+import AbstractView from '../abstract/abstract';
 import {createOfferTemplate} from './templates';
 import {
   diffDate,
@@ -61,4 +62,14 @@ const createPointTemplate = (point) => {
   );
 };
 
-export {createPointTemplate};
+class PointView extends AbstractView {
+  constructor(point) {
+    super();
+    this._point = point;
+  }
+  getTemplate() {
+    return createPointTemplate(this._point);
+  }
+}
+
+export default PointView;

@@ -8,7 +8,7 @@ import DaysView from './days/days';
 import DayView from './day/day';
 import PointsListView from './points-list/points-list';
 import PointItemView from './points-item/points-item';
-import {createPointTemplate} from './point/point';
+import PointView from './point/point';
 import {createPointEditorTemplate} from './point-editor/point-editor';
 import {createPointMessageTemplate} from './point-message/point-message';
 import {createStatisticsTemplate} from './statistics/statistics';
@@ -24,7 +24,7 @@ export {
   DayView,
   PointsListView,
   PointItemView,
-  createPointTemplate,
+  PointView,
   createPointEditorTemplate,
   createPointMessageTemplate,
   createStatisticsTemplate,
