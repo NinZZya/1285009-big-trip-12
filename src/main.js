@@ -3,7 +3,7 @@ import {
   ControlsView,
   TabsView,
   FiltersView,
-  createSortTemplate,
+  SortView,
   createPointEditorTemplate,
   createDaysTemplate,
   createDayTemplate,
@@ -60,8 +60,8 @@ render(tripMainElement, newPointButtonElement, BEFORE_END);
 const tripEventsElement = document.querySelector(`.trip-events`);
 
 if (points.length > 0) {
-  const sortElement = createElement(createSortTemplate());
-  render(tripEventsElement, sortElement, BEFORE_END);
+  const sortView = new SortView();
+  render(tripEventsElement, sortView, BEFORE_END);
   const daysElement = createElement(createDaysTemplate());
   render(tripEventsElement, daysElement, BEFORE_END);
 
