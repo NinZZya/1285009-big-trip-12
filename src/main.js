@@ -1,7 +1,7 @@
 import {
   InfoView,
-  createTabsTemplate,
-  createControlsTemplate,
+  ControlsView,
+  TabsView,
   createFiltersTemplate,
   createSortTemplate,
   createPointEditorTemplate,
@@ -46,13 +46,13 @@ const tripMainElement = document.querySelector(`.trip-main`);
 const infoView = new InfoView();
 render(tripMainElement, infoView, AFTER_BEGIN);
 
-const controlsElement = createElement(createControlsTemplate());
-render(tripMainElement, controlsElement, BEFORE_END);
-const tripFilterEventsHeaderElement = controlsElement.querySelector(`#trip-filter-events`);
-const tabsElement = createElement(createTabsTemplate());
-render(tripFilterEventsHeaderElement, tabsElement, BEFORE_BEGIN);
+const controlsView = new ControlsView();
+render(tripMainElement, controlsView, BEFORE_END);
+const tripFilterEventsHeaderElement = controlsView.getElement().querySelector(`#trip-filter-events`);
+const tabsView = new TabsView();
+render(tripFilterEventsHeaderElement, tabsView, BEFORE_BEGIN);
 const filtersElement = createElement(createFiltersTemplate());
-render(controlsElement, filtersElement, BEFORE_END);
+render(controlsView, filtersElement, BEFORE_END);
 
 const newPointButtonElement = createElement(createNewPointButtonTemplate());
 render(tripMainElement, newPointButtonElement, BEFORE_END);

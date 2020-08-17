@@ -1,6 +1,6 @@
 import InfoView from './info/info';
-import {createTabsTemplate} from './tabs/tabs';
-import {createControlsTemplate} from './controls/controls';
+import ControlsView from './controls/controls';
+import TabsView from './tabs/tabs';
 import {createFiltersTemplate} from './filters/filters';
 import {createSortTemplate} from './sort/sort';
 import {createPointEditorTemplate} from './point-editor/point-editor';
@@ -15,8 +15,8 @@ import {createStatisticsTemplate} from './statistics/statistics';
 
 export {
   InfoView,
-  createTabsTemplate,
-  createControlsTemplate,
+  TabsView,
+  ControlsView,
   createFiltersTemplate,
   createSortTemplate,
   createPointEditorTemplate,
