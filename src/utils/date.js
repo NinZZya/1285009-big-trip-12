@@ -22,9 +22,9 @@ const formatterHhMm = new Intl.DateTimeFormat([], {
 });
 
 const convertNumberOfDate = (value) => String(value).padStart(2, `0`);
-
 const convertToDateWithDash = (date) => formatter.format(date).replace(`,`, ``);
 const convertToHhMm = (date) => formatterHhMm.format(date);
+
 const convertToShortDateWithDash = (value) => {
   const date = new Date(value);
   const month = convertNumberOfDate(date.getMonth() + 1);
@@ -33,6 +33,7 @@ const convertToShortDateWithDash = (value) => {
 
   return [year, month, day].join(`-`);
 };
+
 const diffDate = (date1, date2) => {
   const subValue = ((+date1) - (+date2));
   const day = Math.floor(subValue / DAY);

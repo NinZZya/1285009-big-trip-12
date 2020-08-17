@@ -6,7 +6,7 @@ import {
   NewPointButtonView,
   SortView,
   DaysView,
-  createDayTemplate,
+  DayView,
   createPointsListTemplate,
   createPointsItemTemplate,
   createPointTemplate,
@@ -78,13 +78,13 @@ if (points.length > 0) {
       if (currentDay !== pointDay) {
         currentDay = pointDay;
         dayCount++;
-        dayElement = createElement(createDayTemplate(
+        dayElement = new DayView(
             {
               dayCount,
               date: point.start,
               dateTimeFormat: currentDay,
             }
-        ));
+        );
         render(daysView, dayElement, BEFORE_END);
         pointsListElement = createElement(createPointsListTemplate());
         render(dayElement, pointsListElement, BEFORE_END);

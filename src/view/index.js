@@ -5,8 +5,8 @@ import FiltersView from './filters/filters';
 import SortView from './sort/sort';
 import NewPointButtonView from './new-point-button/new-point-button';
 import DaysView from './days/days';
+import DayView from './day/day';
 import {createPointEditorTemplate} from './point-editor/point-editor';
-import {createDayTemplate} from './day/day';
 import {createPointsListTemplate} from './points-list/points-list';
 import {createPointsItemTemplate} from './points-item/points-item';
 import {createPointTemplate} from './point/point';
@@ -21,11 +21,11 @@ export {
   SortView,
   NewPointButtonView,
   DaysView,
-  createPointEditorTemplate,
-  createDayTemplate,
+  DayView,
   createPointsListTemplate,
   createPointsItemTemplate,
   createPointTemplate,
+  createPointEditorTemplate,
   createPointMessageTemplate,
   createStatisticsTemplate,
 };
