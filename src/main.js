@@ -23,7 +23,7 @@ import {
 } from './utils/dom';
 
 import {
-  convertToShortDateWithDash,
+  formatDateYyyyMmDdWithDash,
 } from './utils/date';
 
 import {
@@ -73,7 +73,7 @@ if (points.length > 0) {
   points
     .sort((a, b) => a.start - b.start)
     .forEach((point, index) => {
-      const pointDay = convertToShortDateWithDash(point.start);
+      const pointDay = formatDateYyyyMmDdWithDash(point.start);
 
       if (currentDay !== pointDay) {
         currentDay = pointDay;

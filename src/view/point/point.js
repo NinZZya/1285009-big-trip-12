@@ -1,14 +1,14 @@
 import {createOfferTemplate} from './templates';
 import {
-  convertToHhMm,
   diffDate,
+  formatDateHhMm,
+  formatDateYyyyMmDdWithDash,
   convertNumberOfDate,
-  convertToShortDateWithDash
 } from '../../utils/date';
 
 const OFFERS_COUNT = 3;
 
-const convertDay = (day) => day > 0
+const convertDayTitle = (day) => day > 0
   ? `${convertNumberOfDate(day)}D`
   : ``;
 
@@ -20,13 +20,14 @@ const createPointTemplate = (point) => {
     price,
     offers,
   } = point;
+
   const duration = diffDate(end, start);
   const {day, hour, minute} = duration;
-  const durationValue = `${convertDay(day)} ${convertNumberOfDate(hour)}H ${convertNumberOfDate(minute)}M`;
-  const dateStart = convertToShortDateWithDash(start);
-  const dateEnd = convertToShortDateWithDash(end);
-  const timeStart = convertToHhMm(start);
-  const timeEnd = convertToHhMm(end);
+  const durationValue = `${convertDayTitle(day)} ${convertNumberOfDate(hour)}H ${convertNumberOfDate(minute)}M`;
+  const dateStart = formatDateYyyyMmDdWithDash(start);
+  const dateEnd = formatDateYyyyMmDdWithDash(end);
+  const timeStart = formatDateHhMm(start);
+  const timeEnd = formatDateHhMm(end);
 
   return (
     `<div class="event">
