@@ -1,6 +1,14 @@
 
 import AbstractView from '../view/abstract/abstract';
 
+const getElement = (element) => {
+  if (element instanceof AbstractView) {
+    return element.getElement();
+  }
+
+  return element;
+};
+
 export const RenderPosition = {
   BEFORE_BEGIN: `BEFORE_BEGIN`,
   AFTER_BEGIN: `AFTER_BEGIN`,
@@ -9,14 +17,6 @@ export const RenderPosition = {
 };
 
 export const render = (element1, element2, place = RenderPosition.BEFORE_END) => {
-  const getElement = (element) => {
-    if (element instanceof AbstractView) {
-      return element.getElement();
-    }
-
-    return element;
-  };
-
   element1 = getElement(element1);
   element2 = getElement(element2);
 
@@ -43,4 +43,17 @@ export const createElement = (template) => {
   element.innerHTML = template;
 
   return element.firstChild;
+};
+
+export const replace = (newChild, oldChild) => {
+  newChild = getElement(newChild);
+  oldChild = getElement(oldChild);
+
+  const parent = oldChild.parentElement;
+
+  if (parent === null || oldChild === null || newChild === null) {
+    throw new Error(`Can't replace unexisting elements`);
+  }
+
+  parent.replaceChild(newChild, oldChild);
 };
