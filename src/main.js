@@ -27,6 +27,10 @@ import {
 } from './utils/date';
 
 import {
+  isEscPressed,
+} from './utils/utils';
+
+import {
   generatePoints,
   DESTINATIONS,
 } from './mock/points';
@@ -66,20 +70,40 @@ const renderPointsItemsWithItems = (pointsListView, point) => {
   const pointView = new PointView(point);
   const pointEditView = new PointEditView(point, DESTINATIONS);
 
-  pointView.setRollupButtonClickHandler(() => {
+  const replacePointToPointEdit = () => {
     replace(pointEditView, pointView);
+  };
+
+  const replacePointEditToPoint = () => {
+    replace(pointView, pointEditView);
+  };
+
+  const onEscKeyDown = (evt) => {
+    if (isEscPressed) {
+      evt.preventDefault();
+      replacePointEditToPoint();
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    }
+  };
+
+  pointView.setRollupButtonClickHandler(() => {
+    replacePointToPointEdit();
+    document.addEventListener(`keydown`, onEscKeyDown);
   });
 
   pointEditView.setFormSubmitHandler(() => {
-    replace(pointView, pointEditView);
+    replacePointEditToPoint();
+    document.removeEventListener(`keydown`, onEscKeyDown);
   });
 
   pointEditView.setFormResetHandler(() => {
-    replace(pointView, pointEditView);
+    replacePointEditToPoint();
+    document.removeEventListener(`keydown`, onEscKeyDown);
   });
 
   pointEditView.setRollupButtonClickHandler(() => {
-    replace(pointView, pointEditView);
+    replacePointEditToPoint();
+    document.removeEventListener(`keydown`, onEscKeyDown);
   });
 
   render(pointsListView, pointsItemView, BEFORE_END);
