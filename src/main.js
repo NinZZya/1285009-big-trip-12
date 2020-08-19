@@ -86,8 +86,7 @@ const renderPointsItemsWithItems = (pointsListView, point) => {
   const onEscKeyDown = (evt) => {
     if (isEscPressed) {
       evt.preventDefault();
-      replacePointEditToPoint();
-      document.removeEventListener(`keydown`, onEscKeyDown);
+      rollupPointEdit();
     }
   };
 
