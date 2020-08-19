@@ -10,7 +10,7 @@ import {
   PointsListView,
   PointsItemView,
   PointView,
-  PointEditorView,
+  PointEditView,
   PointMessageView,
   /* eslint-disable-next-line */
   StatisticsView,
@@ -64,22 +64,22 @@ const groupPointsByDays = (points) => points
 const renderPointsItemsWithItems = (pointsListView, point) => {
   const pointsItemView = new PointsItemView();
   const pointView = new PointView(point);
-  const pointEdidorView = new PointEditorView(point, DESTINATIONS);
+  const pointEditView = new PointEditView(point, DESTINATIONS);
 
   pointView.setEditClickHandler(() => {
-    replace(pointEdidorView, pointView);
+    replace(pointEditView, pointView);
   });
 
-  pointEdidorView.setFormSubmitHandler(() => {
-    replace(pointView, pointEdidorView);
+  pointEditView.setFormSubmitHandler(() => {
+    replace(pointView, pointEditView);
   });
 
-  pointEdidorView.setFormResetHandler(() => {
-    replace(pointView, pointEdidorView);
+  pointEditView.setFormResetHandler(() => {
+    replace(pointView, pointEditView);
   });
 
-  pointEdidorView.setRollupButtonClickHandler(() => {
-    replace(pointView, pointEdidorView);
+  pointEditView.setRollupButtonClickHandler(() => {
+    replace(pointView, pointEditView);
   });
 
   render(pointsListView, pointsItemView, BEFORE_END);

@@ -10,7 +10,7 @@ import DayView from './day/day';
 import PointsListView from './points-list/points-list';
 import PointsItemView from './points-item/points-item';
 import PointView from './point/point';
-import PointEditorView from './point-editor/point-editor';
+import PointEditView from './point-edit/point-edit';
 import PointMessageView from './point-message/point-message';
 import StatisticsView from './statistics/statistics';
 
@@ -27,7 +27,7 @@ export {
   PointsListView,
   PointsItemView,
   PointView,
-  PointEditorView,
+  PointEditView,
   PointMessageView,
   StatisticsView,
 };

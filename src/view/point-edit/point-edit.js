@@ -1,20 +1,20 @@
 import AbstractView from '../abstract';
-import {createTripEventEditorHeaderTemplate} from './header';
+import {createTripEventEditHeaderTemplate} from './header';
 import {createDetailsTemplate} from './details';
 /* eslint-disable-next-line */
 import {createDestinationTemplate} from './destination';
 
-const createPointEditorTemplate = (point, destinations) => {
+const createPointEditTemplate = (point, destinations) => {
 
   return (
     `<form class="event  event--edit" action="#" method="post">
-      ${createTripEventEditorHeaderTemplate(point, destinations)}
+      ${createTripEventEditHeaderTemplate(point, destinations)}
       ${createDetailsTemplate(point)}
     </form>`
   );
 };
 
-class PointEditorView extends AbstractView {
+class PointEditView extends AbstractView {
   constructor(point, destinations) {
     super();
     this._point = point;
@@ -25,7 +25,7 @@ class PointEditorView extends AbstractView {
   }
 
   getTemplate() {
-    return createPointEditorTemplate(this._point, this._destinations);
+    return createPointEditTemplate(this._point, this._destinations);
   }
 
   _formSubmitHandler(evt) {
@@ -59,4 +59,4 @@ class PointEditorView extends AbstractView {
   }
 }
 
-export default PointEditorView;
+export default PointEditView;

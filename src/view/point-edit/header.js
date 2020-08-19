@@ -9,7 +9,7 @@ import {
   createRollupButtonTemplate,
 } from './templates';
 
-const createTripEventEditorHeaderTemplate = (point, destinations) => {
+const createTripEventEditHeaderTemplate = (point, destinations) => {
   const {
     type,
     destination,
@@ -35,4 +35,4 @@ const createTripEventEditorHeaderTemplate = (point, destinations) => {
   );
 };
 
-export {createTripEventEditorHeaderTemplate};
+export {createTripEventEditHeaderTemplate};
