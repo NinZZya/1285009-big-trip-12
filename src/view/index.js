@@ -1,3 +1,4 @@
+import AbstractView from './abstract';
 import InfoView from './info/info';
 import ControlsView from './controls/controls';
 import TabsView from './tabs/tabs';
@@ -14,6 +15,7 @@ import PointMessageView from './point-message/point-message';
 import StatisticsView from './statistics/statistics';
 
 export {
+  AbstractView,
   InfoView,
   TabsView,
   ControlsView,

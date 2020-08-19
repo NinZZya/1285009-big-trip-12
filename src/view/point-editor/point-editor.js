@@ -1,4 +1,4 @@
-import AbstractView from '../abstract/abstract';
+import AbstractView from '../abstract';
 import {createTripEventEditorHeaderTemplate} from './header';
 import {createDetailsTemplate} from './details';
 /* eslint-disable-next-line */

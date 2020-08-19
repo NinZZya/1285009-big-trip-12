@@ -1,4 +1,4 @@
-import AbstractView from '../abstract/abstract';
+import AbstractView from '../abstract';
 import {TABS} from './data';
 
 const DEFAULT_TAB = 0;

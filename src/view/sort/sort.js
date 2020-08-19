@@ -1,4 +1,4 @@
-import AbstractView from '../abstract/abstract';
+import AbstractView from '../abstract';
 import {SORTS} from './data';
 
 const DEFAULT_SORT = 0;

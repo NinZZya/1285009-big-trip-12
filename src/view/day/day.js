@@ -1,4 +1,4 @@
-import AbstractView from '../abstract/abstract';
+import AbstractView from '../abstract';
 
 const convertToTitle = (value) => {
   const date = new Date(value);

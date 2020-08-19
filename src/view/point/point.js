@@ -1,4 +1,4 @@
-import AbstractView from '../abstract/abstract';
+import AbstractView from '../abstract';
 import {createOfferTemplate} from './templates';
 import {
   diffDate,

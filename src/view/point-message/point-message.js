@@ -1,4 +1,4 @@
-import AbstractView from '../abstract/abstract';
+import AbstractView from '../abstract';
 
 const createPointMessageTemplate = (message) =>
   `<p class="trip-events__msg">

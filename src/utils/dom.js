@@ -1,5 +1,5 @@
 
-import AbstractView from '../view/abstract/abstract';
+import {AbstractView} from '../view/';
 
 const getElement = (element) => {
   if (element instanceof AbstractView) {

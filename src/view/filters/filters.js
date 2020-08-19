@@ -1,4 +1,4 @@
-import AbstractView from '../abstract/abstract';
+import AbstractView from '../abstract';
 import {FILTERS} from './data';
 
 const DEFAULT_FILTER = 0;
