@@ -8,9 +8,14 @@ import {
 
 const OFFERS_COUNT = 3;
 
-const convertDayTitle = (day) => day > 0
-  ? `${convertNumberOfDate(day)}D`
-  : ``;
+const convertDurationValue = (duration) => {
+  const {day, hour, minute} = duration;
+  if (day > 0) {
+    return `${convertNumberOfDate(day)}D ${convertNumberOfDate(hour)}H ${convertNumberOfDate(minute)}M`;
+  }
+
+  return `${hour > 0 ? `${convertNumberOfDate(hour)}H` : ``} ${convertNumberOfDate(minute)}M`;
+};
 
 const createPointTemplate = (point) => {
   const {
@@ -22,8 +27,7 @@ const createPointTemplate = (point) => {
   } = point;
 
   const duration = diffDate(end, start);
-  const {day, hour, minute} = duration;
-  const durationValue = `${convertDayTitle(day)} ${convertNumberOfDate(hour)}H ${convertNumberOfDate(minute)}M`;
+  const durationValue = convertDurationValue(duration);
   const formatedStartDate = formatDateISODdMmYyyyHhMm(start);
   const formatedEndDate = formatDateISODdMmYyyyHhMm(end);
 
