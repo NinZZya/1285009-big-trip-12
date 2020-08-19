@@ -19,10 +19,10 @@ const getDayInfoTemplate = ({dayCount, date}) => {
   );
 };
 
-const createDayTemplate = (dayData) => {
+const createDayTemplate = (day) => {
   return (
     `<li class="trip-days__item  day">
-    ${dayData.isCountRender ? getDayInfoTemplate(dayData) : `<div class="day__info"></div>`}
+    ${day.isCountRender ? getDayInfoTemplate(day) : `<div class="day__info"></div>`}
     </li>`
   );
 };
