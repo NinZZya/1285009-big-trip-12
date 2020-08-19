@@ -1,29 +1,29 @@
 import {
-  createInfoTemplate,
-  createTabsTemplate,
-  createControlsTemplate,
-  createFiltersTemplate,
-  createSortTemplate,
-  createPointEditorTemplate,
-  createDaysTemplate,
-  createDayTemplate,
-  createPointsListTemplate,
-  createPointsItemTemplate,
-  createPointTemplate,
-  createNewPointButtonTemplate,
-  createPointMessageTemplate,
+  Info as InfoView,
+  Controls as ControlsView,
+  Tabs as TabsView,
+  Filters as FiltersView,
+  NewPointButton as NewPointButtonView,
+  Sort as SortView,
+  Days as DaysView,
+  Day as DayView,
+  PointsList as PointsListView,
+  PointsItem as PointsItemView,
+  Point as PointView,
+  PointEdit as PointEditView,
+  PointMessage as PointMessageView,
   /* eslint-disable-next-line */
-  createStatisticsTemplate,
+  Statistics as StatisticsView,
 } from './view/';
 
 import {
   RenderPosition,
   render,
-  createElement,
+  replace,
 } from './utils/dom';
 
 import {
-  convertToShortDateWithDash,
+  formatDateISODdMmYyyyHhMm,
 } from './utils/date';
 
 import {
@@ -40,70 +40,94 @@ const {
 } = RenderPosition;
 
 const POINTS_COUNT = 20;
-const points = generatePoints(POINTS_COUNT);
+const tripPoints = generatePoints(POINTS_COUNT);
+
+const reducePointByDay = (days, point) => {
+  const date = point.start;
+  const dayDate = formatDateISODdMmYyyyHhMm(date)
+      .toString()
+      .split(`T`)[0];
+
+  if (Array.isArray(days[dayDate])) {
+    days[dayDate].push(point);
+  } else {
+    days[dayDate] = [point];
+  }
+
+  return days;
+};
+
+const groupPointsByDays = (points) => points
+  .sort((less, more) => less.start - more.start)
+  .reduce(reducePointByDay, {});
+
+const renderPointsItemsWithItems = (pointsListView, point) => {
+  const pointsItemView = new PointsItemView();
+  const pointView = new PointView(point);
+  const pointEditView = new PointEditView(point, DESTINATIONS);
+
+  pointView.setRollupButtonClickHandler(() => {
+    replace(pointEditView, pointView);
+  });
+
+  pointEditView.setFormSubmitHandler(() => {
+    replace(pointView, pointEditView);
+  });
+
+  pointEditView.setFormResetHandler(() => {
+    replace(pointView, pointEditView);
+  });
+
+  pointEditView.setRollupButtonClickHandler(() => {
+    replace(pointView, pointEditView);
+  });
+
+  render(pointsListView, pointsItemView, BEFORE_END);
+  render(pointsItemView, pointView, BEFORE_END);
+};
 
 const tripMainElement = document.querySelector(`.trip-main`);
-const infoElement = createElement(createInfoTemplate());
-render(tripMainElement, infoElement, AFTER_BEGIN);
+const infoView = new InfoView();
+render(tripMainElement, infoView, AFTER_BEGIN);
 
-const controlsElement = createElement(createControlsTemplate());
-render(tripMainElement, controlsElement, BEFORE_END);
-const tripFilterEventsHeaderElement = controlsElement.querySelector(`#trip-filter-events`);
-const tabsElement = createElement(createTabsTemplate());
-render(tripFilterEventsHeaderElement, tabsElement, BEFORE_BEGIN);
-const filtersElement = createElement(createFiltersTemplate());
-render(controlsElement, filtersElement, BEFORE_END);
+const controlsView = new ControlsView();
+render(tripMainElement, controlsView, BEFORE_END);
+const tripFilterEventsHeaderElement = controlsView.getFilterEventsHeaderElement();
+const tabsView = new TabsView();
+render(tripFilterEventsHeaderElement, tabsView, BEFORE_BEGIN);
+const filtersView = new FiltersView();
+render(controlsView, filtersView, BEFORE_END);
 
-const newPointButtonElement = createElement(createNewPointButtonTemplate());
-render(tripMainElement, newPointButtonElement, BEFORE_END);
+const newPointButtonView = new NewPointButtonView();
+render(tripMainElement, newPointButtonView, BEFORE_END);
 
 const tripEventsElement = document.querySelector(`.trip-events`);
 
-if (points.length > 0) {
-  const sortElement = createElement(createSortTemplate());
-  render(tripEventsElement, sortElement, BEFORE_END);
-  const daysElement = createElement(createDaysTemplate());
-  render(tripEventsElement, daysElement, BEFORE_END);
+if (tripPoints.length > 0) {
+  const sortView = new SortView();
+  render(tripEventsElement, sortView, BEFORE_END);
+  const daysView = new DaysView();
+  render(tripEventsElement, daysView, BEFORE_END);
+  const days = groupPointsByDays(tripPoints);
 
-  let currentDay = null;
-  let dayCount = 0;
-  let dayElement = null;
-  let pointsListElement = null;
+  Object.entries(days)
+    .forEach(([date, points], counter) => {
+      const dayView = new DayView(
+          {
+            dayCount: counter + 1,
+            isCountRender: tripPoints.length > 1,
+            date,
+          }
+      );
+      render(daysView, dayView, BEFORE_END);
+      const pointsListView = new PointsListView();
+      render(dayView, pointsListView, BEFORE_END);
 
-  points
-    .sort((a, b) => a.start - b.start)
-    .forEach((point, index) => {
-      const pointDay = convertToShortDateWithDash(point.start);
-
-      if (currentDay !== pointDay) {
-        currentDay = pointDay;
-        dayCount++;
-        dayElement = createElement(createDayTemplate(
-            {
-              dayCount,
-              date: point.start,
-              dateTimeFormat: currentDay,
-            }
-        ));
-        render(daysElement, dayElement, BEFORE_END);
-        pointsListElement = createElement(createPointsListTemplate());
-        render(dayElement, pointsListElement, BEFORE_END);
-      }
-
-      const pointsItemElement = createElement(createPointsItemTemplate());
-      render(pointsListElement, pointsItemElement, BEFORE_END);
-
-      if (index === 0) {
-        const pointEditorElement = createElement(createPointEditorTemplate(point, DESTINATIONS));
-        render(pointsItemElement, pointEditorElement, BEFORE_END);
-      } else {
-        const pointElement = createElement(createPointTemplate(point));
-        render(pointsListElement, pointElement, BEFORE_END);
-      }
+      points.forEach((point) => {
+        renderPointsItemsWithItems(pointsListView, point);
+      });
     });
 } else {
-  const pointMessageNoEventsElement = createElement(
-      createPointMessageTemplate(PointMessage.NO_EVENTS)
-  );
-  render(tripEventsElement, pointMessageNoEventsElement, BEFORE_END);
+  const pointMessageNoEventsView = new PointMessageView(PointMessage.NO_EVENTS);
+  render(tripEventsElement, pointMessageNoEventsView, BEFORE_END);
 }

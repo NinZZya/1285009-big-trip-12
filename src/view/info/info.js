@@ -1,3 +1,5 @@
+import AbstractView from '../abstract';
+
 const createInfoTemplate = () => {
   return (
     `<section class="trip-main__trip-info  trip-info">
@@ -19,4 +21,10 @@ const createInfoTemplate = () => {
   );
 };
 
-export {createInfoTemplate};
+class Info extends AbstractView {
+  getTemplate() {
+    return createInfoTemplate();
+  }
+}
+
+export default Info;

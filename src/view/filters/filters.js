@@ -1,3 +1,4 @@
+import AbstractView from '../abstract';
 import {FILTERS} from './data';
 
 const DEFAULT_FILTER = 0;
@@ -32,4 +33,10 @@ const createFiltersTemplate = () => {
   );
 };
 
-export {createFiltersTemplate};
+class Filters extends AbstractView {
+  getTemplate() {
+    return createFiltersTemplate();
+  }
+}
+
+export default Filters;

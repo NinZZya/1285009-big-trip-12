@@ -1,31 +1,33 @@
-import {createInfoTemplate} from './info/info';
-import {createTabsTemplate} from './tabs/tabs';
-import {createControlsTemplate} from './controls/controls';
-import {createFiltersTemplate} from './filters/filters';
-import {createSortTemplate} from './sort/sort';
-import {createPointEditorTemplate} from './point-editor/point-editor';
-import {createDaysTemplate} from './days/days';
-import {createDayTemplate} from './day/day';
-import {createPointsListTemplate} from './points-list/points-list';
-import {createPointsItemTemplate} from './points-item/points-item';
-import {createPointTemplate} from './point/point';
-import {createNewPointButtonTemplate} from './new-point-button/new-point-button';
-import {createPointMessageTemplate} from './point-message/point-message';
-import {createStatisticsTemplate} from './statistics/statistics';
+import Abstract from './abstract';
+import Info from './info/info';
+import Controls from './controls/controls';
+import Tabs from './tabs/tabs';
+import Filters from './filters/filters';
+import Sort from './sort/sort';
+import NewPointButton from './new-point-button/new-point-button';
+import Days from './days/days';
+import Day from './day/day';
+import PointsList from './points-list/points-list';
+import PointsItem from './points-item/points-item';
+import Point from './point/point';
+import PointEdit from './point-edit/point-edit';
+import PointMessage from './point-message/point-message';
+import Statistics from './statistics/statistics';
 
 export {
-  createInfoTemplate,
-  createTabsTemplate,
-  createControlsTemplate,
-  createFiltersTemplate,
-  createSortTemplate,
-  createPointEditorTemplate,
-  createDaysTemplate,
-  createDayTemplate,
-  createPointsListTemplate,
-  createPointsItemTemplate,
-  createPointTemplate,
-  createNewPointButtonTemplate,
-  createPointMessageTemplate,
-  createStatisticsTemplate,
+  Abstract,
+  Info,
+  Tabs,
+  Controls,
+  Filters,
+  Sort,
+  NewPointButton,
+  Days,
+  Day,
+  PointsList,
+  PointsItem,
+  Point,
+  PointEdit,
+  PointMessage,
+  Statistics,
 };

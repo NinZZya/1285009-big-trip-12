@@ -1,3 +1,4 @@
+import AbstractView from '../abstract';
 import {SORTS} from './data';
 
 const DEFAULT_SORT = 0;
@@ -44,4 +45,10 @@ const createSortTemplate = () => {
   );
 };
 
-export {createSortTemplate};
+class Sort extends AbstractView {
+  getTemplate() {
+    return createSortTemplate();
+  }
+}
+
+export default Sort;

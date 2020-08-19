@@ -1,3 +1,5 @@
+import AbstractView from '../abstract';
+
 const createNewPointButtonTemplate = () => {
   return (
     `<button
@@ -9,4 +11,10 @@ const createNewPointButtonTemplate = () => {
   );
 };
 
-export {createNewPointButtonTemplate};
+class NewPointButton extends AbstractView {
+  getTemplate() {
+    return createNewPointButtonTemplate();
+  }
+}
+
+export default NewPointButton;

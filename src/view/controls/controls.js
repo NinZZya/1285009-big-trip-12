@@ -1,3 +1,5 @@
+import AbstractView from '../abstract';
+
 const createControlsTemplate = () => {
   return (
     `<div class="trip-main__trip-controls  trip-controls">
@@ -7,4 +9,14 @@ const createControlsTemplate = () => {
   );
 };
 
-export {createControlsTemplate};
+class Controls extends AbstractView {
+  getTemplate() {
+    return createControlsTemplate();
+  }
+
+  getFilterEventsHeaderElement() {
+    return this.getElement().querySelector(`#trip-filter-events`);
+  }
+}
+
+export default Controls;

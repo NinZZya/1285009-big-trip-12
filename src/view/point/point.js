@@ -1,16 +1,21 @@
+import AbstractView from '../abstract';
 import {createOfferTemplate} from './templates';
 import {
-  convertToHhMm,
   diffDate,
+  formatDateISODdMmYyyyHhMm,
   convertNumberOfDate,
-  convertToShortDateWithDash
 } from '../../utils/date';
 
 const OFFERS_COUNT = 3;
 
-const convertDay = (day) => day > 0
-  ? `${convertNumberOfDate(day)}D`
-  : ``;
+const convertDurationValue = (duration) => {
+  const {day, hour, minute} = duration;
+  if (day > 0) {
+    return `${convertNumberOfDate(day)}D ${convertNumberOfDate(hour)}H ${convertNumberOfDate(minute)}M`;
+  }
+
+  return `${hour > 0 ? `${convertNumberOfDate(hour)}H` : ``} ${convertNumberOfDate(minute)}M`;
+};
 
 const createPointTemplate = (point) => {
   const {
@@ -20,13 +25,11 @@ const createPointTemplate = (point) => {
     price,
     offers,
   } = point;
+
   const duration = diffDate(end, start);
-  const {day, hour, minute} = duration;
-  const durationValue = `${convertDay(day)} ${convertNumberOfDate(hour)}H ${convertNumberOfDate(minute)}M`;
-  const dateStart = convertToShortDateWithDash(start);
-  const dateEnd = convertToShortDateWithDash(end);
-  const timeStart = convertToHhMm(start);
-  const timeEnd = convertToHhMm(end);
+  const durationValue = convertDurationValue(duration);
+  const formatedStartDate = formatDateISODdMmYyyyHhMm(start);
+  const formatedEndDate = formatDateISODdMmYyyyHhMm(end);
 
   return (
     `<div class="event">
@@ -37,9 +40,9 @@ const createPointTemplate = (point) => {
 
       <div class="event__schedule">
         <p class="event__time">
-          <time class="event__start-time" datetime="${dateStart}T${timeStart}">${timeStart}</time>
+          <time class="event__start-time" datetime="${formatedStartDate}">${formatedStartDate.split(`T`)[1]}</time>
           &mdash;
-          <time class="event__end-time" datetime="${dateEnd}T${timeEnd}">${timeEnd}</time>
+          <time class="event__end-time" datetime="${formatedEndDate}">${formatedEndDate.split(`T`)[1]}</time>
         </p>
         <p class="event__duration">${durationValue}</p>
       </div>
@@ -60,4 +63,26 @@ const createPointTemplate = (point) => {
   );
 };
 
-export {createPointTemplate};
+class Point extends AbstractView {
+  constructor(point) {
+    super();
+    this._point = point;
+    this._rollupButtonClickHandler = this._rollupButtonClickHandler.bind(this);
+  }
+
+  getTemplate() {
+    return createPointTemplate(this._point);
+  }
+
+  _rollupButtonClickHandler(evt) {
+    evt.preventDefault();
+    this._callback.rollupButtonClick();
+  }
+
+  setRollupButtonClickHandler(callback) {
+    this._callback.rollupButtonClick = callback;
+    this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, this._rollupButtonClickHandler);
+  }
+}
+
+export default Point;
