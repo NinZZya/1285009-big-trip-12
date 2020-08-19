@@ -8,7 +8,7 @@ import NewPointButtonView from './new-point-button/new-point-button';
 import DaysView from './days/days';
 import DayView from './day/day';
 import PointsListView from './points-list/points-list';
-import PointItemView from './points-item/points-item';
+import PointsItemView from './points-item/points-item';
 import PointView from './point/point';
 import PointEditorView from './point-editor/point-editor';
 import PointMessageView from './point-message/point-message';
@@ -25,7 +25,7 @@ export {
   DaysView,
   DayView,
   PointsListView,
-  PointItemView,
+  PointsItemView,
   PointView,
   PointEditorView,
   PointMessageView,

@@ -7,10 +7,10 @@ const createPointsItemTemplate = () => {
   );
 };
 
-class PointItemView extends AbstractView {
+class PointsItemView extends AbstractView {
   getTemplate() {
     return createPointsItemTemplate();
   }
 }
 
-export default PointItemView;
+export default PointsItemView;

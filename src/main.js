@@ -8,7 +8,7 @@ import {
   DaysView,
   DayView,
   PointsListView,
-  PointItemView,
+  PointsItemView,
   PointView,
   PointEditorView,
   PointMessageView,
@@ -62,7 +62,7 @@ const groupPointsByDays = (points) => points
   .reduce(reducePointByDay, {});
 
 const renderPointsItemsWithItems = (pointsListView, point) => {
-  const pointsItemView = new PointItemView();
+  const pointsItemView = new PointsItemView();
   const pointView = new PointView(point);
   const pointEdidorView = new PointEditorView(point, DESTINATIONS);
 
