@@ -79,18 +79,18 @@ const PHOTOS = [
 
 
 const generatePoint = () => {
-  const date = getRandomDate(moveDateConfig);
+  const date = new Date(getRandomDate(moveDateConfig));
   return {
     type: getRandomArrayValue(POINT_TYPES),
     destination: getRandomArrayValue(DESTINATIONS),
     start: date,
-    end: getRandomDate(extend(
+    end: new Date(getRandomDate(extend(
         moveDateConfig,
         {
           date,
           move: MoveDate.FUTURE,
         }
-    )),
+    ))),
     price: getRandomInt(15, 500),
     description: getRandomArray(
         DESCRIPTIONS, getRandomInt(1, DESCRIPTIONS.length)

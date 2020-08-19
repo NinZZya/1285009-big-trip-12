@@ -24,10 +24,8 @@ const createPointTemplate = (point) => {
   const duration = diffDate(end, start);
   const {day, hour, minute} = duration;
   const durationValue = `${convertDayTitle(day)} ${convertNumberOfDate(hour)}H ${convertNumberOfDate(minute)}M`;
-  const dateStart = new Date(start);
-  const dateEnd = new Date(end);
-  const formatedStartDate = formatDateISODdMmYyyyHhMm(dateStart);
-  const formatedEndDate = formatDateISODdMmYyyyHhMm(dateEnd);
+  const formatedStartDate = formatDateISODdMmYyyyHhMm(start);
+  const formatedEndDate = formatDateISODdMmYyyyHhMm(end);
 
   return (
     `<div class="event">

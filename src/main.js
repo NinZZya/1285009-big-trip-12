@@ -43,7 +43,7 @@ const POINTS_COUNT = 20;
 const tripPoints = generatePoints(POINTS_COUNT);
 
 const reducePointByDay = (days, point) => {
-  const date = new Date(point.start);
+  const date = point.start;
   const dayDate = formatDateISODdMmYyyyHhMm(date)
       .toString()
       .split(`T`)[0];
