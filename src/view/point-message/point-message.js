@@ -5,7 +5,7 @@ const createPointMessageTemplate = (message) =>
     ${message}
   </p>`;
 
-class PointMessageView extends AbstractView {
+class PointMessage extends AbstractView {
   constructor(message) {
     super();
     this._message = message;
@@ -16,4 +16,4 @@ class PointMessageView extends AbstractView {
   }
 }
 
-export default PointMessageView;
+export default PointMessage;

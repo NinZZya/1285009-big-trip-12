@@ -9,10 +9,10 @@ const createControlsTemplate = () => {
   );
 };
 
-class ControlsView extends AbstractView {
+class Controls extends AbstractView {
   getTemplate() {
     return createControlsTemplate();
   }
 }
 
-export default ControlsView;
+export default Controls;

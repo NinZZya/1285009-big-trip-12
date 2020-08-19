@@ -1,8 +1,8 @@
 import {createElement} from "../utils/dom";
 
-class AbstractView {
+class Abstract {
   constructor() {
-    if (new.target === AbstractView) {
+    if (new.target === Abstract) {
       throw new Error(`Can't instantiate Abstract, only concrete one.`);
     }
 
@@ -27,4 +27,4 @@ class AbstractView {
   }
 }
 
-export default AbstractView;
+export default Abstract;

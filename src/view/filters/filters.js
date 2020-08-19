@@ -33,10 +33,10 @@ const createFiltersTemplate = () => {
   );
 };
 
-class FiltersView extends AbstractView {
+class Filters extends AbstractView {
   getTemplate() {
     return createFiltersTemplate();
   }
 }
 
-export default FiltersView;
+export default Filters;

@@ -1,19 +1,19 @@
 import {
-  InfoView,
-  ControlsView,
-  TabsView,
-  FiltersView,
-  NewPointButtonView,
-  SortView,
-  DaysView,
-  DayView,
-  PointsListView,
-  PointsItemView,
-  PointView,
-  PointEditView,
-  PointMessageView,
+  Info as InfoView,
+  Controls as ControlsView,
+  Tabs as TabsView,
+  Filters as FiltersView,
+  NewPointButton as NewPointButtonView,
+  Sort as SortView,
+  Days as DaysView,
+  Day as DayView,
+  PointsList as PointsListView,
+  PointsItem as PointsItemView,
+  Point as PointView,
+  PointEdit as PointEditView,
+  PointMessage as PointMessageView,
   /* eslint-disable-next-line */
-  StatisticsView,
+  Statistics as StatisticsView,
 } from './view/';
 
 import {

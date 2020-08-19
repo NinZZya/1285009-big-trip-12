@@ -45,10 +45,10 @@ const createSortTemplate = () => {
   );
 };
 
-class SortView extends AbstractView {
+class Sort extends AbstractView {
   getTemplate() {
     return createSortTemplate();
   }
 }
 
-export default SortView;
+export default Sort;

@@ -1,33 +1,33 @@
-import AbstractView from './abstract';
-import InfoView from './info/info';
-import ControlsView from './controls/controls';
-import TabsView from './tabs/tabs';
-import FiltersView from './filters/filters';
-import SortView from './sort/sort';
-import NewPointButtonView from './new-point-button/new-point-button';
-import DaysView from './days/days';
-import DayView from './day/day';
-import PointsListView from './points-list/points-list';
-import PointsItemView from './points-item/points-item';
-import PointView from './point/point';
-import PointEditView from './point-edit/point-edit';
-import PointMessageView from './point-message/point-message';
-import StatisticsView from './statistics/statistics';
+import Abstract from './abstract';
+import Info from './info/info';
+import Controls from './controls/controls';
+import Tabs from './tabs/tabs';
+import Filters from './filters/filters';
+import Sort from './sort/sort';
+import NewPointButton from './new-point-button/new-point-button';
+import Days from './days/days';
+import Day from './day/day';
+import PointsList from './points-list/points-list';
+import PointsItem from './points-item/points-item';
+import Point from './point/point';
+import PointEdit from './point-edit/point-edit';
+import PointMessage from './point-message/point-message';
+import Statistics from './statistics/statistics';
 
 export {
-  AbstractView,
-  InfoView,
-  TabsView,
-  ControlsView,
-  FiltersView,
-  SortView,
-  NewPointButtonView,
-  DaysView,
-  DayView,
-  PointsListView,
-  PointsItemView,
-  PointView,
-  PointEditView,
-  PointMessageView,
-  StatisticsView,
+  Abstract,
+  Info,
+  Tabs,
+  Controls,
+  Filters,
+  Sort,
+  NewPointButton,
+  Days,
+  Day,
+  PointsList,
+  PointsItem,
+  Point,
+  PointEdit,
+  PointMessage,
+  Statistics,
 };

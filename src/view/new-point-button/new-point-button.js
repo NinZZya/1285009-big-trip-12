@@ -11,10 +11,10 @@ const createNewPointButtonTemplate = () => {
   );
 };
 
-class NewPointButtonView extends AbstractView {
+class NewPointButton extends AbstractView {
   getTemplate() {
     return createNewPointButtonTemplate();
   }
 }
 
-export default NewPointButtonView;
+export default NewPointButton;

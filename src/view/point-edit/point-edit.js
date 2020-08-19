@@ -14,7 +14,7 @@ const createPointEditTemplate = (point, destinations) => {
   );
 };
 
-class PointEditView extends AbstractView {
+class PointEdit extends AbstractView {
   constructor(point, destinations) {
     super();
     this._point = point;
@@ -59,4 +59,4 @@ class PointEditView extends AbstractView {
   }
 }
 
-export default PointEditView;
+export default PointEdit;

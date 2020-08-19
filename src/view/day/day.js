@@ -27,7 +27,7 @@ const createDayTemplate = (day) => {
   );
 };
 
-class DayView extends AbstractView {
+class Day extends AbstractView {
   constructor(dayData) {
     super();
     this._dayData = dayData;
@@ -38,4 +38,4 @@ class DayView extends AbstractView {
   }
 }
 
-export default DayView;
+export default Day;
