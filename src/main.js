@@ -40,7 +40,7 @@ const {
 } = RenderPosition;
 
 const POINTS_COUNT = 20;
-const POINTS = generatePoints(POINTS_COUNT);
+const tripPoints = generatePoints(POINTS_COUNT);
 
 const reducePointByDay = (days, point) => {
   const date = new Date(point.start);
@@ -103,19 +103,19 @@ render(tripMainElement, newPointButtonView, BEFORE_END);
 
 const tripEventsElement = document.querySelector(`.trip-events`);
 
-if (POINTS.length > 0) {
+if (tripPoints.length > 0) {
   const sortView = new SortView();
   render(tripEventsElement, sortView, BEFORE_END);
   const daysView = new DaysView();
   render(tripEventsElement, daysView, BEFORE_END);
-  const days = groupPointsByDays(POINTS);
+  const days = groupPointsByDays(tripPoints);
 
   Object.entries(days)
     .forEach(([date, points], counter) => {
       const dayView = new DayView(
           {
             dayCount: counter + 1,
-            isCountRender: POINTS.length > 1,
+            isCountRender: tripPoints.length > 1,
             date,
           }
       );
