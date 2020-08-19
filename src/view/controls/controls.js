@@ -13,6 +13,10 @@ class Controls extends AbstractView {
   getTemplate() {
     return createControlsTemplate();
   }
+
+  getFilterEventsHeaderElement() {
+    return this.getElement().querySelector(`#trip-filter-events`);
+  }
 }
 
 export default Controls;

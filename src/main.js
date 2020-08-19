@@ -66,7 +66,7 @@ const renderPointsItemsWithItems = (pointsListView, point) => {
   const pointView = new PointView(point);
   const pointEditView = new PointEditView(point, DESTINATIONS);
 
-  pointView.setEditClickHandler(() => {
+  pointView.setRollupButtonClickHandler(() => {
     replace(pointEditView, pointView);
   });
 
@@ -92,7 +92,7 @@ render(tripMainElement, infoView, AFTER_BEGIN);
 
 const controlsView = new ControlsView();
 render(tripMainElement, controlsView, BEFORE_END);
-const tripFilterEventsHeaderElement = controlsView.getElement().querySelector(`#trip-filter-events`);
+const tripFilterEventsHeaderElement = controlsView.getFilterEventsHeaderElement();
 const tabsView = new TabsView();
 render(tripFilterEventsHeaderElement, tabsView, BEFORE_BEGIN);
 const filtersView = new FiltersView();
