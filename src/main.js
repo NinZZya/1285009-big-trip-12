@@ -78,6 +78,11 @@ const renderPointsItemsWithItems = (pointsListView, point) => {
     replace(pointView, pointEditView);
   };
 
+  const rollupPointEdit = () => {
+    replacePointEditToPoint();
+    document.removeEventListener(`keydown`, onEscKeyDown);
+  };
+
   const onEscKeyDown = (evt) => {
     if (isEscPressed) {
       evt.preventDefault();
@@ -92,18 +97,15 @@ const renderPointsItemsWithItems = (pointsListView, point) => {
   });
 
   pointEditView.setFormSubmitHandler(() => {
-    replacePointEditToPoint();
-    document.removeEventListener(`keydown`, onEscKeyDown);
+    rollupPointEdit();
   });
 
   pointEditView.setFormResetHandler(() => {
-    replacePointEditToPoint();
-    document.removeEventListener(`keydown`, onEscKeyDown);
+    rollupPointEdit();
   });
 
   pointEditView.setRollupButtonClickHandler(() => {
-    replacePointEditToPoint();
-    document.removeEventListener(`keydown`, onEscKeyDown);
+    rollupPointEdit();
   });
 
   render(pointsListView, pointsItemView, BEFORE_END);
