@@ -52,9 +52,9 @@ const groupPointsByDays = (points) => points
 export default class Trip {
   constructor(tripContainerElement) {
     this._tripContainerElement = tripContainerElement;
-    this._points = null;
-    this._destinations = null;
-    this._sortView = null;
+    this._points = [];
+    this._destinations = [];
+    this._sortView = new SortView();
   }
 
   init(points, destinations) {
@@ -111,7 +111,6 @@ export default class Trip {
   }
 
   _renderSort() {
-    this._sortView = new SortView();
     render(this._tripContainerElement, this._sortView, BEFORE_END);
   }
 
