@@ -149,6 +149,7 @@ export default class Trip {
         BEFORE_END
     );
 
+    this._renderSort();
     render(this._tripContainerElement, daysView, BEFORE_END);
   }
 
