@@ -57,3 +57,14 @@ export const replace = (newChild, oldChild) => {
 
   parent.replaceChild(newChild, oldChild);
 };
+
+export const createRenderFragment = (elements) => {
+  const fragment = document.createDocumentFragment();
+
+  elements.forEach(function (element) {
+    element = getElement(element);
+    fragment.appendChild(element);
+  });
+
+  return fragment;
+};

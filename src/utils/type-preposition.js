@@ -1,10 +1,10 @@
 import {
   toFirstUpperCase,
-} from '../../utils/utils';
+} from './utils';
 
 import {
   pointTypeToPreposition,
-} from './data';
+} from '../const.js';
 
 const getPointTypeWithPreposition = (currentType) => {
   const printType = toFirstUpperCase(currentType);
