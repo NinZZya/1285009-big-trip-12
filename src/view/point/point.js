@@ -1,5 +1,6 @@
 import AbstractView from '../abstract';
 import {createOfferTemplate} from './templates';
+import {getPointTypeWithPreposition} from '../../utils/type-preposition';
 import {
   diffDate,
   formatDateISODdMmYyyyHhMm,
@@ -24,6 +25,7 @@ const createPointTemplate = (point) => {
     end,
     price,
     offers,
+    destination,
   } = point;
 
   const duration = diffDate(end, start);
@@ -36,7 +38,7 @@ const createPointTemplate = (point) => {
       <div class="event__type">
         <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
       </div>
-      <h3 class="event__title">Taxi to Amsterdam</h3>
+      <h3 class="event__title">${getPointTypeWithPreposition(type)} ${destination}</h3>
 
       <div class="event__schedule">
         <p class="event__time">
