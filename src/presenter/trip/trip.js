@@ -23,10 +23,6 @@ import {
   isEscPressed,
 } from '../../utils/utils';
 
-import {
-  DESTINATIONS,
-} from '../../mock/points';
-
 import {PointMessage} from '../../const';
 
 
@@ -57,11 +53,13 @@ export default class Trip {
   constructor(tripContainerElement) {
     this._tripContainerElement = tripContainerElement;
     this._points = null;
+    this._destinations = null;
     this._sortView = null;
   }
 
-  init(points) {
+  init(points, destinations) {
     this._points = points;
+    this._destinations = destinations;
 
     this._renderEvents();
   }
@@ -69,7 +67,7 @@ export default class Trip {
   _renderPointsItems(pointsListView, point) {
     const pointsItemView = new PointsItemView();
     const pointView = new PointView(point);
-    const pointEditView = new PointEditView(point, DESTINATIONS);
+    const pointEditView = new PointEditView(point, this._destinations);
 
     const replacePointToPointEdit = () => {
       replace(pointEditView, pointView);

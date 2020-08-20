@@ -21,6 +21,10 @@ import {
   generatePoints,
 } from './mock/points';
 
+import {
+  DESTINATIONS,
+} from './mock/points';
+
 const {
   BEFORE_BEGIN,
   AFTER_BEGIN,
@@ -28,7 +32,7 @@ const {
 } = RenderPosition;
 
 const POINTS_COUNT = 20;
-const tripPoints = generatePoints(POINTS_COUNT);
+const points = generatePoints(POINTS_COUNT);
 
 const tripMainElement = document.querySelector(`.trip-main`);
 const infoView = new InfoView();
@@ -48,4 +52,4 @@ render(tripMainElement, newPointButtonView, BEFORE_END);
 const tripEventsElement = document.querySelector(`.trip-events`);
 
 const tripPresenter = new TripPresenter(tripEventsElement);
-tripPresenter.init(tripPoints);
+tripPresenter.init(points, DESTINATIONS);
