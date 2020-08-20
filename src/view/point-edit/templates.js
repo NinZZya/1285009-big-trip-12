@@ -1,4 +1,4 @@
-import {pointGroupToTypes} from './data';
+import {pointGroupToTypes} from '../../const';
 import {formatDateYyyyMmDdHhMmWithDash} from '../../utils/date';
 import {getPointTypeWithPreposition} from './type-preposition';
 
