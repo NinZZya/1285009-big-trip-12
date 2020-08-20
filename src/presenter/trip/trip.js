@@ -17,6 +17,7 @@ import {
   RenderPosition,
   render,
   replace,
+  createRenderFragment,
 } from '../../utils/dom';
 
 import {
@@ -64,7 +65,7 @@ export default class Trip {
     this._renderEvents();
   }
 
-  _renderPointsItems(pointsListView, point) {
+  _createPointsItems(point) {
     const pointsItemView = new PointsItemView();
     const pointView = new PointView(point);
     const pointEditView = new PointEditView(point, this._destinations);
@@ -106,8 +107,8 @@ export default class Trip {
       rollupPointEdit();
     });
 
-    render(pointsListView, pointsItemView, BEFORE_END);
     render(pointsItemView, pointView, BEFORE_END);
+    return pointsItemView;
   }
 
   _renderSort() {
@@ -116,11 +117,10 @@ export default class Trip {
 
   _renderEvents() {
     const daysView = new DaysView();
-    render(this._tripContainerElement, daysView, BEFORE_END);
     const days = groupPointsByDays(this._points);
 
-    Object.entries(days)
-    .forEach(([date, points], counter) => {
+    const dayViews = Object.entries(days)
+    .map(([date, points], counter) => {
       const dayView = new DayView(
           {
             dayCount: counter + 1,
@@ -129,14 +129,27 @@ export default class Trip {
           }
       );
 
-      render(daysView, dayView, BEFORE_END);
       const pointsListView = new PointsListView();
+      const pointsItemsViews = points.map((point) => this._createPointsItems(point));
+
+      render(
+          pointsListView,
+          createRenderFragment(pointsItemsViews),
+          BEFORE_END
+      );
+
       render(dayView, pointsListView, BEFORE_END);
 
-      points.forEach((point) => {
-        this._renderPointsItems(pointsListView, point);
-      });
+      return dayView;
     });
+
+    render(
+        daysView,
+        createRenderFragment(dayViews),
+        BEFORE_END
+    );
+
+    render(this._tripContainerElement, daysView, BEFORE_END);
   }
 
   _renderNoEvents() {
