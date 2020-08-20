@@ -39,7 +39,7 @@ export const pointTypeToPreposition = {
 };
 
 export const SortType = {
-  EVENT: `event`,
-  TIME: `time`,
-  PRICE: `price`,
+  EVENT: `Event`,
+  TIME: `Time`,
+  PRICE: `Price`,
 };
