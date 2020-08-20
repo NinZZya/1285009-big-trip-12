@@ -10,31 +10,31 @@ export const DAY = 24 * HOUR;
 const TRANSFERS = [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight`];
 const ACTVITIES = [`Check-in`, `Sightseeing`, `Restaurant`];
 
-const PointGropType = {
+const PointGroupType = {
   TRANSFER: `Transfer`,
   ACTVITY: `Activity`,
 };
 
 export const pointGroupToTypes = {
-  [PointGropType.TRANSFER]: TRANSFERS,
-  [PointGropType.ACTVITY]: ACTVITIES,
+  [PointGroupType.TRANSFER]: TRANSFERS,
+  [PointGroupType.ACTVITY]: ACTVITIES,
 };
 
 const pointGropTypeToPreposition = {
-  [PointGropType.TRANSFER]: `to`,
-  [PointGropType.ACTVITY]: `in`,
+  [PointGroupType.TRANSFER]: `to`,
+  [PointGroupType.ACTVITY]: `in`,
 };
 
 export const pointTypeToPreposition = {
-  'taxi': pointGropTypeToPreposition[PointGropType.TRANSFER],
-  'bus': pointGropTypeToPreposition[PointGropType.TRANSFER],
-  'train': pointGropTypeToPreposition[PointGropType.TRANSFER],
-  'ship': pointGropTypeToPreposition[PointGropType.TRANSFER],
-  'transport': pointGropTypeToPreposition[PointGropType.TRANSFER],
-  'drive': pointGropTypeToPreposition[PointGropType.TRANSFER],
-  'flight': pointGropTypeToPreposition[PointGropType.TRANSFER],
-  'check-in': pointGropTypeToPreposition[PointGropType.ACTVITY],
-  'sightseeing': pointGropTypeToPreposition[PointGropType.ACTVITY],
-  'restaurant': pointGropTypeToPreposition[PointGropType.ACTVITY],
+  'taxi': pointGropTypeToPreposition[PointGroupType.TRANSFER],
+  'bus': pointGropTypeToPreposition[PointGroupType.TRANSFER],
+  'train': pointGropTypeToPreposition[PointGroupType.TRANSFER],
+  'ship': pointGropTypeToPreposition[PointGroupType.TRANSFER],
+  'transport': pointGropTypeToPreposition[PointGroupType.TRANSFER],
+  'drive': pointGropTypeToPreposition[PointGroupType.TRANSFER],
+  'flight': pointGropTypeToPreposition[PointGroupType.TRANSFER],
+  'check-in': pointGropTypeToPreposition[PointGroupType.ACTVITY],
+  'sightseeing': pointGropTypeToPreposition[PointGroupType.ACTVITY],
+  'restaurant': pointGropTypeToPreposition[PointGroupType.ACTVITY],
 };
 
