@@ -35,8 +35,7 @@ const {
 } = RenderPosition;
 
 const reducePointByDay = (days, point) => {
-  const date = point.start;
-  const dayDate = formatDateISODdMmYyyyHhMm(date)
+  const dayDate = formatDateISODdMmYyyyHhMm(point.start)
       .toString()
       .split(`T`)[0];
 
@@ -57,15 +56,17 @@ const groupPointsByDays = (points) => points
 export default class Trip {
   constructor(tripContainerElement) {
     this._tripContainerElement = tripContainerElement;
+    this._points = null;
+    this._sortView = null;
   }
 
-  init(tripPoints) {
-    this._tripPoints = tripPoints;
+  init(points) {
+    this._points = points;
 
     this._renderEvents();
   }
 
-  _renderPointsItemsWithItems(pointsListView, point) {
+  _renderPointsItems(pointsListView, point) {
     const pointsItemView = new PointsItemView();
     const pointView = new PointView(point);
     const pointEditView = new PointEditView(point, DESTINATIONS);
@@ -111,19 +112,22 @@ export default class Trip {
     render(pointsItemView, pointView, BEFORE_END);
   }
 
+  _renderSort() {
+    this._sortView = new SortView();
+    render(this._tripContainerElement, this._sortView, BEFORE_END);
+  }
+
   _renderEvents() {
-    const sortView = new SortView();
-    render(this._tripContainerElement, sortView, BEFORE_END);
     const daysView = new DaysView();
     render(this._tripContainerElement, daysView, BEFORE_END);
-    const days = groupPointsByDays(this._tripPoints);
+    const days = groupPointsByDays(this._points);
 
     Object.entries(days)
     .forEach(([date, points], counter) => {
       const dayView = new DayView(
           {
             dayCount: counter + 1,
-            isCountRender: this._tripPoints.length > 1,
+            isCountRender: this._points.length > 1,
             date,
           }
       );
@@ -133,7 +137,7 @@ export default class Trip {
       render(dayView, pointsListView, BEFORE_END);
 
       points.forEach((point) => {
-        this._renderPointsItemsWithItems(pointsListView, point);
+        this._renderPointsItems(pointsListView, point);
       });
     });
   }
@@ -144,7 +148,7 @@ export default class Trip {
   }
 
   _renderTrip() {
-    if (this._tripPoints.length > 0) {
+    if (this._points.length > 0) {
       this._renderEvents();
     } else {
       this._renderNoEvents();
