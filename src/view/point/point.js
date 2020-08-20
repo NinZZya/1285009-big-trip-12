@@ -2,9 +2,9 @@ import AbstractView from '../abstract';
 import {createOfferTemplate} from './templates';
 import {getPointTypeWithPreposition} from '../../utils/type-preposition';
 import {
-  diffDate,
   formatDateISODdMmYyyyHhMm,
   convertNumberOfDate,
+  convertMsToDHM,
 } from '../../utils/date';
 
 const OFFERS_COUNT = 3;
@@ -23,13 +23,13 @@ const createPointTemplate = (point) => {
     type,
     start,
     end,
+    duration,
     price,
     offers,
     destination,
   } = point;
 
-  const duration = diffDate(end, start);
-  const durationValue = convertDurationValue(duration);
+  const durationValue = convertDurationValue(convertMsToDHM(duration));
   const formatedStartDate = formatDateISODdMmYyyyHhMm(start);
   const formatedEndDate = formatDateISODdMmYyyyHhMm(end);
 
