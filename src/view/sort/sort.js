@@ -1,7 +1,6 @@
 import AbstractView from '../abstract';
-import {SORTS} from './data';
+import {SortType} from '../../const';
 
-const DEFAULT_SORT = 0;
 const SORT_ICON = (
   `<svg class="trip-sort__direction-icon" width="8" height="10" viewBox="0 0 8 10">
     <path
@@ -10,15 +9,15 @@ const SORT_ICON = (
   </svg>`
 );
 
-const createSortTemplate = () => {
+const createSortTemplate = (defaultSortType) => {
   return (
     `<form class="trip-events__trip-sort  trip-sort" action="#" method="get">
       <span class="trip-sort__item  trip-sort__item--day">
         Day
       </span>
 
-      ${Array.from(SORTS)
-        .map((sort, index) => {
+      ${Object.values(SortType)
+        .map((sort) => {
           const key = sort.toLowerCase();
           return (
             `<div class="trip-sort__item  trip-sort__item--${key}">
@@ -27,11 +26,12 @@ const createSortTemplate = () => {
                 class="trip-sort__input  visually-hidden"
                 type="radio" name="trip-sort"
                 value="sort-${key}"
-                ${key === DEFAULT_SORT ? `checked` : ``}
+                ${sort === defaultSortType ? `checked` : ``}
+                data-sort-type="${sort}"
               >
               <label class="trip-sort__btn" for="sort-${key}">
                 ${sort}
-                ${index === DEFAULT_SORT ? `` : SORT_ICON}
+                ${sort === defaultSortType ? `` : SORT_ICON}
               </label>
             </div>`
           );
@@ -46,8 +46,23 @@ const createSortTemplate = () => {
 };
 
 class Sort extends AbstractView {
+  constructor(sortType = SortType.EVENT) {
+    super();
+    this._sortType = sortType;
+    this._formChangeHandler = this._formChangeHandler.bind(this);
+  }
   getTemplate() {
-    return createSortTemplate();
+    return createSortTemplate(this._sortType);
+  }
+
+  _formChangeHandler(evt) {
+    evt.preventDefault();
+    this._callback.formChangeHandler(evt.target.dataset.sortType);
+  }
+
+  setChangeSortHandler(callback) {
+    this._callback.formChangeHandler = callback;
+    this.getElement().addEventListener(`change`, this._formChangeHandler);
   }
 }
 
