@@ -7,7 +7,7 @@ import {
   PointMessage as PointMessageView,
 } from '../../view/';
 
-import PointPresenter from './point';
+import PointPresenter from '../point/point';
 
 import {
   formatDateISODdMmYyyyHhMm,
@@ -29,6 +29,8 @@ import {
   PointMessage,
   SortType,
 } from '../../const';
+
+import {updateItem} from '../../utils/utils';
 
 
 const {
@@ -52,7 +54,7 @@ const reducePointByDay = (days, point) => {
 };
 
 const groupPointsByDays = (points) => points
-  .sort((less, more) => less.start - more.start)
+  .sort((pointA, pointB) => pointA.start - pointB.start)
   .reduce(reducePointByDay, {});
 
 
@@ -62,11 +64,13 @@ export default class Trip {
     this._points = [];
     this._destinations = [];
     this._sortView = new SortView(DEFAULT_SORT_TYPE);
-    this._daysView = null;
     this._currentSortType = DEFAULT_SORT_TYPE;
-    this._sortChangeHandler = this._sortChangeHandler.bind(this);
     this._pointPresenter = {};
+    this._daysView = null;
     this._dayViews = [];
+
+    this._sortChangeHandler = this._sortChangeHandler.bind(this);
+    this._pointChangeHandler = this._pointChangeHandler.bind(this);
   }
 
   init(points, destinations) {
@@ -108,7 +112,7 @@ export default class Trip {
 
   _createPointsItem(point) {
     const pointsItemView = new PointsItemView();
-    const pointPresenter = new PointPresenter(pointsItemView);
+    const pointPresenter = new PointPresenter(pointsItemView, this._pointChangeHandler);
     pointPresenter.init(point, this._destinations);
     this._pointPresenter[point.id] = pointPresenter;
 
@@ -177,6 +181,11 @@ export default class Trip {
     }
 
     this._renderNoEvents();
+  }
+
+  _pointChangeHandler(updatedPoint) {
+    this._points = updateItem(this._points, updatedPoint);
+    this._pointPresenter[updatedPoint.id].init(updatedPoint, this._destinations);
   }
 
   _clearEvents() {
