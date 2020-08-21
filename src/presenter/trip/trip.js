@@ -17,6 +17,7 @@ import {
   RenderPosition,
   render,
   createRenderFragment,
+  remove,
 } from '../../utils/dom';
 
 import {
@@ -63,6 +64,8 @@ export default class Trip {
     this._sortView = new SortView(DEFAULT_SORT_TYPE);
     this._currentSortType = DEFAULT_SORT_TYPE;
     this._sortChangeHandler = this._sortChangeHandler.bind(this);
+    this._pointPresenter = {};
+    this._dayViews = [];
   }
 
   init(points, destinations) {
@@ -106,6 +109,7 @@ export default class Trip {
     const pointsItemView = new PointsItemView();
     const pointPresenter = new PointPresenter(pointsItemView);
     pointPresenter.init(point, this._destinations);
+    this._pointPresenter[point.id] = pointPresenter;
 
     return pointsItemView;
   }
@@ -141,18 +145,18 @@ export default class Trip {
   }
 
   _renderEvents() {
+    this._renderSort();
     const daysView = new DaysView();
-    const dayViews = this._currentSortType === SortType.EVENT
+    this._dayViews = this._currentSortType === SortType.EVENT
       ? this._createEventDays()
-      : this._createEventDay(this._points);
+      : [this._createEventDay(this._points)];
 
     render(
         daysView,
-        createRenderFragment(dayViews),
+        createRenderFragment(this._dayViews),
         BEFORE_END
     );
 
-    this._renderSort();
     render(this._tripContainerElement, daysView, BEFORE_END);
   }
 
@@ -170,6 +174,12 @@ export default class Trip {
   }
 
   _clearEvents() {
-    this._tripContainerElement.innerHTML = ``;
+    Object
+      .values(this._pointPresenter)
+      .forEach((presenter) => presenter.destroy());
+    this._pointPresenter = {};
+
+    this._dayViews.forEach((dayView) => remove(dayView));
+    this._dayViews = [];
   }
 }
