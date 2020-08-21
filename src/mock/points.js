@@ -1,3 +1,4 @@
+import {nanoid} from 'nanoid';
 import {
   MoveDate,
   getRandomBool,
@@ -90,6 +91,7 @@ const generatePoint = () => {
   )));
 
   return {
+    id: nanoid(),
     type: getRandomArrayValue(POINT_TYPES),
     destination: getRandomArrayValue(DESTINATIONS),
     start: dateStart,
