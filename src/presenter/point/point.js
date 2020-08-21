@@ -32,6 +32,7 @@ export default class Point {
     this._point = null;
     this._rollupPointHandler = this._rollupPointHandler.bind(this);
     this._rollupPointEditHandler = this._rollupPointEditHandler.bind(this);
+    this._submitPointEsitHandler = this._submitPointEsitHandler.bind(this);
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
     this._favoriteClickHandler = this._favoriteClickHandler.bind(this);
   }
@@ -90,6 +91,11 @@ export default class Point {
   _rollupPointEditHandler() {
     this._replacePointEditToPoint();
     document.removeEventListener(`keydown`, this._escKeyDownHandler);
+  }
+
+  _submitPointEsitHandler(point) {
+    this._changePoint(point);
+    this._rollupPointEditHandler();
   }
 
   _escKeyDownHandler(evt) {
