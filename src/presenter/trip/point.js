@@ -10,6 +10,7 @@ import {
   RenderPosition,
   render,
   replace,
+  remove,
 } from '../../utils/dom';
 
 import {
@@ -21,8 +22,8 @@ const {
 } = RenderPosition;
 
 export default class Point {
-  constructor(pointContainerElement) {
-    this._pointContainerElement = pointContainerElement;
+  constructor(pointContainerView) {
+    this._pointContainerView = pointContainerView;
     this._destinations = null;
     this._pointView = null;
     this._pointEditView = null;
@@ -36,6 +37,9 @@ export default class Point {
     this._point = point;
     this._destinations = destinations;
 
+    const prevPointView = this._pointView;
+    const prevPointEditView = this._pointEditView;
+
     this._pointView = new PointView(point);
     this._pointEditView = new PointEditView(point, this._destinations);
 
@@ -44,7 +48,26 @@ export default class Point {
     this._pointEditView.setFormResetHandler(this._rollupPointEditHandler);
     this._pointEditView.setRollupButtonClickHandler(this._rollupPointEditHandler);
 
-    render(this._pointContainerElement, this._pointView, BEFORE_END);
+    if (prevPointView === null || prevPointEditView === null) {
+      render(this._pointContainerView, this._pointView, BEFORE_END);
+      return;
+    }
+
+    if (this._pointContainerView.getElement().contains(prevPointView.getElement())) {
+      replace(this._pointView, prevPointView);
+    }
+
+    if (this._pointContainerView.getElement().contains(prevPointEditView.getElement())) {
+      replace(this._pointEditView, prevPointEditView);
+    }
+
+    remove(prevPointView);
+    remove(prevPointEditView);
+  }
+
+  destroy() {
+    remove(this._pointView);
+    remove(this._pointEditView);
   }
 
   _replacePointToPointEdit() {
