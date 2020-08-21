@@ -24,12 +24,22 @@ import {
   isEscPressed,
 } from '../../utils/utils';
 
-import {PointMessage} from '../../const';
+import {
+  sortPointDurationDown,
+  sortPointPriceDown,
+} from '../../utils/sort';
+
+import {
+  PointMessage,
+  SortType,
+} from '../../const';
 
 
 const {
   BEFORE_END,
 } = RenderPosition;
+
+const DEFAULT_SORT_TYPE = SortType.EVENT;
 
 const reducePointByDay = (days, point) => {
   const dayDate = formatDateISODdMmYyyyHhMm(point.start)
@@ -55,14 +65,46 @@ export default class Trip {
     this._tripContainerElement = tripContainerElement;
     this._points = [];
     this._destinations = [];
-    this._sortView = new SortView();
+    this._sortView = new SortView(DEFAULT_SORT_TYPE);
+    this._currentSortType = DEFAULT_SORT_TYPE;
+    this._sortChangeHandler = this._sortChangeHandler.bind(this);
   }
 
   init(points, destinations) {
-    this._points = points;
+    this._points = points.slice();
     this._destinations = destinations;
 
     this._renderEvents();
+  }
+
+  _sortPoints(sortType) {
+    this._currentSortType = sortType;
+
+    switch (sortType) {
+      case SortType.TIME:
+        this._points.sort(sortPointDurationDown);
+        break;
+      case SortType.PRICE:
+        this._points.sort(sortPointPriceDown);
+        break;
+      default:
+        return;
+    }
+  }
+
+  _sortChangeHandler(sortType) {
+    if (this._currentSortType === sortType) {
+      return;
+    }
+
+    this._sortPoints(sortType);
+    this._clearEvents();
+    this._renderEvents();
+  }
+
+  _renderSort() {
+    render(this._tripContainerElement, this._sortView, BEFORE_END);
+    this._sortView.setChangeSortHandler(this._sortChangeHandler);
   }
 
   _createPointsItems(point) {
@@ -111,37 +153,41 @@ export default class Trip {
     return pointsItemView;
   }
 
-  _renderSort() {
-    render(this._tripContainerElement, this._sortView, BEFORE_END);
+  _createEventDays() {
+    const days = groupPointsByDays(this._points);
+
+    return Object.entries(days)
+    .map(([date, points], counter) => {
+      return this._createEventDay(points, date, counter);
+    });
+  }
+
+  _createEventDay(points, date, counter) {
+    const dayView = new DayView({
+      dayCount: counter !== undefined ? counter + 1 : null,
+      isCountRender: this._points.length > 1 && counter !== undefined,
+      date: date !== undefined ? date : null,
+    });
+
+    const pointsListView = new PointsListView();
+    const pointsItemsViews = points.map((point) => this._createPointsItems(point));
+
+    render(
+        pointsListView,
+        createRenderFragment(pointsItemsViews),
+        BEFORE_END
+    );
+
+    render(dayView, pointsListView, BEFORE_END);
+
+    return dayView;
   }
 
   _renderEvents() {
     const daysView = new DaysView();
-    const days = groupPointsByDays(this._points);
-
-    const dayViews = Object.entries(days)
-    .map(([date, points], counter) => {
-      const dayView = new DayView(
-          {
-            dayCount: counter + 1,
-            isCountRender: this._points.length > 1,
-            date,
-          }
-      );
-
-      const pointsListView = new PointsListView();
-      const pointsItemsViews = points.map((point) => this._createPointsItems(point));
-
-      render(
-          pointsListView,
-          createRenderFragment(pointsItemsViews),
-          BEFORE_END
-      );
-
-      render(dayView, pointsListView, BEFORE_END);
-
-      return dayView;
-    });
+    const dayViews = this._currentSortType === SortType.EVENT
+      ? this._createEventDays()
+      : this._createEventDay(this._points);
 
     render(
         daysView,
@@ -149,6 +195,7 @@ export default class Trip {
         BEFORE_END
     );
 
+    this._renderSort();
     render(this._tripContainerElement, daysView, BEFORE_END);
   }
 
@@ -163,5 +210,9 @@ export default class Trip {
     } else {
       this._renderNoEvents();
     }
+  }
+
+  _clearEvents() {
+    this._tripContainerElement.innerHTML = ``;
   }
 }

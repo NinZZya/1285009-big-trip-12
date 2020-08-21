@@ -30,12 +30,17 @@ export const formatDateISODdMmYyyyHhMm = (date) => date.toISOString().slice(0, 1
 /**
  * @param {date} date1
  * @param {date} date2
+ * @return {number} milliseconds
+ */
+export const diffDate = (date1, date2) => ((+date1) - (+date2));
+
+/**
+ * @param {number} ms
  * @return {object} {day: number, hour: number, minutes: number}
  */
-export const diffDate = (date1, date2) => {
-  const subValue = ((+date1) - (+date2));
-  const day = Math.floor(subValue / DAY);
-  const hour = Math.floor((subValue - day * DAY) / HOUR);
-  const minute = Math.floor((subValue - day * DAY - hour * HOUR) / MINUTE);
+export const convertMsToDHM = (ms) => {
+  const day = Math.floor(ms / DAY);
+  const hour = Math.floor((ms - day * DAY) / HOUR);
+  const minute = Math.floor((ms - day * DAY - hour * HOUR) / MINUTE);
   return {day, hour, minute};
 };

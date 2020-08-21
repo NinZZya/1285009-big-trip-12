@@ -8,6 +8,7 @@ import {
 } from '../utils/randomizer';
 
 import {extend} from '../utils/utils';
+import {diffDate} from '../utils/date';
 
 const moveDateConfig = {
   minute: 10,
@@ -79,18 +80,21 @@ const PHOTOS = [
 
 
 const generatePoint = () => {
-  const date = new Date(getRandomDate(moveDateConfig));
+  const dateStart = new Date(getRandomDate(moveDateConfig));
+  const dateEnd = new Date(getRandomDate(extend(
+      moveDateConfig,
+      {
+        dateStart,
+        move: MoveDate.FUTURE,
+      }
+  )));
+
   return {
     type: getRandomArrayValue(POINT_TYPES),
     destination: getRandomArrayValue(DESTINATIONS),
-    start: date,
-    end: new Date(getRandomDate(extend(
-        moveDateConfig,
-        {
-          date,
-          move: MoveDate.FUTURE,
-        }
-    ))),
+    start: dateStart,
+    end: dateEnd,
+    duration: diffDate(dateEnd, dateStart),
     price: getRandomInt(15, 500),
     description: getRandomArray(
         DESCRIPTIONS, getRandomInt(1, DESCRIPTIONS.length)

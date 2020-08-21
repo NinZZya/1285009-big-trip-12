@@ -61,6 +61,10 @@ export const replace = (newChild, oldChild) => {
 export const createRenderFragment = (elements) => {
   const fragment = document.createDocumentFragment();
 
+  if (!Array.isArray(elements)) {
+    elements = [elements];
+  }
+
   elements.forEach(function (element) {
     element = getElement(element);
     fragment.appendChild(element);

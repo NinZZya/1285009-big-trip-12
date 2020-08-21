@@ -38,3 +38,8 @@ export const pointTypeToPreposition = {
   'restaurant': pointGropTypeToPreposition[PointGroupType.ACTVITY],
 };
 
+export const SortType = {
+  EVENT: `Event`,
+  TIME: `Time`,
+  PRICE: `Price`,
+};
