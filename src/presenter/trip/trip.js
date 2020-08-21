@@ -4,10 +4,10 @@ import {
   Day as DayView,
   PointsList as PointsListView,
   PointsItem as PointsItemView,
-  Point as PointView,
-  PointEdit as PointEditView,
   PointMessage as PointMessageView,
 } from '../../view/';
+
+import PointPresenter from './point';
 
 import {
   formatDateISODdMmYyyyHhMm,
@@ -16,13 +16,8 @@ import {
 import {
   RenderPosition,
   render,
-  replace,
   createRenderFragment,
 } from '../../utils/dom';
-
-import {
-  isEscPressed,
-} from '../../utils/utils';
 
 import {
   sortPointDurationDown,
@@ -107,49 +102,11 @@ export default class Trip {
     this._sortView.setChangeSortHandler(this._sortChangeHandler);
   }
 
-  _createPointsItems(point) {
+  _createPointsItem(point) {
     const pointsItemView = new PointsItemView();
-    const pointView = new PointView(point);
-    const pointEditView = new PointEditView(point, this._destinations);
+    const pointPresenter = new PointPresenter(pointsItemView);
+    pointPresenter.init(point, this._destinations);
 
-    const replacePointToPointEdit = () => {
-      replace(pointEditView, pointView);
-    };
-
-    const replacePointEditToPoint = () => {
-      replace(pointView, pointEditView);
-    };
-
-    const rollupPointEdit = () => {
-      replacePointEditToPoint();
-      document.removeEventListener(`keydown`, escKeyDownHandler);
-    };
-
-    const escKeyDownHandler = (evt) => {
-      if (isEscPressed(evt)) {
-        evt.preventDefault();
-        rollupPointEdit();
-      }
-    };
-
-    pointView.setRollupButtonClickHandler(() => {
-      replacePointToPointEdit();
-      document.addEventListener(`keydown`, escKeyDownHandler);
-    });
-
-    pointEditView.setFormSubmitHandler(() => {
-      rollupPointEdit();
-    });
-
-    pointEditView.setFormResetHandler(() => {
-      rollupPointEdit();
-    });
-
-    pointEditView.setRollupButtonClickHandler(() => {
-      rollupPointEdit();
-    });
-
-    render(pointsItemView, pointView, BEFORE_END);
     return pointsItemView;
   }
 
@@ -170,7 +127,7 @@ export default class Trip {
     });
 
     const pointsListView = new PointsListView();
-    const pointsItemsViews = points.map((point) => this._createPointsItems(point));
+    const pointsItemsViews = points.map((point) => this._createPointsItem(point));
 
     render(
         pointsListView,
