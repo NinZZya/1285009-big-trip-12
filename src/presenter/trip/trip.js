@@ -62,6 +62,7 @@ export default class Trip {
     this._points = [];
     this._destinations = [];
     this._sortView = new SortView(DEFAULT_SORT_TYPE);
+    this._daysView = null;
     this._currentSortType = DEFAULT_SORT_TYPE;
     this._sortChangeHandler = this._sortChangeHandler.bind(this);
     this._pointPresenter = {};
@@ -146,18 +147,18 @@ export default class Trip {
 
   _renderEvents() {
     this._renderSort();
-    const daysView = new DaysView();
+    this._daysView = this._daysView || new DaysView();
     this._dayViews = this._currentSortType === SortType.EVENT
       ? this._createEventDays()
       : [this._createEventDay(this._points)];
 
     render(
-        daysView,
+        this._daysView,
         createRenderFragment(this._dayViews),
         BEFORE_END
     );
 
-    render(this._tripContainerElement, daysView, BEFORE_END);
+    render(this._tripContainerElement, this._daysView, BEFORE_END);
   }
 
   _renderNoEvents() {
@@ -168,9 +169,14 @@ export default class Trip {
   _renderTrip() {
     if (this._points.length > 0) {
       this._renderEvents();
-    } else {
-      this._renderNoEvents();
+      return;
     }
+
+    if (this._daysView) {
+      remove(this._daysView);
+    }
+
+    this._renderNoEvents();
   }
 
   _clearEvents() {
