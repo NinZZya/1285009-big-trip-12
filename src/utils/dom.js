@@ -72,3 +72,13 @@ export const createRenderFragment = (elements) => {
 
   return fragment;
 };
+
+
+export const remove = (view) => {
+  if (!(view instanceof AbstractView)) {
+    throw new Error(`Can remove only views`);
+  }
+
+  view.getElement().remove();
+  view.removeElement();
+};
