@@ -30,7 +30,7 @@ export default class PointEdit extends AbstractSmartView {
     this._rollupButtonClickHandler = this._rollupButtonClickHandler.bind(this);
     this._favoriteClickHandler = this._favoriteClickHandler.bind(this);
     this._priceChangeHandler = this._priceChangeHandler.bind(this);
-    this._typeChangeHandler = this._typeChangeHandler.bind(this);
+    this._typeListClickHandler = this._typeListClickHandler.bind(this);
     this._destinationChangeHandler = this._destinationChangeHandler.bind(this);
 
     this._setInnerHandlers();
@@ -77,7 +77,7 @@ export default class PointEdit extends AbstractSmartView {
     this.getElement().querySelector(`.event__favorite-checkbox`).addEventListener(`click`, this._favoriteClickHandler);
     this.getElement().querySelector(`.event__input--price`).addEventListener(`change`, this._priceChangeHandler);
     this.getElement().querySelector(`.event__input--destination`).addEventListener(`change`, this._destinationChangeHandler);
-    this.getElement().querySelector(`.event__type-list`).addEventListener(`click`, this._typeChangeHandler);
+    this.getElement().querySelector(`.event__type-list`).addEventListener(`click`, this._typeListClickHandler);
   }
 
   restoreHandlers() {
@@ -117,7 +117,7 @@ export default class PointEdit extends AbstractSmartView {
     }, true);
   }
 
-  _typeChangeHandler(evt) {
+  _typeListClickHandler(evt) {
     evt.preventDefault();
     const typeId = evt.target.htmlFor;
     const type = this._getTypeList().querySelector(`#${typeId}`).value.toLowerCase();
