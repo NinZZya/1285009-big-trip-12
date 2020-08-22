@@ -3,20 +3,25 @@ import {createTripEventEditHeaderTemplate} from './header';
 import {createDetailsTemplate} from './details';
 /* eslint-disable-next-line */
 import {createDestinationTemplate} from './destination';
+import {
+  extend,
+} from '../../utils/utils';
 
-const createPointEditTemplate = (point, destinations) => {
+const checkDestinationOnError = (destinations, destination) => !destinations.includes(destination);
 
+const createPointEditTemplate = (data, destinations) => {
   return (
     `<form class="event  event--edit" action="#" method="post">
-      ${createTripEventEditHeaderTemplate(point, destinations)}
-      ${createDetailsTemplate(point)}
+      ${createTripEventEditHeaderTemplate(data, destinations)}
+      ${createDetailsTemplate(data)}
     </form>`
   );
 };
 
 export default class PointEdit extends AbstractSmartView {
   constructor(point, destinations) {
-    super(point);
+    super();
+    this._data = PointEdit.parsePointToData(point, destinations);
     this._destinations = destinations;
     this._typeListElement = null;
 
@@ -26,8 +31,28 @@ export default class PointEdit extends AbstractSmartView {
     this._favoriteClickHandler = this._favoriteClickHandler.bind(this);
     this._priceChangeHandler = this._priceChangeHandler.bind(this);
     this._typeChangeHandler = this._typeChangeHandler.bind(this);
+    this._destinationChangeHandler = this._destinationChangeHandler.bind(this);
 
     this._setInnerHandlers();
+  }
+
+  static parsePointToData(point, destinations) {
+    const {destination} = point;
+
+    return extend(
+        point,
+        {
+          isDestinationError: checkDestinationOnError(destinations, destination),
+        }
+    );
+  }
+
+  static parseDataToPoint(data) {
+    data = extend(data);
+
+    delete data.isDestinationError;
+
+    return data;
   }
 
   getTemplate() {
@@ -35,7 +60,9 @@ export default class PointEdit extends AbstractSmartView {
   }
 
   reset(point) {
-    this.updateData(point);
+    this.updateData(
+        PointEdit.parsePointToData(point, this._destinations)
+    );
   }
 
   _getTypeList() {
@@ -49,18 +76,21 @@ export default class PointEdit extends AbstractSmartView {
   _setInnerHandlers() {
     this.getElement().querySelector(`.event__favorite-checkbox`).addEventListener(`click`, this._favoriteClickHandler);
     this.getElement().querySelector(`.event__input--price`).addEventListener(`change`, this._priceChangeHandler);
-    this._getTypeList().addEventListener(`click`, this._typeChangeHandler);
+    this.getElement().querySelector(`.event__input--destination`).addEventListener(`change`, this._destinationChangeHandler);
+    this.getElement().querySelector(`.event__type-list`).addEventListener(`click`, this._typeChangeHandler);
   }
 
   restoreHandlers() {
     this.setFormSubmitHandler(this._callback.formSubmit);
     this.setFormResetHandler(this._callback.formReset);
     this.setRollupButtonClickHandler(this._callback._rollupButtonClick);
+
+    this._setInnerHandlers();
   }
 
   _formSubmitHandler(evt) {
     evt.preventDefault();
-    this._callback.formSubmit(this._data);
+    this._callback.formSubmit(PointEdit.parseDataToPoint(this._data));
   }
 
   _formResetHandler(evt) {
@@ -93,6 +123,15 @@ export default class PointEdit extends AbstractSmartView {
     const type = this._getTypeList().querySelector(`#${typeId}`).value.toLowerCase();
     this.updateData({
       type,
+    });
+  }
+
+  _destinationChangeHandler(evt) {
+    evt.preventDefault();
+    const destination = evt.target.value;
+    this.updateData({
+      destination,
+      isDestinationError: checkDestinationOnError(this._destinations, destination),
     });
   }
 
