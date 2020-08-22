@@ -21,10 +21,8 @@ const createInfoTemplate = () => {
   );
 };
 
-class Info extends AbstractView {
+export default class Info extends AbstractView {
   getTemplate() {
     return createInfoTemplate();
   }
 }
-
-export default Info;

@@ -1,4 +1,4 @@
-const createOfferTemplate = (offer) => {
+export const createOfferTemplate = (offer) => {
   const {name, price} = offer;
   return (
     `<li class="event__offer">
@@ -7,8 +7,4 @@ const createOfferTemplate = (offer) => {
       &euro;&nbsp;<span class="event__offer-price">${price}</span>
     </li>`
   );
-};
-
-export {
-  createOfferTemplate
 };

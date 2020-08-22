@@ -14,7 +14,7 @@ const createPointEditTemplate = (point, destinations) => {
   );
 };
 
-class PointEdit extends AbstractSmartView {
+export default class PointEdit extends AbstractSmartView {
   constructor(point, destinations) {
     super(point);
     this._destinations = destinations;
@@ -90,5 +90,3 @@ class PointEdit extends AbstractSmartView {
     this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, this._rollupButtonClickHandler);
   }
 }
-
-export default PointEdit;

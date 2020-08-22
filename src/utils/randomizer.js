@@ -4,21 +4,21 @@ import {
   DAY,
 } from '../const';
 
-const MoveDate = {
+export const MoveDate = {
   PAST: `past`,
   FUTURE: `future`,
   RANDOM: `random`,
 };
 
-const getRandomBool = () => Math.random() > 0.5;
-const getRandomInt = (min, max) => min + Math.floor(Math.random() * (max - min));
-const getRandomArrayValue = (arr) => arr[Math.floor(Math.random() * arr.length)];
-const getRandomArray = (arr, length = arr.length) => arr
+export const getRandomBool = () => Math.random() > 0.5;
+export const getRandomInt = (min, max) => min + Math.floor(Math.random() * (max - min));
+export const getRandomArrayValue = (arr) => arr[Math.floor(Math.random() * arr.length)];
+export const getRandomArray = (arr, length = arr.length) => arr
     .slice()
     .sort(() => Math.random() - 0.5)
     .slice(0, length);
 
-const getRandomDate = ({date = new Date(), minute = 59, hour = 24, day = 365, move = MoveDate.RANDOM}) => {
+export const getRandomDate = ({date = new Date(), minute = 59, hour = 24, day = 365, move = MoveDate.RANDOM}) => {
   let sign = null;
   switch (move) {
     case MoveDate.PAST:
@@ -42,13 +42,4 @@ const getRandomDate = ({date = new Date(), minute = 59, hour = 24, day = 365, mo
       + getRandomInt(0, day * DAY)
     )
   );
-};
-
-export {
-  getRandomBool,
-  getRandomInt,
-  getRandomArrayValue,
-  getRandomArray,
-  getRandomDate,
-  MoveDate,
 };

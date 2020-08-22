@@ -47,7 +47,7 @@ const createTypeGroupTemplate = (groupName, types, currentType) => {
   );
 };
 
-const createTypeListTemplate = (currentType) => {
+export const createTypeListTemplate = (currentType) => {
   return (
     `<div class="event__type-wrapper">
       <label class="event__type  event__type-btn" for="event-type-toggle-1">
@@ -75,7 +75,7 @@ const createTypeListTemplate = (currentType) => {
   );
 };
 
-const createDestinationTemplate = (currentType, destination, destinations) => {
+export const createDestinationTemplate = (currentType, destination, destinations) => {
 
   return (
     `<div class="event__field-group  event__field-group--destination">
@@ -97,7 +97,7 @@ const createDestinationTemplate = (currentType, destination, destinations) => {
   );
 };
 
-const createTimeTemplate = ({start, end}) => {
+export const createTimeTemplate = ({start, end}) => {
   const timeStart = formatDateYyyyMmDdHhMmWithDash(start);
   const timeEnd = formatDateYyyyMmDdHhMmWithDash(end);
   return (
@@ -126,7 +126,7 @@ const createTimeTemplate = ({start, end}) => {
   );
 };
 
-const createPriceTemplate = (price) => {
+export const createPriceTemplate = (price) => {
   return (
     `<div class="event__field-group  event__field-group--price">
       <label class="event__label" for="event-price-1">
@@ -144,7 +144,7 @@ const createPriceTemplate = (price) => {
   );
 };
 
-const createSaveButtonTemplate = () => {
+export const createSaveButtonTemplate = () => {
   return (
     `<button class="event__save-btn  btn  btn--blue" type="submit">
       Save
@@ -152,7 +152,7 @@ const createSaveButtonTemplate = () => {
   );
 };
 
-const createCancelButtonTemplate = () => {
+export const createCancelButtonTemplate = () => {
   return (
     `<button class="event__reset-btn" type="reset">
       Cancel
@@ -160,7 +160,7 @@ const createCancelButtonTemplate = () => {
   );
 };
 
-const createFavoriteTemplate = (isFavorite) => {
+export const createFavoriteTemplate = (isFavorite) => {
   return (
     `<input
       id="event-favorite-1"
@@ -175,7 +175,7 @@ const createFavoriteTemplate = (isFavorite) => {
   );
 };
 
-const createRollupButtonTemplate = () => {
+export const createRollupButtonTemplate = () => {
   return (
     `<button class="event__rollup-btn" type="button">
       <span class="visually-hidden">
@@ -187,7 +187,7 @@ const createRollupButtonTemplate = () => {
 
 // Details templates (details.js)
 
-const createOffersTemplate = (offers) => {
+export const createOffersTemplate = (offers) => {
   return (
     `<section class="event__section  event__section--offers">
       <h3 class="event__section-title  event__section-title--offers">
@@ -221,16 +221,4 @@ const createOffersTemplate = (offers) => {
       </div>
     </section>`
   );
-};
-
-export {
-  createTypeListTemplate,
-  createDestinationTemplate,
-  createTimeTemplate,
-  createPriceTemplate,
-  createSaveButtonTemplate,
-  createCancelButtonTemplate,
-  createFavoriteTemplate,
-  createRollupButtonTemplate,
-  createOffersTemplate,
 };

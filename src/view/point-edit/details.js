@@ -1,6 +1,6 @@
 import {createOffersTemplate} from './templates';
 
-const createDetailsTemplate = (point) => {
+export const createDetailsTemplate = (point) => {
   const {offers} = point;
   return (
     `<section class="event__details">
@@ -8,5 +8,3 @@ const createDetailsTemplate = (point) => {
     </section>`
   );
 };
-
-export {createDetailsTemplate};

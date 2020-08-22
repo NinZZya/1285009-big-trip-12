@@ -65,7 +65,7 @@ const createPointTemplate = (point) => {
   );
 };
 
-class Point extends AbstractView {
+export default class Point extends AbstractView {
   constructor(point) {
     super();
     this._point = point;
@@ -86,5 +86,3 @@ class Point extends AbstractView {
     this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, this._rollupButtonClickHandler);
   }
 }
-
-export default Point;

@@ -45,7 +45,7 @@ const createSortTemplate = (defaultSortType) => {
   );
 };
 
-class Sort extends AbstractView {
+export default class Sort extends AbstractView {
   constructor(sortType = SortType.EVENT) {
     super();
     this._sortType = sortType;
@@ -65,5 +65,3 @@ class Sort extends AbstractView {
     this.getElement().addEventListener(`change`, this._formChangeHandler);
   }
 }
-
-export default Sort;
