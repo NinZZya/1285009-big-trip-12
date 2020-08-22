@@ -209,6 +209,7 @@ export const createOffersTemplate = (offers) => {
                   class="event__offer-checkbox  visually-hidden"
                   id="event-offer-${key}-1"
                   type="checkbox" name="event-offer-${key}"
+                  ${offer.isActivated ? `checked` : ``}
                 >
                  <label class="event__offer-label" for="event-offer-${key}-1">
                   <span class="event__offer-title">

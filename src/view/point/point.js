@@ -55,7 +55,10 @@ const createPointTemplate = (point) => {
 
       <h4 class="visually-hidden">Offers:</h4>
       <ul class="event__selected-offers">
-        ${offers.slice(0, OFFERS_COUNT).map(createOfferTemplate).join(``)}
+        ${offers
+          .filter((offer) => offer.isActivated === false)
+          .slice(0, OFFERS_COUNT)
+          .map(createOfferTemplate).join(``)}
       </ul>
 
       <button class="event__rollup-btn" type="button">
