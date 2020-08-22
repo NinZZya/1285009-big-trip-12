@@ -32,6 +32,7 @@ export default class PointEdit extends AbstractSmartView {
     this._priceChangeHandler = this._priceChangeHandler.bind(this);
     this._typeListClickHandler = this._typeListClickHandler.bind(this);
     this._destinationChangeHandler = this._destinationChangeHandler.bind(this);
+    this._offersChangeHandler = this._offersChangeHandler.bind(this);
 
     this._setInnerHandlers();
   }
@@ -78,6 +79,7 @@ export default class PointEdit extends AbstractSmartView {
     this.getElement().querySelector(`.event__input--price`).addEventListener(`change`, this._priceChangeHandler);
     this.getElement().querySelector(`.event__input--destination`).addEventListener(`change`, this._destinationChangeHandler);
     this.getElement().querySelector(`.event__type-list`).addEventListener(`click`, this._typeListClickHandler);
+    this._setOffersChangeHandlers();
   }
 
   restoreHandlers() {
@@ -132,6 +134,30 @@ export default class PointEdit extends AbstractSmartView {
     this.updateData({
       destination,
       isDestinationError: checkDestinationOnError(this._destinations, destination),
+    });
+  }
+
+  _offersChangeHandler(evt) {
+    evt.preventDefault();
+    const offerKey = evt.target.value;
+    const isActivated = evt.target.checked;
+    const offers = this._data.offers.map((offer) => {
+      if (offerKey === offer.key) {
+        return extend(offer, {isActivated});
+      }
+
+      return offer;
+    });
+
+    this.updateData({
+      offers,
+    }, true);
+  }
+
+  _setOffersChangeHandlers() {
+    const offerElements = this.getElement().querySelectorAll(`.event__offer-checkbox`);
+    offerElements.forEach((offerElement) => {
+      offerElement.addEventListener(`change`, this._offersChangeHandler);
     });
   }
 
