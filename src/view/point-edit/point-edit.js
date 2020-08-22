@@ -18,11 +18,14 @@ export default class PointEdit extends AbstractSmartView {
   constructor(point, destinations) {
     super(point);
     this._destinations = destinations;
+    this._typeListElement = null;
+
     this._formSubmitHandler = this._formSubmitHandler.bind(this);
     this._formResetHandler = this._formResetHandler.bind(this);
     this._rollupButtonClickHandler = this._rollupButtonClickHandler.bind(this);
     this._favoriteClickHandler = this._favoriteClickHandler.bind(this);
     this._priceChangeHandler = this._priceChangeHandler.bind(this);
+    this._typeChangeHandler = this._typeChangeHandler.bind(this);
 
     this._setInnerHandlers();
   }
@@ -35,9 +38,18 @@ export default class PointEdit extends AbstractSmartView {
     this.updateData(point);
   }
 
+  _getTypeList() {
+    if (!this._typeListElement) {
+      this._typeListElement = this.getElement().querySelector(`.event__type-list`);
+    }
+
+    return this._typeListElement;
+  }
+
   _setInnerHandlers() {
     this.getElement().querySelector(`.event__favorite-checkbox`).addEventListener(`click`, this._favoriteClickHandler);
     this.getElement().querySelector(`.event__input--price`).addEventListener(`change`, this._priceChangeHandler);
+    this._getTypeList().addEventListener(`click`, this._typeChangeHandler);
   }
 
   restoreHandlers() {
@@ -73,6 +85,15 @@ export default class PointEdit extends AbstractSmartView {
     this.updateData({
       price: evt.target.value,
     }, true);
+  }
+
+  _typeChangeHandler(evt) {
+    evt.preventDefault();
+    const typeId = evt.target.htmlFor;
+    const type = this._getTypeList().querySelector(`#${typeId}`).value.toLowerCase();
+    this.updateData({
+      type,
+    });
   }
 
   setFormSubmitHandler(callback) {
