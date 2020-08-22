@@ -104,7 +104,7 @@ export default class Point {
   _escKeyDownHandler(evt) {
     if (isEscPressed(evt)) {
       evt.preventDefault();
-      this._rollupPointEditHandler();
+      this._resetPointEditHandler();
     }
   }
 }
