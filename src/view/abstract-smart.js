@@ -2,9 +2,9 @@ import AbstractView from './abstract';
 import {extend} from '../utils/utils';
 
 export default class AbstractSmart extends AbstractView {
-  constructor(data) {
+  constructor() {
     super();
-    this._data = data;
+    this._data = {};
   }
 
   restoreHandlers() {
