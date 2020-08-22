@@ -1,4 +1,4 @@
-import AbstractView from '../abstract';
+import AbstractSmartView from '../abstract-smart';
 import {createTripEventEditHeaderTemplate} from './header';
 import {createDetailsTemplate} from './details';
 /* eslint-disable-next-line */
@@ -14,24 +14,39 @@ const createPointEditTemplate = (point, destinations) => {
   );
 };
 
-class PointEdit extends AbstractView {
+class PointEdit extends AbstractSmartView {
   constructor(point, destinations) {
-    super();
-    this._point = point;
+    super(point);
     this._destinations = destinations;
     this._formSubmitHandler = this._formSubmitHandler.bind(this);
     this._formResetHandler = this._formResetHandler.bind(this);
     this._rollupButtonClickHandler = this._rollupButtonClickHandler.bind(this);
     this._favoriteClickHandler = this._favoriteClickHandler.bind(this);
+
+    this._setInnerHandlers();
   }
 
   getTemplate() {
-    return createPointEditTemplate(this._point, this._destinations);
+    return createPointEditTemplate(this._data, this._destinations);
+  }
+
+  reset(point) {
+    this.updateData(point);
+  }
+
+  _setInnerHandlers() {
+    this.getElement().querySelector(`.event__favorite-checkbox`).addEventListener(`click`, this._favoriteClickHandler);
+  }
+
+  restoreHandlers() {
+    this.setFormSubmitHandler(this._callback.formSubmit);
+    this.setFormResetHandler(this._callback.formReset);
+    this.setRollupButtonClickHandler(this._callback._rollupButtonClick);
   }
 
   _formSubmitHandler(evt) {
     evt.preventDefault();
-    this._callback.formSubmit(this._point);
+    this._callback.formSubmit(this._data);
   }
 
   _formResetHandler(evt) {
@@ -46,7 +61,9 @@ class PointEdit extends AbstractView {
 
   _favoriteClickHandler(evt) {
     evt.preventDefault();
-    this._callback._favoriteClick(this._point);
+    this.updateData({
+      isFavorite: !this._data.isFavorite
+    });
   }
 
   setFormSubmitHandler(callback) {
@@ -62,11 +79,6 @@ class PointEdit extends AbstractView {
   setRollupButtonClickHandler(callback) {
     this._callback._rollupButtonClick = callback;
     this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, this._rollupButtonClickHandler);
-  }
-
-  setFavoriteClickHandler(callback) {
-    this._callback._favoriteClick = callback;
-    this.getElement().querySelector(`.event__favorite-checkbox`).addEventListener(`click`, this._favoriteClickHandler);
   }
 }
 
