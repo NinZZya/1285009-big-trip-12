@@ -85,7 +85,7 @@ const PHOTOS = [
 ];
 
 const generateOffers = () => {
-  const offers = getRandomArray(OFFERS, getRandomInt(1, DESCRIPTIONS.length));
+  const offers = getRandomArray(OFFERS, getRandomInt(3, DESCRIPTIONS.length));
   offers.forEach((offer) => {
     offer.isActivated = getRandomBool();
   });
