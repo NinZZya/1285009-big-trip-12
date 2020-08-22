@@ -38,26 +38,31 @@ const OFFERS = [
     key: `luggage`,
     name: `Add luggage`,
     price: `30`,
+    isActivated: getRandomBool(),
   },
   {
     key: `comfort`,
     name: `Switch to comfort class`,
     price: `100`,
+    isActivated: getRandomBool(),
   },
   {
     key: `meal`,
     name: `Add meal`,
     price: `15`,
+    isActivated: getRandomBool(),
   },
   {
     key: `seats`,
     name: `Choose seats`,
     price: `5`,
+    isActivated: getRandomBool(),
   },
   {
     key: `train`,
     name: `Travel by train`,
     price: `40`,
+    isActivated: getRandomBool(),
   },
 ];
 
@@ -78,6 +83,15 @@ const PHOTOS = [
   `img/photo/4.jpg`,
   `img/photo/5.jpg`,
 ];
+
+const generateOffers = () => {
+  const offers = getRandomArray(OFFERS, getRandomInt(1, DESCRIPTIONS.length));
+  offers.forEach((offer) => {
+    offer.isActivated = getRandomBool();
+  });
+
+  return offers;
+};
 
 
 const generatePoint = () => {
@@ -102,7 +116,7 @@ const generatePoint = () => {
         DESCRIPTIONS, getRandomInt(1, DESCRIPTIONS.length)
     ).join(` `),
     photos: getRandomArray(PHOTOS, getRandomInt(1, 5)),
-    offers: getRandomArray(OFFERS, getRandomInt(1, DESCRIPTIONS.length)),
+    offers: generateOffers(),
     isFavorite: getRandomBool(),
   };
 };
