@@ -15,7 +15,6 @@ import {
 
 import {
   isEscPressed,
-  extend,
 } from '../../utils/utils';
 
 const {
@@ -32,9 +31,9 @@ export default class Point {
     this._point = null;
     this._rollupPointHandler = this._rollupPointHandler.bind(this);
     this._rollupPointEditHandler = this._rollupPointEditHandler.bind(this);
-    this._submitPointEsitHandler = this._submitPointEsitHandler.bind(this);
+    this._submitPointEditHandler = this._submitPointEditHandler.bind(this);
+    this._resetPointEditHandler = this._resetPointEditHandler.bind(this);
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
-    this._favoriteClickHandler = this._favoriteClickHandler.bind(this);
   }
 
   init(point, destinations) {
@@ -48,10 +47,9 @@ export default class Point {
     this._pointEditView = new PointEditView(point, this._destinations);
 
     this._pointView.setRollupButtonClickHandler(this._rollupPointHandler);
-    this._pointEditView.setFormSubmitHandler(this._rollupPointEditHandler);
-    this._pointEditView.setFormResetHandler(this._rollupPointEditHandler);
-    this._pointEditView.setRollupButtonClickHandler(this._rollupPointEditHandler);
-    this._pointEditView.setFavoriteClickHandler(this._favoriteClickHandler);
+    this._pointEditView.setFormSubmitHandler(this._submitPointEditHandler);
+    this._pointEditView.setFormResetHandler(this._resetPointEditHandler);
+    this._pointEditView.setRollupButtonClickHandler(this._resetPointEditHandler);
 
     if (prevPointView === null || prevPointEditView === null) {
       render(this._pointContainerView, this._pointView, BEFORE_END);
@@ -93,8 +91,13 @@ export default class Point {
     document.removeEventListener(`keydown`, this._escKeyDownHandler);
   }
 
-  _submitPointEsitHandler(point) {
+  _submitPointEditHandler(point) {
     this._changePoint(point);
+    this._rollupPointEditHandler();
+  }
+
+  _resetPointEditHandler() {
+    this._pointEditView.reset(this._point);
     this._rollupPointEditHandler();
   }
 
@@ -103,16 +106,5 @@ export default class Point {
       evt.preventDefault();
       this._rollupPointEditHandler();
     }
-  }
-
-  _favoriteClickHandler() {
-    this._changePoint(
-        extend(
-            this._point,
-            {
-              isFavorite: !this._point.isFavorite
-            }
-        )
-    );
   }
 }
