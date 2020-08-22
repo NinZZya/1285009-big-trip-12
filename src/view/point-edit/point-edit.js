@@ -22,6 +22,7 @@ class PointEdit extends AbstractSmartView {
     this._formResetHandler = this._formResetHandler.bind(this);
     this._rollupButtonClickHandler = this._rollupButtonClickHandler.bind(this);
     this._favoriteClickHandler = this._favoriteClickHandler.bind(this);
+    this._priceChangeHandler = this._priceChangeHandler.bind(this);
 
     this._setInnerHandlers();
   }
@@ -36,6 +37,7 @@ class PointEdit extends AbstractSmartView {
 
   _setInnerHandlers() {
     this.getElement().querySelector(`.event__favorite-checkbox`).addEventListener(`click`, this._favoriteClickHandler);
+    this.getElement().querySelector(`.event__input--price`).addEventListener(`change`, this._priceChangeHandler);
   }
 
   restoreHandlers() {
@@ -62,8 +64,15 @@ class PointEdit extends AbstractSmartView {
   _favoriteClickHandler(evt) {
     evt.preventDefault();
     this.updateData({
-      isFavorite: !this._data.isFavorite
+      isFavorite: !this._data.isFavorite,
     });
+  }
+
+  _priceChangeHandler(evt) {
+    evt.preventDefault();
+    this.updateData({
+      price: evt.target.value,
+    }, true);
   }
 
   setFormSubmitHandler(callback) {
