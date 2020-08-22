@@ -1,4 +1,5 @@
 import Abstract from './abstract';
+import AbstractSmart from './abstract-smart';
 import Info from './info/info';
 import Controls from './controls/controls';
 import Tabs from './tabs/tabs';
@@ -16,6 +17,7 @@ import Statistics from './statistics/statistics';
 
 export {
   Abstract,
+  AbstractSmart,
   Info,
   Tabs,
   Controls,

@@ -1,0 +1,41 @@
+import AbstractView from './abstract';
+import {extend} from '../utils/utils';
+
+export default class AbstractSmart extends AbstractView {
+  constructor(data) {
+    super();
+    this._data = data;
+  }
+
+  restoreHandlers() {
+    throw new Error(`Abstract method not implemented: restoreHandlers`);
+  }
+
+  updateData(update, justDataUpdating) {
+    if (!update) {
+      return;
+    }
+
+    if (justDataUpdating) {
+      return;
+    }
+
+    this._data = extend(
+        this._data,
+        update
+    );
+
+    this.updateElement();
+  }
+
+  updateElement() {
+    let prevElement = this.getElement();
+    const parent = prevElement.parentElement;
+    this.removeElement();
+
+    const newElement = this.getElement();
+
+    parent.replaceChild(newElement, prevElement);
+    prevElement = null;
+  }
+}
