@@ -71,6 +71,7 @@ export default class Trip {
 
     this._sortChangeHandler = this._sortChangeHandler.bind(this);
     this._pointChangeHandler = this._pointChangeHandler.bind(this);
+    this._changeModeHandler = this._changeModeHandler.bind(this);
   }
 
   init(points, destinations) {
@@ -112,7 +113,12 @@ export default class Trip {
 
   _createPointsItem(point) {
     const pointsItemView = new PointsItemView();
-    const pointPresenter = new PointPresenter(pointsItemView, this._pointChangeHandler);
+    const pointPresenter = new PointPresenter(
+        pointsItemView,
+        this._pointChangeHandler,
+        this._changeModeHandler
+    );
+
     pointPresenter.init(point, this._destinations);
     this._pointPresenter[point.id] = pointPresenter;
 
@@ -196,5 +202,11 @@ export default class Trip {
 
     this._dayViews.forEach((dayView) => remove(dayView));
     this._dayViews = [];
+  }
+
+  _changeModeHandler() {
+    Object
+      .values(this._pointPresenter)
+      .forEach((presenter) => presenter.resetView());
   }
 }

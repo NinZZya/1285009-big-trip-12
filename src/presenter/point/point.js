@@ -17,18 +17,26 @@ import {
   isEscPressed,
 } from '../../utils/utils';
 
+const Mode = {
+  DEFAULT: `DEFAULT`,
+  EDITING: `EDITING`
+};
+
 const {
   BEFORE_END,
 } = RenderPosition;
 
 export default class Point {
-  constructor(pointContainerView, changePoint) {
+  constructor(pointContainerView, changePoint, changeMode) {
     this._pointContainerView = pointContainerView;
     this._changePoint = changePoint;
+    this._changeMode = changeMode;
     this._destinations = null;
     this._pointView = null;
     this._pointEditView = null;
     this._point = null;
+    this._mode = Mode.DEFAULT;
+
     this._rollupPointHandler = this._rollupPointHandler.bind(this);
     this._rollupPointEditHandler = this._rollupPointEditHandler.bind(this);
     this._submitPointEditHandler = this._submitPointEditHandler.bind(this);
@@ -56,11 +64,11 @@ export default class Point {
       return;
     }
 
-    if (this._pointContainerView.getElement().contains(prevPointView.getElement())) {
+    if (this._mode === Mode.DEFAULT) {
       replace(this._pointView, prevPointView);
     }
 
-    if (this._pointContainerView.getElement().contains(prevPointEditView.getElement())) {
+    if (this._mode === Mode.EDITING) {
       replace(this._pointEditView, prevPointEditView);
     }
 
@@ -73,12 +81,21 @@ export default class Point {
     remove(this._pointEditView);
   }
 
+  resetView() {
+    if (this._mode !== Mode.DEFAULT) {
+      this._replacePointEditToPoint();
+    }
+  }
+
   _replacePointToPointEdit() {
     replace(this._pointEditView, this._pointView);
+    this._changeMode();
+    this._mode = Mode.EDITING;
   }
 
   _replacePointEditToPoint() {
     replace(this._pointView, this._pointEditView);
+    this._mode = Mode.DEFAULT;
   }
 
   _rollupPointHandler() {
@@ -102,8 +119,8 @@ export default class Point {
   }
 
   _escKeyDownHandler(evt) {
+    evt.preventDefault();
     if (isEscPressed(evt)) {
-      evt.preventDefault();
       this._resetPointEditHandler();
     }
   }
