@@ -12,9 +12,9 @@ import {extend} from '../utils/utils';
 import {diffDate} from '../utils/date';
 
 const moveDateConfig = {
-  minute: 10,
-  hour: 3,
-  day: 7,
+  minutes: 10,
+  hours: 3,
+  days: 7,
 };
 
 const POINT_TYPES = [
@@ -95,14 +95,14 @@ const generateOffers = () => {
 
 
 const generatePoint = () => {
-  const dateStart = new Date(getRandomDate(moveDateConfig));
-  const dateEnd = new Date(getRandomDate(extend(
+  const dateStart = getRandomDate(moveDateConfig);
+  const dateEnd = getRandomDate(extend(
       moveDateConfig,
       {
-        dateStart,
+        date: dateStart,
         move: MoveDate.FUTURE,
       }
-  )));
+  ));
 
   return {
     id: nanoid(),
