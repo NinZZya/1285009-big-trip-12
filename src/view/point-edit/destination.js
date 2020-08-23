@@ -1,4 +1,4 @@
-const createDestinationTemplate = ({photos, description}) => {
+export const createDestinationTemplate = ({photos, description}) => {
 
   return (
     `<section class="event__section  event__section--destination">
@@ -17,5 +17,3 @@ const createDestinationTemplate = ({photos, description}) => {
     </section>`
   );
 };
-
-export {createDestinationTemplate};

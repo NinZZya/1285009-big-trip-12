@@ -6,10 +6,8 @@ const createDaysTemplate = () => {
   );
 };
 
-class Days extends AbstractView {
+export default class Days extends AbstractView {
   getTemplate() {
     return createDaysTemplate();
   }
 }
-
-export default Days;

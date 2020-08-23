@@ -1,5 +1,1 @@
-const FILTERS = [`Everything`, `Future`, `Past`];
-
-export {
-  FILTERS,
-};
+export const FILTERS = [`Everything`, `Future`, `Past`];

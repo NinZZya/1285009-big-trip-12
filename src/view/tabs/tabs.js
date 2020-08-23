@@ -20,10 +20,8 @@ const createTabsTemplate = () => {
   );
 };
 
-class Tabs extends AbstractView {
+export default class Tabs extends AbstractView {
   getTemplate() {
     return createTabsTemplate();
   }
 }
-
-export default Tabs;

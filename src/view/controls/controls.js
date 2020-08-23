@@ -9,7 +9,7 @@ const createControlsTemplate = () => {
   );
 };
 
-class Controls extends AbstractView {
+export default class Controls extends AbstractView {
   getTemplate() {
     return createControlsTemplate();
   }
@@ -18,5 +18,3 @@ class Controls extends AbstractView {
     return this.getElement().querySelector(`#trip-filter-events`);
   }
 }
-
-export default Controls;

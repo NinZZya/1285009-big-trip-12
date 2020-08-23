@@ -72,3 +72,14 @@ export const createRenderFragment = (elements) => {
 
   return fragment;
 };
+
+
+export const remove = (element) => {
+  if (element instanceof AbstractView) {
+    element.getElement().remove();
+    element.removeElement();
+    return;
+  }
+
+  element.remove();
+};

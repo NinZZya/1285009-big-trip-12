@@ -1,4 +1,4 @@
-const OFFERS = [
+export const OFFERS = [
   {
     key: `luggage`,
     name: `Add luggage`,
@@ -26,14 +26,14 @@ const OFFERS = [
   },
 ];
 
-const DESTINATIONS = [
+export const DESTINATIONS = [
   `Amsterdam`,
   `Geneva`,
   `Chamonix`,
   `Saint Petersburg`
 ];
 
-const PHOTOS = [
+export const PHOTOS = [
   `img/photo/1.jpg`,
   `img/photo/2.jpg`,
   `img/photo/3.jpg`,
@@ -41,11 +41,4 @@ const PHOTOS = [
   `img/photo/5.jpg`,
 ];
 
-const DEFAULT_TYPE = `flight`;
-
-export {
-  DEFAULT_TYPE,
-  OFFERS,
-  DESTINATIONS,
-  PHOTOS,
-};
+export const DEFAULT_TYPE = `flight`;

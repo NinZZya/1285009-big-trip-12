@@ -22,10 +22,8 @@ const createStatisticsTemplate = () => {
   );
 };
 
-class Statistics extends AbstractView {
+export default class Statistics extends AbstractView {
   getTemplate() {
     return createStatisticsTemplate();
   }
 }
-
-export default Statistics;

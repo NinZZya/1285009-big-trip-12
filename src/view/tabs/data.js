@@ -1,5 +1,1 @@
-const TABS = [`Table`, `Stats`];
-
-export {
-  TABS,
-};
+export const TABS = [`Table`, `Stats`];

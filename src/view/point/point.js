@@ -55,7 +55,10 @@ const createPointTemplate = (point) => {
 
       <h4 class="visually-hidden">Offers:</h4>
       <ul class="event__selected-offers">
-        ${offers.slice(0, OFFERS_COUNT).map(createOfferTemplate).join(``)}
+        ${offers
+          .filter((offer) => offer.isActivated === false)
+          .slice(0, OFFERS_COUNT)
+          .map(createOfferTemplate).join(``)}
       </ul>
 
       <button class="event__rollup-btn" type="button">
@@ -65,7 +68,7 @@ const createPointTemplate = (point) => {
   );
 };
 
-class Point extends AbstractView {
+export default class Point extends AbstractView {
   constructor(point) {
     super();
     this._point = point;
@@ -86,5 +89,3 @@ class Point extends AbstractView {
     this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, this._rollupButtonClickHandler);
   }
 }
-
-export default Point;
