@@ -10,12 +10,12 @@ import {
 const OFFERS_COUNT = 3;
 
 const convertDurationValue = (duration) => {
-  const {day, hour, minute} = duration;
-  if (day > 0) {
-    return `${convertNumberOfDate(day)}D ${convertNumberOfDate(hour)}H ${convertNumberOfDate(minute)}M`;
+  const {days, hours, minutes} = duration;
+  if (days > 0) {
+    return `${convertNumberOfDate(days)}D ${convertNumberOfDate(hours)}H ${convertNumberOfDate(minutes)}M`;
   }
 
-  return `${hour > 0 ? `${convertNumberOfDate(hour)}H` : ``} ${convertNumberOfDate(minute)}M`;
+  return `${hours > 0 ? `${convertNumberOfDate(hours)}H` : ``} ${convertNumberOfDate(minutes)}M`;
 };
 
 const createPointTemplate = (point) => {

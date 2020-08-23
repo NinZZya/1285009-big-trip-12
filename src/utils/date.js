@@ -1,11 +1,5 @@
 import moment from 'moment';
 
-import {
-  MINUTE,
-  HOUR,
-  DAY,
-} from '../const';
-
 const isDate = (date) => date instanceof Date;
 
 export const convertNumberOfDate = (value) => String(value).padStart(2, `0`);
@@ -30,11 +24,13 @@ export const diffDate = (date1, date2) => ((+date1) - (+date2));
 
 /**
  * @param {number} ms
- * @return {object} {day: number, hour: number, minutes: number}
+ * @return {object} {days: number, hours: number, minutes: number}
  */
 export const convertMsToDHM = (ms) => {
-  const day = Math.floor(ms / DAY);
-  const hour = Math.floor((ms - day * DAY) / HOUR);
-  const minute = Math.floor((ms - day * DAY - hour * HOUR) / MINUTE);
-  return {day, hour, minute};
+  const duration = moment.duration(ms);
+  return {
+    days: duration.days(),
+    hours: duration.hours(),
+    minutes: duration.minutes(),
+  };
 };
