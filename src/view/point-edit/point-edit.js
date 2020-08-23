@@ -5,11 +5,11 @@ import {createDetailsTemplate} from './details';
 import {createDestinationTemplate} from './destination';
 import flatpickr from 'flatpickr';
 import '../../../node_modules/flatpickr/dist/flatpickr.min.css';
-import {
-  extend,
-} from '../../utils/utils';
+import {extend} from '../../utils/utils';
+import {diffDate} from '../../utils/date';
 
 const checkDestinationOnError = (destinations, destination) => !destinations.includes(destination);
+const checkDatesOnError = (start, end) => (+start) > (+end);
 
 const createPointEditTemplate = (data, destinations) => {
   return (
@@ -26,6 +26,7 @@ export default class PointEdit extends AbstractSmartView {
     this._data = PointEdit.parsePointToData(point, destinations);
     this._destinations = destinations;
     this._typeListElement = null;
+    this._startDatePicker = null;
 
     this._formSubmitHandler = this._formSubmitHandler.bind(this);
     this._formResetHandler = this._formResetHandler.bind(this);
@@ -35,17 +36,19 @@ export default class PointEdit extends AbstractSmartView {
     this._typeListClickHandler = this._typeListClickHandler.bind(this);
     this._destinationChangeHandler = this._destinationChangeHandler.bind(this);
     this._offersChangeHandler = this._offersChangeHandler.bind(this);
+    this._startDateChangeHandler = this._startDateChangeHandler.bind(this);
 
     this._setInnerHandlers();
   }
 
   static parsePointToData(point, destinations) {
-    const {destination} = point;
+    const {destination, start, end} = point;
 
     return extend(
         point,
         {
           isDestinationError: checkDestinationOnError(destinations, destination),
+          isDatesError: checkDatesOnError(start, end),
         }
     );
   }
@@ -54,6 +57,7 @@ export default class PointEdit extends AbstractSmartView {
     data = extend(data);
 
     delete data.isDestinationError;
+    delete data.isDatesError;
 
     return data;
   }
@@ -82,6 +86,7 @@ export default class PointEdit extends AbstractSmartView {
     this.getElement().querySelector(`.event__input--destination`).addEventListener(`change`, this._destinationChangeHandler);
     this.getElement().querySelector(`.event__type-list`).addEventListener(`click`, this._typeListClickHandler);
     this._setOffersChangeHandlers();
+    this._setStartDateChangeHandler();
   }
 
   restoreHandlers() {
@@ -161,6 +166,37 @@ export default class PointEdit extends AbstractSmartView {
     offerElements.forEach((offerElement) => {
       offerElement.addEventListener(`change`, this._offersChangeHandler);
     });
+  }
+
+  _startDateChangeHandler([start]) {
+    const end = this._data.end;
+    const isDatesError = checkDatesOnError(start, end);
+    this.updateData({
+      start,
+      duration: diffDate(end, start),
+      isDatesError,
+    });
+  }
+
+  _setStartDateChangeHandler(callback) {
+
+    this._callback.startDateChange = callback;
+    if (this._startDatePicker) {
+      this._startDatePicker.destroy();
+      this._startDatePicker = null;
+    }
+
+    this._startDatePicker = flatpickr(
+        this.getElement().querySelector(`#event-start-time-1`),
+        {
+          enableTime: true,
+          /* eslint-disable-next-line */
+          time_24hr: true,
+          dateFormat: `d/m/y H:i`,
+          defaultDate: this._data.start,
+          onChange: this._startDateChangeHandler,
+        }
+    );
   }
 
   setFormSubmitHandler(callback) {

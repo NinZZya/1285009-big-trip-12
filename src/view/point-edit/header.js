@@ -18,9 +18,10 @@ export const createTripEventEditHeaderTemplate = (data, destinations) => {
     price,
     isFavorite,
     isDestinationError,
+    isDatesError,
   } = data;
 
-  const isError = isDestinationError;
+  const isError = isDestinationError || isDatesError;
 
   return (
     `<header class="event__header">
