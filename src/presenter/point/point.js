@@ -37,7 +37,7 @@ export default class Point {
     this._pointEditView = null;
     this._point = null;
     this._mode = Mode.DEFAULT;
-    this._isNeedUpdate = null;
+    this._isShouldUpdateTrip = null;
 
     this._rollupPointHandler = this._rollupPointHandler.bind(this);
     this._rollupPointEditHandler = this._rollupPointEditHandler.bind(this);
@@ -111,10 +111,10 @@ export default class Point {
   }
 
   _submitPointEditHandler(point) {
-    this._isNeedUpdate = this._pointEditView.isNeedUpdate();
+    this._isShouldUpdateTrip = this._pointEditView.isStartDateUpdate;
     this._changePoint(point);
 
-    if (this._isNeedUpdate) {
+    if (this._isShouldUpdateTrip) {
       this._updateTrip();
     }
 

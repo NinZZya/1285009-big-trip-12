@@ -46,7 +46,7 @@ export default class PointEdit extends AbstractSmartView {
     this._typeListElement = null;
     this._startDatePicker = null;
     this._endDatePicker = null;
-    this._isNeedUpdate = false;
+    this.isStartDateUpdate = false;
 
     this._formSubmitHandler = this._formSubmitHandler.bind(this);
     this._formResetHandler = this._formResetHandler.bind(this);
@@ -91,14 +91,6 @@ export default class PointEdit extends AbstractSmartView {
     this.updateData(
         PointEdit.parsePointToData(point, this._destinations)
     );
-  }
-
-  isNeedUpdate() {
-    return this._isNeedUpdate;
-  }
-
-  changeUpdateStatus(status) {
-    this._isNeedUpdate = status;
   }
 
   _getTypeList() {
@@ -202,7 +194,7 @@ export default class PointEdit extends AbstractSmartView {
     const end = this._data.end;
     const isDatesError = checkDatesOnError(start, end);
 
-    this.changeUpdateStatus(start !== this._data.start);
+    this.isStartDateUpdate = start !== this._data.start;
 
     this.updateData({
       start,
