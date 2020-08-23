@@ -138,6 +138,8 @@ export const createPriceTemplate = (price) => {
         id="event-price-1"
         type="number"
         min="0"
+        step="0.01"
+        required
         name="event-price"
         value="${price}"
       >
