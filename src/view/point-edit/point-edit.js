@@ -3,6 +3,8 @@ import {createTripEventEditHeaderTemplate} from './header';
 import {createDetailsTemplate} from './details';
 /* eslint-disable-next-line */
 import {createDestinationTemplate} from './destination';
+import flatpickr from 'flatpickr';
+import '../../../node_modules/flatpickr/dist/flatpickr.min.css';
 import {
   extend,
 } from '../../utils/utils';

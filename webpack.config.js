@@ -10,6 +10,14 @@ module.exports = {
     filename: 'bundle.js',
     path: outputPath
   },
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader']
+      }
+    ]
+  },
   devtool: 'source-map',
   devServer: {
     contentBase: outputPath,
