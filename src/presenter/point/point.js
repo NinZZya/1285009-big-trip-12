@@ -27,15 +27,17 @@ const {
 } = RenderPosition;
 
 export default class Point {
-  constructor(pointContainerView, changePoint, changeMode) {
+  constructor(pointContainerView, changePoint, changeMode, updateTrip) {
     this._pointContainerView = pointContainerView;
     this._changePoint = changePoint;
     this._changeMode = changeMode;
+    this._updateTrip = updateTrip;
     this._destinations = null;
     this._pointView = null;
     this._pointEditView = null;
     this._point = null;
     this._mode = Mode.DEFAULT;
+    this._isNeedUpdate = null;
 
     this._rollupPointHandler = this._rollupPointHandler.bind(this);
     this._rollupPointEditHandler = this._rollupPointEditHandler.bind(this);
@@ -109,7 +111,13 @@ export default class Point {
   }
 
   _submitPointEditHandler(point) {
+    this._isNeedUpdate = this._pointEditView.isNeedUpdate();
     this._changePoint(point);
+
+    if (this._isNeedUpdate) {
+      this._updateTrip();
+    }
+
     this._rollupPointEditHandler();
   }
 
