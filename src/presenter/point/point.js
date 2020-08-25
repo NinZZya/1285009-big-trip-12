@@ -100,14 +100,23 @@ export default class Point {
     this._mode = Mode.DEFAULT;
   }
 
+  _rollupPointEdit() {
+    this._replacePointEditToPoint();
+    document.removeEventListener(`keydown`, this._escKeyDownHandler);
+  }
+
+  _resetPointEdit() {
+    this._pointEditView.reset(this._point);
+    this._rollupPointEdit();
+  }
+
   _rollupPointHandler() {
     this._replacePointToPointEdit();
     document.addEventListener(`keydown`, this._escKeyDownHandler);
   }
 
   _rollupPointEditHandler() {
-    this._replacePointEditToPoint();
-    document.removeEventListener(`keydown`, this._escKeyDownHandler);
+    this._rollupPointEdit();
   }
 
   _submitPointEditHandler(point) {
@@ -118,18 +127,17 @@ export default class Point {
       this._updateTrip();
     }
 
-    this._rollupPointEditHandler();
+    this._rollupPointEdit();
   }
 
   _resetPointEditHandler() {
-    this._pointEditView.reset(this._point);
-    this._rollupPointEditHandler();
+    this._resetPointEdit();
   }
 
   _escKeyDownHandler(evt) {
     if (isEscPressed(evt)) {
       evt.preventDefault();
-      this._resetPointEditHandler();
+      this._resetPointEdit();
     }
   }
 }
