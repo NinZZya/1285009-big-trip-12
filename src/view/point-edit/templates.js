@@ -147,12 +147,12 @@ export const createPriceTemplate = (price) => {
   );
 };
 
-export const createSaveButtonTemplate = (isError) => {
+export const createSaveButtonTemplate = (isDisabled) => {
   return (
     `<button
       class="event__save-btn  btn  btn--blue"
       type="submit"
-      ${isError ? `disabled` : ``}
+      ${isDisabled ? `disabled` : ``}
     >
       Save
     </button>`

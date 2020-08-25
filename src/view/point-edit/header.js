@@ -18,10 +18,9 @@ export const createTripEventEditHeaderTemplate = (data, destinations) => {
     price,
     isFavorite,
     isDestinationError,
-    isDatesError,
   } = data;
 
-  const isError = isDestinationError || isDatesError;
+  const isDisabled = isDestinationError;
 
   return (
     `<header class="event__header">
@@ -29,7 +28,7 @@ export const createTripEventEditHeaderTemplate = (data, destinations) => {
       ${createDestinationTemplate(type, destination, destinations)}
       ${createTimeTemplate({start, end})}
       ${createPriceTemplate(price)}
-      ${createSaveButtonTemplate(isError)}
+      ${createSaveButtonTemplate(isDisabled)}
       ${createCancelButtonTemplate()}
       ${createFavoriteTemplate(isFavorite)}
       ${createRollupButtonTemplate()}

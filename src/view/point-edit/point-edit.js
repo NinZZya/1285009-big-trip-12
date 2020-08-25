@@ -9,19 +9,6 @@ import {extend} from '../../utils/utils';
 import {diffDate} from '../../utils/date';
 
 const checkDestinationOnError = (destinations, destination) => !destinations.includes(destination);
-const checkDatesOnError = (start, end) => (+start) > (+end);
-const createPointDatePicker = ({dateElement, defaultDate, onChange}) => flatpickr(
-    dateElement,
-    {
-      enableTime: true,
-      /* eslint-disable-next-line */
-      time_24hr: true,
-      dateFormat: `d/m/y H:i`,
-      defaultDate: defaultDate || new Date(),
-      onChange,
-    }
-);
-
 const destroyPointDatePicker = (picker) => {
   if (picker) {
     picker.destroy();
@@ -63,13 +50,12 @@ export default class PointEdit extends AbstractSmartView {
   }
 
   static parsePointToData(point, destinations) {
-    const {destination, start, end} = point;
+    const {destination} = point;
 
     return extend(
         point,
         {
           isDestinationError: checkDestinationOnError(destinations, destination),
-          isDatesError: checkDatesOnError(start, end),
         }
     );
   }
@@ -119,18 +105,26 @@ export default class PointEdit extends AbstractSmartView {
     this._setInnerHandlers();
   }
 
+  _destroyPointDatePicker() {
+    destroyPointDatePicker(this._startDatePicker);
+    destroyPointDatePicker(this._endDatePicker);
+  }
+
   _formSubmitHandler(evt) {
     evt.preventDefault();
+    this._destroyPointDatePicker();
     this._callback.formSubmit(PointEdit.parseDataToPoint(this._data));
   }
 
   _formResetHandler(evt) {
     evt.preventDefault();
+    this._destroyPointDatePicker();
     this._callback.formReset();
   }
 
   _rollupButtonClickHandler(evt) {
     evt.preventDefault();
+    this._destroyPointDatePicker();
     this._callback.rollupButtonClick();
   }
 
@@ -192,46 +186,54 @@ export default class PointEdit extends AbstractSmartView {
 
   _startDateChangeHandler([start]) {
     const end = this._data.end;
-    const isDatesError = checkDatesOnError(start, end);
 
     this.isStartDateUpdate = start !== this._data.start;
 
     this.updateData({
       start,
       duration: diffDate(end, start),
-      isDatesError,
     }, true);
+
+    this._endDatePicker.set(`minDate`, start);
   }
 
   _setStartDateChangeHandler() {
-    destroyPointDatePicker(this._startDatePicker);
-
-    this._startDatePicker = createPointDatePicker({
-      dateElement: this.getElement().querySelector(`#event-start-time-1`),
-      defaultDate: this._data.start,
-      onChange: this._startDateChangeHandler,
-    });
+    this._startDatePicker = flatpickr(
+        this.getElement().querySelector(`#event-start-time-1`),
+        {
+          'enableTime': true,
+          'time_24hr': true,
+          'dateFormat': `d/m/y H:i`,
+          'defaultDate': this._data.start || new Date(),
+          'maxDate': this._data.end,
+          'onChange': this._startDateChangeHandler,
+        }
+    );
   }
 
   _endDateChangeHandler([end]) {
     const start = this._data.start;
-    const isDatesError = checkDatesOnError(start, end);
 
     this.updateData({
       end,
       duration: diffDate(end, start),
-      isDatesError,
     }, true);
+
+    this._startDatePicker.set(`maxDate`, end);
   }
 
   _setEndDateChangeHandler() {
-    destroyPointDatePicker(this._endDatePicker);
-
-    this._endDatePicker = createPointDatePicker({
-      dateElement: this.getElement().querySelector(`#event-end-time-1`),
-      defaultDate: this._data.end,
-      onChange: this._endDateChangeHandler,
-    });
+    this._endDatePicker = flatpickr(
+        this.getElement().querySelector(`#event-end-time-1`),
+        {
+          'enableTime': true,
+          'time_24hr': true,
+          'dateFormat': `d/m/y H:i`,
+          'defaultDate': this._data.end || new Date(),
+          'minDate': this._data.start,
+          'onChange': this._endDateChangeHandler,
+        }
+    );
   }
 
   setFormSubmitHandler(callback) {
