@@ -1,8 +1,8 @@
 import AbstractSmartView from '../abstract-smart';
-import {createTripEventEditHeaderTemplate} from './header';
-import {createDetailsTemplate} from './details';
+import {createTripEventEditHeaderTemplate} from './templates/header';
+import {createDetailsTemplate} from './templates/details';
 /* eslint-disable-next-line */
-import {createDestinationTemplate} from './destination';
+import {createDestinationTemplate} from './templates/destination';
 import flatpickr from 'flatpickr';
 import '../../../node_modules/flatpickr/dist/flatpickr.min.css';
 import {extend} from '../../utils/utils';

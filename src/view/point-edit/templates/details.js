@@ -1,4 +1,4 @@
-import {createOffersTemplate} from './templates';
+import {createOffersTemplate} from './header-templates';
 
 export const createDetailsTemplate = (point) => {
   const {offers} = point;

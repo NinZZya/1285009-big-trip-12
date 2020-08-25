@@ -7,7 +7,7 @@ import {
   createCancelButtonTemplate,
   createFavoriteTemplate,
   createRollupButtonTemplate,
-} from './templates';
+} from './header-templates';
 
 export const createTripEventEditHeaderTemplate = (data, destinations) => {
   const {

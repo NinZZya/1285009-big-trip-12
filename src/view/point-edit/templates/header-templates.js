@@ -1,6 +1,6 @@
-import {pointGroupToTypes} from '../../const';
-import {formatDateYyyyMmDdHhMmWithDash} from '../../utils/date';
-import {getPointTypeWithPreposition} from '../../utils/type-preposition';
+import {pointGroupToTypes} from '../../../const';
+import {formatDateYyyyMmDdHhMmWithDash} from '../../../utils/date';
+import {getPointTypeWithPreposition} from '../../../utils/type-preposition';
 
 
 const FAVORITE_ICON = (
