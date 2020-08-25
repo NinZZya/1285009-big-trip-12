@@ -96,7 +96,7 @@ export default class Trip {
     }
     this._currentSortType = sortType;
     this._clearEvents();
-    this._renderEvents();
+    this._renderTrip();
   }
 
   _renderSort() {
@@ -124,14 +124,14 @@ export default class Trip {
 
     return Object.entries(days)
     .map(([date, points], counter) => {
-      return this._createEventDay(tripPoints, points, date, counter);
+      return this._createEventDay(points, date, counter);
     });
   }
 
-  _createEventDay(tripPoints, points, date, counter) {
+  _createEventDay(points, date, counter) {
     const dayView = new DayView({
       dayCount: counter !== undefined ? counter + 1 : null,
-      isCountRender: tripPoints.length > 1 && counter !== undefined,
+      isCountRender: counter !== undefined,
       date: date !== undefined ? date : null,
     });
 
