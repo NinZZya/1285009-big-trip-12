@@ -1,6 +1,6 @@
 import {
-  Point as PointView,
-  PointEdit as PointEditView,
+  PointView,
+  PointEditView,
 } from '../../view';
 
 import {
@@ -27,15 +27,17 @@ const {
 } = RenderPosition;
 
 export default class Point {
-  constructor(pointContainerView, changePoint, changeMode) {
+  constructor(pointContainerView, changePoint, changeMode, updateTrip) {
     this._pointContainerView = pointContainerView;
     this._changePoint = changePoint;
     this._changeMode = changeMode;
+    this._updateTrip = updateTrip;
     this._destinations = null;
     this._pointView = null;
     this._pointEditView = null;
     this._point = null;
     this._mode = Mode.DEFAULT;
+    this._isShouldUpdateTrip = null;
 
     this._rollupPointHandler = this._rollupPointHandler.bind(this);
     this._rollupPointEditHandler = this._rollupPointEditHandler.bind(this);
@@ -98,30 +100,44 @@ export default class Point {
     this._mode = Mode.DEFAULT;
   }
 
+  _rollupPointEdit() {
+    this._replacePointEditToPoint();
+    document.removeEventListener(`keydown`, this._escKeyDownHandler);
+  }
+
+  _resetPointEdit() {
+    this._pointEditView.reset(this._point);
+    this._rollupPointEdit();
+  }
+
   _rollupPointHandler() {
     this._replacePointToPointEdit();
     document.addEventListener(`keydown`, this._escKeyDownHandler);
   }
 
   _rollupPointEditHandler() {
-    this._replacePointEditToPoint();
-    document.removeEventListener(`keydown`, this._escKeyDownHandler);
+    this._rollupPointEdit();
   }
 
   _submitPointEditHandler(point) {
+    this._isShouldUpdateTrip = this._pointEditView.isStartDateUpdate;
     this._changePoint(point);
-    this._rollupPointEditHandler();
+
+    if (this._isShouldUpdateTrip) {
+      this._updateTrip();
+    }
+
+    this._rollupPointEdit();
   }
 
   _resetPointEditHandler() {
-    this._pointEditView.reset(this._point);
-    this._rollupPointEditHandler();
+    this._resetPointEdit();
   }
 
   _escKeyDownHandler(evt) {
-    evt.preventDefault();
     if (isEscPressed(evt)) {
-      this._resetPointEditHandler();
+      evt.preventDefault();
+      this._resetPointEdit();
     }
   }
 }

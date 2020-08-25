@@ -1,15 +1,15 @@
 import {
-  Info as InfoView,
-  Controls as ControlsView,
-  Tabs as TabsView,
-  Filters as FiltersView,
-  NewPointButton as NewPointButtonView,
+  InfoView,
+  ControlsView,
+  TabsView,
+  FiltersView,
+  NewPointButtonView,
   /* eslint-disable-next-line */
-  Statistics as StatisticsView,
+  StatisticsView,
 } from './view/';
 
 import {
-  Trip as TripPresenter
+  TripPresenter
 } from './presenter';
 
 import {

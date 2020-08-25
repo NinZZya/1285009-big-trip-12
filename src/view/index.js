@@ -1,35 +1,16 @@
-import Abstract from './abstract';
-import AbstractSmart from './abstract-smart';
-import Info from './info/info';
-import Controls from './controls/controls';
-import Tabs from './tabs/tabs';
-import Filters from './filters/filters';
-import Sort from './sort/sort';
-import NewPointButton from './new-point-button/new-point-button';
-import Days from './days/days';
-import Day from './day/day';
-import PointsList from './points-list/points-list';
-import PointsItem from './points-item/points-item';
-import Point from './point/point';
-import PointEdit from './point-edit/point-edit';
-import PointMessage from './point-message/point-message';
-import Statistics from './statistics/statistics';
-
-export {
-  Abstract,
-  AbstractSmart,
-  Info,
-  Tabs,
-  Controls,
-  Filters,
-  Sort,
-  NewPointButton,
-  Days,
-  Day,
-  PointsList,
-  PointsItem,
-  Point,
-  PointEdit,
-  PointMessage,
-  Statistics,
-};
+export {default as AbstractView} from './abstract';
+export {default as AbstractSmartView} from './abstract-smart';
+export {default as InfoView} from './info/info';
+export {default as ControlsView} from './controls/controls';
+export {default as TabsView} from './tabs/tabs';
+export {default as FiltersView} from './filters/filters';
+export {default as SortView} from './sort/sort';
+export {default as NewPointButtonView} from './new-point-button/new-point-button';
+export {default as DaysView} from './days/days';
+export {default as DayView} from './day/day';
+export {default as PointsListView} from './points-list/points-list';
+export {default as PointsItemView} from './points-item/points-item';
+export {default as PointView} from './point/point';
+export {default as PointEditView} from './point-edit/point-edit';
+export {default as PointMessageView} from './point-message/point-message';
+export {default as StatisticsView} from './statistics/statistics';

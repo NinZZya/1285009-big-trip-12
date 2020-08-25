@@ -18,7 +18,7 @@ export const getRandomArray = (arr, length = arr.length) => arr
     .sort(() => Math.random() - 0.5)
     .slice(0, length);
 
-export const getRandomDate = ({date = new Date(), minute = 59, hour = 24, day = 365, move = MoveDate.RANDOM}) => {
+export const getRandomDate = ({date = new Date(), minutes = 59, hours = 24, days = 365, move = MoveDate.RANDOM}) => {
   let sign = null;
   switch (move) {
     case MoveDate.PAST:
@@ -34,12 +34,14 @@ export const getRandomDate = ({date = new Date(), minute = 59, hour = 24, day = 
     default: throw new Error(`Bad move date value`);
   }
 
-  return (
+  const minutesMs = getRandomInt(0, minutes * MINUTE);
+  const hoursMs = getRandomInt(0, hours * HOUR);
+  const daysMs = getRandomInt(0, days * DAY);
+
+  const randomDateMs = (
     +date
-    + sign * (
-      getRandomInt(0 * MINUTE, minute * MINUTE)
-      + getRandomInt(0, hour * HOUR)
-      + getRandomInt(0, day * DAY)
-    )
+    + (sign * (minutesMs + hoursMs + daysMs))
   );
+
+  return new Date(randomDateMs);
 };
