@@ -4,12 +4,12 @@ import {
   createTimeTemplate,
   createPriceTemplate,
   createSaveButtonTemplate,
-  createCancelButtonTemplate,
+  createResetButtonTemplate,
   createFavoriteTemplate,
   createRollupButtonTemplate,
 } from './header-templates';
 
-export const createTripEventEditHeaderTemplate = (data, destinations) => {
+export const createTripEventEditHeaderTemplate = (data, destinations, isAddMode) => {
   const {
     type,
     destination,
@@ -29,7 +29,7 @@ export const createTripEventEditHeaderTemplate = (data, destinations) => {
       ${createTimeTemplate({start, end})}
       ${createPriceTemplate(price)}
       ${createSaveButtonTemplate(isDisabled)}
-      ${createCancelButtonTemplate()}
+      ${createResetButtonTemplate(isAddMode)}
       ${createFavoriteTemplate(isFavorite)}
       ${createRollupButtonTemplate()}
     </header>`

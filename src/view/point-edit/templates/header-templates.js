@@ -159,10 +159,10 @@ export const createSaveButtonTemplate = (isDisabled) => {
   );
 };
 
-export const createCancelButtonTemplate = () => {
+export const createResetButtonTemplate = (isAddMode) => {
   return (
     `<button class="event__reset-btn" type="reset">
-      Cancel
+      ${isAddMode ? `Cancel` : `Delete`}
     </button>`
   );
 };

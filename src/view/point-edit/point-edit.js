@@ -16,20 +16,21 @@ const destroyPointDatePicker = (picker) => {
   }
 };
 
-const createPointEditTemplate = (data, destinations) => {
+const createPointEditTemplate = (data, destinations, isAddMode) => {
   return (
     `<form class="event  event--edit" action="#" method="post">
-      ${createTripEventEditHeaderTemplate(data, destinations)}
+      ${createTripEventEditHeaderTemplate(data, destinations, isAddMode)}
       ${createDetailsTemplate(data)}
     </form>`
   );
 };
 
 export default class PointEdit extends AbstractSmartView {
-  constructor(point, destinations) {
+  constructor(point, destinations, isAddMode = false) {
     super();
     this._data = PointEdit.parsePointToData(point, destinations);
     this._destinations = destinations;
+    this._isAddMode = isAddMode;
     this._typeListElement = null;
     this._startDatePicker = null;
     this._endDatePicker = null;
@@ -70,7 +71,7 @@ export default class PointEdit extends AbstractSmartView {
   }
 
   getTemplate() {
-    return createPointEditTemplate(this._data, this._destinations);
+    return createPointEditTemplate(this._data, this._destinations, this._isAddMode);
   }
 
   reset(point) {
