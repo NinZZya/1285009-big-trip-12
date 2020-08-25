@@ -88,10 +88,11 @@ export default class PointEdit extends AbstractSmartView {
   }
 
   _setInnerHandlers() {
-    this.getElement().querySelector(`.event__favorite-checkbox`).addEventListener(`click`, this._favoriteClickHandler);
-    this.getElement().querySelector(`.event__input--price`).addEventListener(`change`, this._priceChangeHandler);
-    this.getElement().querySelector(`.event__input--destination`).addEventListener(`change`, this._destinationChangeHandler);
-    this.getElement().querySelector(`.event__type-list`).addEventListener(`click`, this._typeListClickHandler);
+    const element = this.getElement();
+    element.querySelector(`.event__favorite-checkbox`).addEventListener(`click`, this._favoriteClickHandler);
+    element.querySelector(`.event__input--price`).addEventListener(`change`, this._priceChangeHandler);
+    element.querySelector(`.event__input--destination`).addEventListener(`change`, this._destinationChangeHandler);
+    element.querySelector(`.event__type-list`).addEventListener(`click`, this._typeListClickHandler);
     this._setOffersChangeHandlers();
     this._setStartDateChangeHandler();
     this._setEndDateChangeHandler();
