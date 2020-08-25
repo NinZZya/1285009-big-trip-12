@@ -45,4 +45,4 @@ render(tripMainElement, newPointButtonView, BEFORE_END);
 const tripEventsElement = document.querySelector(`.trip-events`);
 
 const tripPresenter = new TripPresenter(tripEventsElement, tripModel);
-tripPresenter.init(points, DESTINATIONS);
+tripPresenter.init();
