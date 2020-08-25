@@ -1,7 +1,2 @@
-import Trip from './trip/trip';
-import Point from './point/point';
-
-export {
-  Trip,
-  Point,
-};
+export {default as TripPresenter} from './trip/trip';
+export {default as PointPresenter} from './point/point';

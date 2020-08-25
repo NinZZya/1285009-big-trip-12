@@ -1,10 +1,10 @@
 import {
-  Sort as SortView,
-  Days as DaysView,
-  Day as DayView,
-  PointsList as PointsListView,
-  PointsItem as PointsItemView,
-  PointMessage as PointMessageView,
+  SortView,
+  DaysView,
+  DayView,
+  PointsListView,
+  PointsItemView,
+  PointMessageView,
 } from '../../view/';
 
 import PointPresenter from '../point/point';

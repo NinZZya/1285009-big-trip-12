@@ -1,6 +1,6 @@
 import {
-  Point as PointView,
-  PointEdit as PointEditView,
+  PointView,
+  PointEditView,
 } from '../../view';
 
 import {
