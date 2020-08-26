@@ -47,6 +47,7 @@ export default class PointEdit extends AbstractSmartView {
     this._startDateChangeHandler = this._startDateChangeHandler.bind(this);
     this._endDateChangeHandler = this._endDateChangeHandler.bind(this);
 
+    this._destroyPointDatePickers();
     this._setInnerHandlers();
   }
 
@@ -80,6 +81,11 @@ export default class PointEdit extends AbstractSmartView {
     );
   }
 
+  removeElement() {
+    super.removeElement();
+    this._destroyPointDatePickers();
+  }
+
   _getTypeList() {
     if (!this._typeListElement) {
       this._typeListElement = this.getElement().querySelector(`.event__type-list`);
@@ -107,26 +113,23 @@ export default class PointEdit extends AbstractSmartView {
     this._setInnerHandlers();
   }
 
-  _destroyPointDatePicker() {
+  _destroyPointDatePickers() {
     destroyPointDatePicker(this._startDatePicker);
     destroyPointDatePicker(this._endDatePicker);
   }
 
   _formSubmitHandler(evt) {
     evt.preventDefault();
-    this._destroyPointDatePicker();
     this._callback.formSubmit(PointEdit.parseDataToPoint(this._data));
   }
 
   _formResetHandler(evt) {
     evt.preventDefault();
-    this._destroyPointDatePicker();
     this._callback.formReset(PointEdit.parseDataToPoint(this._data));
   }
 
   _rollupButtonClickHandler(evt) {
     evt.preventDefault();
-    this._destroyPointDatePicker();
     this._callback.rollupButtonClick();
   }
 

@@ -47,7 +47,7 @@ export default class Point {
     this._rollupPointHandler = this._rollupPointHandler.bind(this);
     this._rollupPointEditHandler = this._rollupPointEditHandler.bind(this);
     this._submitPointEditHandler = this._submitPointEditHandler.bind(this);
-    this._resetPointEditHandler = this._resetPointEditHandler.bind(this);
+    this._deletePointEditHandler = this._deletePointEditHandler.bind(this);
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
   }
 
@@ -63,7 +63,7 @@ export default class Point {
 
     this._pointView.setRollupButtonClickHandler(this._rollupPointHandler);
     this._pointEditView.setFormSubmitHandler(this._submitPointEditHandler);
-    this._pointEditView.setFormResetHandler(this._resetPointEditHandler);
+    this._pointEditView.setFormResetHandler(this._deletePointEditHandler);
     this._pointEditView.setRollupButtonClickHandler(this._rollupPointEditHandler);
 
     if (prevPointView === null || prevPointEditView === null) {
@@ -139,14 +139,14 @@ export default class Point {
   }
 
   // Use as delede in view
-  _resetPointEditHandler(point) {
+  _deletePointEditHandler(point) {
     this._changeData(
         UserAction.DELETE_POINT,
         UpdateType.MAJOR,
         point
     );
 
-    this._resetPointEdit();
+    this._rollupPointEdit();
   }
 
   _escKeyDownHandler(evt) {
