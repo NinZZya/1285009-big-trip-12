@@ -1,6 +1,7 @@
 import AbstractView from '../abstract';
-import {FILTERS} from './data';
+import {FilterType} from '../../const';
 
+const FILTERS = Object.values(FilterType);
 const DEFAULT_FILTER = 0;
 
 const createFiltersTemplate = () => {
