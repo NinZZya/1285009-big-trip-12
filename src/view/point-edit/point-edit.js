@@ -121,7 +121,7 @@ export default class PointEdit extends AbstractSmartView {
   _formResetHandler(evt) {
     evt.preventDefault();
     this._destroyPointDatePicker();
-    this._callback.formReset();
+    this._callback.formReset(PointEdit.parseDataToPoint(this._data));
   }
 
   _rollupButtonClickHandler(evt) {
