@@ -3,7 +3,7 @@ import {FilterType} from '../../const';
 
 const FILTERS = Object.values(FilterType);
 
-const createFiltersTemplate = (activeFilter = FilterType.EVERYTHING) => {
+const createFiltersTemplate = (activeFilter) => {
   return (
     `<form class="trip-filters" action="#" method="get">
       ${FILTERS
@@ -16,7 +16,7 @@ const createFiltersTemplate = (activeFilter = FilterType.EVERYTHING) => {
                 class="trip-filters__filter-input  visually-hidden"
                 type="radio"
                 name="trip-filter"
-                value="${key}"
+                value="${filter}"
                 ${filter === activeFilter ? `checked` : ``}
               >
               <label class="trip-filters__filter-label" for="filter-${key}">
@@ -34,7 +34,23 @@ const createFiltersTemplate = (activeFilter = FilterType.EVERYTHING) => {
 };
 
 export default class Filters extends AbstractView {
+  constructor(activeFilter) {
+    super();
+    this._activeFilter = activeFilter;
+    this._filterTypeChangeHandler = this._filterTypeChangeHandler.bind(this);
+  }
+
   getTemplate() {
-    return createFiltersTemplate();
+    return createFiltersTemplate(this._activeFilter);
+  }
+
+  _filterTypeChangeHandler(evt) {
+    evt.preventDefault();
+    this._callback.filterTypeChange(evt.target.value);
+  }
+
+  setFilterTypeChangeHandler(callback) {
+    this._callback.filterTypeChange = callback;
+    this.getElement().addEventListener(`change`, this._filterTypeChangeHandler);
   }
 }
