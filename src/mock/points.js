@@ -95,7 +95,12 @@ const generateOffers = () => {
 
 
 const generatePoint = () => {
-  const dateStart = getRandomDate(moveDateConfig);
+  const dateStart = getRandomDate(extend(
+      moveDateConfig,
+      {
+        move: getRandomBool() ? MoveDate.PAST : MoveDate.FUTURE,
+      }
+  ));
   const dateEnd = getRandomDate(extend(
       moveDateConfig,
       {
