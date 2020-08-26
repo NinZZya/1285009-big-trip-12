@@ -8,8 +8,11 @@ import {
   StatisticsView,
 } from './view/';
 
+import {
+  TripModel,
+  FilterModel
+} from './model';
 import {TripPresenter} from './presenter';
-import {TripModel} from './model';
 import {RenderPosition, render} from './utils/dom';
 import {generatePoints} from './mock/points';
 import {DESTINATIONS} from './mock/points';
@@ -26,6 +29,8 @@ const points = generatePoints(POINTS_COUNT);
 const tripModel = new TripModel();
 tripModel.setDestinations(DESTINATIONS);
 tripModel.setPoints(points);
+
+const filterModel = new FilterModel();
 
 const tripMainElement = document.querySelector(`.trip-main`);
 const infoView = new InfoView();
