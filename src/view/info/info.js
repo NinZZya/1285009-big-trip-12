@@ -1,20 +1,20 @@
 import AbstractView from '../abstract';
 
-const createInfoTemplate = () => {
+const createInfoTemplate = (route, period, coast) => {
   return (
     `<section class="trip-main__trip-info  trip-info">
       <div class="trip-info__main">
         <h1 class="trip-info__title">
-          Amsterdam &mdash; Chamonix &mdash; Geneva
+          ${route ? route : ``}
         </h1>
         <p class="trip-info__dates">
-          Mar 18&nbsp;&mdash;&nbsp;20
+          ${period ? period : ``}
         </p>
       </div>
       <p class="trip-info__cost">
         Total: &euro;&nbsp;
         <span class="trip-info__cost-value">
-          1230
+          ${coast ? coast : 0}
         </span>
       </p>
     </section>`
@@ -22,7 +22,14 @@ const createInfoTemplate = () => {
 };
 
 export default class Info extends AbstractView {
+  constructor(route, period, coast) {
+    super();
+    this._route = route;
+    this._period = period;
+    this._coast = coast;
+  }
+
   getTemplate() {
-    return createInfoTemplate();
+    return createInfoTemplate(this._route, this._period, this._coast);
   }
 }
