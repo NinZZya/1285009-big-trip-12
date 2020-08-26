@@ -2,13 +2,12 @@ import AbstractView from '../abstract';
 import {FilterType} from '../../const';
 
 const FILTERS = Object.values(FilterType);
-const DEFAULT_FILTER = 0;
 
-const createFiltersTemplate = () => {
+const createFiltersTemplate = (activeFilter = FilterType.EVERYTHING) => {
   return (
     `<form class="trip-filters" action="#" method="get">
       ${FILTERS
-        .map((filter, index) => {
+        .map((filter) => {
           const key = filter.toLowerCase();
           return (
             `<div class="trip-filters__filter">
@@ -18,7 +17,7 @@ const createFiltersTemplate = () => {
                 type="radio"
                 name="trip-filter"
                 value="${key}"
-                ${index === DEFAULT_FILTER ? `checked` : ``}
+                ${filter === activeFilter ? `checked` : ``}
               >
               <label class="trip-filters__filter-label" for="filter-${key}">
                 ${filter}
