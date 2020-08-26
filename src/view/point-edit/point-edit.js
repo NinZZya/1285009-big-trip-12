@@ -1,8 +1,8 @@
 import AbstractSmartView from '../abstract-smart';
-import {createTripEventEditHeaderTemplate} from './templates/header';
-import {createDetailsTemplate} from './templates/details';
+import {createHeaderTemplate} from './templates/create-header-template';
+import {createDetailsTemplate} from './templates/create-details-template';
 /* eslint-disable-next-line */
-import {createDestinationTemplate} from './templates/destination';
+import {createDestinationTemplate} from './templates/create-destination-template';
 import flatpickr from 'flatpickr';
 import '../../../node_modules/flatpickr/dist/flatpickr.min.css';
 import {extend} from '../../utils/utils';
@@ -19,7 +19,7 @@ const destroyPointDatePicker = (picker) => {
 const createPointEditTemplate = (data, destinations, isAddMode) => {
   return (
     `<form class="event  event--edit" action="#" method="post">
-      ${createTripEventEditHeaderTemplate(data, destinations, isAddMode)}
+      ${createHeaderTemplate(data, destinations, isAddMode)}
       ${createDetailsTemplate(data)}
     </form>`
   );
