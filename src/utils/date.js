@@ -34,3 +34,16 @@ export const convertMsToDHM = (ms) => {
     minutes: duration.minutes(),
   };
 };
+
+export const isDateAfter = (date1, date2) => {
+  date1 = moment(date1).format(`YYYY-MM-DD`);
+  date2 = moment(date2).format(`YYYY-MM-DD`);
+
+  return moment(date1).isAfter(date2);
+};
+
+export const isDateBefore = (date1, date2) => {
+  date1 = moment(date1).format(`YYYY-MM-DD`);
+  date2 = moment(date2).format(`YYYY-MM-DD`);
+  return moment(date1).isBefore(date2);
+};
