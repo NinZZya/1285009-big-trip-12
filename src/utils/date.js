@@ -15,6 +15,8 @@ export const formatDateYyyyMmDdHhMmWithDash = (date) => isDate(date) ? moment(da
  */
 export const formatDateISODdMmYyyyHhMm = (date) => isDate(date) ? moment(date).format(`YYYY-MM-DD[T]HH:mm`) : ``;
 
+export const formatDateMmmDd = (date) => isDate(date) ? moment(date).format(`MMM DD`) : ``;
+
 /**
  * @param {date} date1
  * @param {date} date2
