@@ -61,3 +61,8 @@ export const FilterType = {
   FUTURE: `Future`,
   PAST: `Past`,
 };
+
+export const TabName = {
+  TABLE: `Table`,
+  STATS: `Stats`,
+};
