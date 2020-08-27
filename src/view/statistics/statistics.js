@@ -2,7 +2,7 @@ import AbstractView from '../abstract';
 
 const createStatisticsTemplate = () => {
   return (
-    `<section class="statistics">
+    `<section class="statistics statistics--hidden">
       <h2 class="visually-hidden">
         Trip statistics
       </h2>

@@ -2,7 +2,6 @@ import {
   ControlsView,
   TabsView,
   NewPointButtonView,
-  /* eslint-disable-next-line */
   StatisticsView,
 } from './view/';
 
@@ -37,7 +36,8 @@ render(tripFilterEventsHeaderElement, tabsView, BEFORE_BEGIN);
 const newPointButtonView = new NewPointButtonView();
 render(tripMainElement, newPointButtonView, BEFORE_END);
 
-const tripEventsElement = document.querySelector(`.trip-events`);
+const bodyContainerElement = document.querySelector(`.page-main`).querySelector(`.page-body__container`);
+const tripEventsElement = bodyContainerElement.querySelector(`.trip-events`);
 
 const tripPresenter = new TripPresenter(tripEventsElement, tripModel, filterModel);
 tripPresenter.init();
@@ -47,6 +47,9 @@ filterPresenter.init();
 
 const infoPresenter = new InfoPresenter(tripMainElement, tripModel, filterModel);
 infoPresenter.init();
+
+const statisticsView = new StatisticsView();
+render(bodyContainerElement, statisticsView, BEFORE_END);
 
 const newPointButtonElement = newPointButtonView.getElement();
 newPointButtonElement.addEventListener(`click`, (evt) => {
