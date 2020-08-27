@@ -22,16 +22,15 @@ const calcCoast = (points) => points.reduce((sum, point) => sum + point.price, 0
 
 const getRoute = (points) => {
   const count = points.length;
-  switch (points.length) {
-    case 0:
-      return ``;
-    case 1:
-    case 2:
-    case 3:
-      return points.map((point) => point.destination).join(` — `);
-    default:
-      return `${points[0].destination} — ... — ${points[count - 1].destination}`;
+  if (count === 0) {
+    return ``;
   }
+
+  if (count <= 3) {
+    return points.map((point) => point.destination).join(` — `);
+  }
+
+  return `${points[0].destination} — ... — ${points[count - 1].destination}`;
 };
 
 const getPeriod = (points) => {
