@@ -49,3 +49,5 @@ export const isDateBefore = (date1, date2) => {
   date2 = moment(date2).format(`YYYY-MM-DD`);
   return moment(date1).isBefore(date2);
 };
+
+export const addDaysToDate = (date, count = 1) => new Date(moment(date).add(count, `day`).format());
