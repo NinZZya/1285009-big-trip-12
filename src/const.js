@@ -62,7 +62,7 @@ export const FilterType = {
   PAST: `Past`,
 };
 
-export const TabName = {
+export const TabItem = {
   TABLE: `Table`,
   STATS: `Stats`,
 };

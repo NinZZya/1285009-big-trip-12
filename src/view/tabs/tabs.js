@@ -1,7 +1,7 @@
 import AbstractView from '../abstract';
-import {TabName} from '../../const';
+import {TabItem} from '../../const';
 
-const TABS = Object.values(TabName);
+const TABS = Object.values(TabItem);
 
 const createTabsTemplate = (ativeTab) => {
   return (
