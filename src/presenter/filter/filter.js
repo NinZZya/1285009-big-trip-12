@@ -6,7 +6,8 @@ import {
   replace, remove,
 } from '../../utils/dom';
 
-import {UpdateType} from '../../const';
+import {filter} from '../../utils/filter';
+import {UpdateType, FilterType} from '../../const';
 
 const {
   BEFORE_END,
@@ -31,8 +32,14 @@ export default class Filter {
   init() {
     this._currentFilter = this._filterModel.getFilter();
     const prevFilterView = this._filterView;
+    const points = this._tripModel.getPoints();
+    const filtersStatus = {
+      [FilterType.EVERYTHING]: points.length > 0,
+      [FilterType.FUTURE]: filter[FilterType.FUTURE](points).length > 0,
+      [FilterType.PAST]: filter[FilterType.PAST](points).length > 0,
+    };
 
-    this._filterView = new FiltersView(this._currentFilter);
+    this._filterView = new FiltersView(this._currentFilter, filtersStatus);
     this._filterView.setFilterTypeChangeHandler(this._filterTypeChangeHandler);
 
     if (prevFilterView === null) {

@@ -3,7 +3,7 @@ import {FilterType} from '../../const';
 
 const FILTERS = Object.values(FilterType);
 
-const createFiltersTemplate = (activeFilter) => {
+const createFiltersTemplate = (activeFilter, filtersStatus) => {
   return (
     `<form class="trip-filters" action="#" method="get">
       ${FILTERS
@@ -18,6 +18,7 @@ const createFiltersTemplate = (activeFilter) => {
                 name="trip-filter"
                 value="${filter}"
                 ${filter === activeFilter ? `checked` : ``}
+                ${filtersStatus[filter] ? `` : `disabled`}
               >
               <label class="trip-filters__filter-label" for="filter-${key}">
                 ${filter}
@@ -34,14 +35,15 @@ const createFiltersTemplate = (activeFilter) => {
 };
 
 export default class Filters extends AbstractView {
-  constructor(activeFilter) {
+  constructor(activeFilter, filtersStatus) {
     super();
+    this._filtersStatus = filtersStatus;
     this._activeFilter = activeFilter;
     this._filterTypeChangeHandler = this._filterTypeChangeHandler.bind(this);
   }
 
   getTemplate() {
-    return createFiltersTemplate(this._activeFilter);
+    return createFiltersTemplate(this._activeFilter, this._filtersStatus);
   }
 
   _filterTypeChangeHandler(evt) {
