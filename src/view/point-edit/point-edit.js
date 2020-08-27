@@ -1,12 +1,24 @@
 import AbstractSmartView from '../abstract-smart';
 import {createHeaderTemplate} from './templates/create-header-template';
 import {createDetailsTemplate} from './templates/create-details-template';
-/* eslint-disable-next-line */
-import {createDestinationTemplate} from './templates/create-destination-template';
 import flatpickr from 'flatpickr';
 import '../../../node_modules/flatpickr/dist/flatpickr.min.css';
+import {ACTVITIES} from '../../const';
 import {extend} from '../../utils/utils';
-import {diffDate} from '../../utils/date';
+import {diffDate, addDaysToDate} from '../../utils/date';
+
+const BLANK_POINT = {
+  type: ACTVITIES[0].toLowerCase(),
+  destination: ``,
+  start: new Date(),
+  end: addDaysToDate(new Date()),
+  duration: null,
+  price: 0,
+  description: ``,
+  photos: [],
+  offers: [],
+  isFavorite: false,
+};
 
 const checkDestinationOnError = (destinations, destination) => !destinations.includes(destination);
 const destroyPointDatePicker = (picker) => {
@@ -17,16 +29,17 @@ const destroyPointDatePicker = (picker) => {
 };
 
 const createPointEditTemplate = (data, destinations, isAddMode) => {
+
   return (
-    `<form class="event  event--edit" action="#" method="post">
+    `<form class="trip-events__item event  event--edit" action="#" method="post">
       ${createHeaderTemplate(data, destinations, isAddMode)}
-      ${createDetailsTemplate(data)}
+      ${createDetailsTemplate(data, destinations)}
     </form>`
   );
 };
 
 export default class PointEdit extends AbstractSmartView {
-  constructor(point, destinations, isAddMode = false) {
+  constructor({point = BLANK_POINT, destinations, isAddMode = false}) {
     super();
     this._data = PointEdit.parsePointToData(point, destinations);
     this._destinations = destinations;
@@ -96,7 +109,11 @@ export default class PointEdit extends AbstractSmartView {
 
   _setInnerHandlers() {
     const element = this.getElement();
-    element.querySelector(`.event__favorite-checkbox`).addEventListener(`click`, this._favoriteClickHandler);
+
+    if (!this._isAddMode) {
+      element.querySelector(`.event__favorite-checkbox`).addEventListener(`click`, this._favoriteClickHandler);
+    }
+
     element.querySelector(`.event__input--price`).addEventListener(`change`, this._priceChangeHandler);
     element.querySelector(`.event__input--destination`).addEventListener(`change`, this._destinationChangeHandler);
     element.querySelector(`.event__type-list`).addEventListener(`click`, this._typeListClickHandler);
@@ -106,9 +123,12 @@ export default class PointEdit extends AbstractSmartView {
   }
 
   restoreHandlers() {
+    if (!this._isAddMode) {
+      this.setRollupButtonClickHandler(this._callback.rollupButtonClick);
+    }
+
     this.setFormSubmitHandler(this._callback.formSubmit);
     this.setFormResetHandler(this._callback.formReset);
-    this.setRollupButtonClickHandler(this._callback.rollupButtonClick);
 
     this._setInnerHandlers();
   }
@@ -143,7 +163,7 @@ export default class PointEdit extends AbstractSmartView {
   _priceChangeHandler(evt) {
     evt.preventDefault();
     this.updateData({
-      price: evt.target.value,
+      price: Number(evt.target.value),
     }, true);
   }
 

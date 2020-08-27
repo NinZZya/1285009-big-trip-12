@@ -28,8 +28,8 @@ export const createHeaderTemplate = (data, destinations, isAddMode) => {
       ${createPriceTemplate(price)}
       ${createSaveButtonTemplate(isDisabled)}
       ${createResetButtonTemplate(isAddMode)}
-      ${createFavoriteTemplate(isFavorite)}
-      ${createRollupButtonTemplate()}
+      ${isAddMode ? `` : createFavoriteTemplate(isFavorite)}
+      ${isAddMode ? `` : createRollupButtonTemplate()}
     </header>`
   );
 };

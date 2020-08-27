@@ -59,7 +59,7 @@ export default class Point {
     const prevPointEditView = this._pointEditView;
 
     this._pointView = new PointView(point);
-    this._pointEditView = new PointEditView(point, this._destinations);
+    this._pointEditView = new PointEditView({point, destinations: this._destinations});
 
     this._pointView.setRollupButtonClickHandler(this._rollupPointHandler);
     this._pointEditView.setFormSubmitHandler(this._submitPointEditHandler);

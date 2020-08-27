@@ -8,6 +8,7 @@ import {
 } from '../../view/';
 
 import PointPresenter from '../point/point';
+import PointNewPresenter from '../point-new/point-new';
 
 import {
   formatDateISODdMmYyyyHhMm,
@@ -80,10 +81,19 @@ export default class Trip {
 
     this._tripModel.addObserver(this._modelEventHandler);
     this._filterModel.addObserver(this._modelEventHandler);
+
+    this._pointNewPresenter = new PointNewPresenter(this._tripContainer, this._viewActionHandler);
   }
 
   init() {
     this._renderTrip();
+  }
+
+  createPoint(callback) {
+    this._currentSortType = SortType.EVENT;
+    this._filterModel.setFilter(UpdateType.MINOR, FilterType.EVERYTHING);
+    const destinations = this._tripModel.getDestinations();
+    this._pointNewPresenter.init(destinations, callback);
   }
 
   _getPoints() {
@@ -208,6 +218,7 @@ export default class Trip {
       this._resetSortType();
     }
 
+    this._pointNewPresenter.destroy();
     this._clearNoEventsMessage();
     this._clearEvents();
     this._renderTrip();
@@ -247,6 +258,8 @@ export default class Trip {
   }
 
   _changeModeHandler() {
+    this._pointNewPresenter.destroy();
+
     Object
       .values(this._pointPresenter)
       .forEach((presenter) => presenter.resetView());

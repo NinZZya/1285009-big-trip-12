@@ -47,3 +47,12 @@ filterPresenter.init();
 
 const infoPresenter = new InfoPresenter(tripMainElement, tripModel, filterModel);
 infoPresenter.init();
+
+const newPointButtonElement = newPointButtonView.getElement();
+newPointButtonElement.addEventListener(`click`, (evt) => {
+  evt.preventDefault();
+  newPointButtonElement.disabled = true;
+  tripPresenter.createPoint(() => {
+    newPointButtonElement.disabled = false;
+  });
+});
