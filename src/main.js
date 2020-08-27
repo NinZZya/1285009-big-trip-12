@@ -2,15 +2,15 @@ import {
   ControlsView,
   TabsView,
   NewPointButtonView,
-  /* eslint-disable-next-line */
   StatisticsView,
 } from './view/';
 
 import {TripModel, FilterModel} from './model';
 import {TripPresenter, FilterPresenter, InfoPresenter} from './presenter';
-import {RenderPosition, render} from './utils/dom';
+import {RenderPosition, render, remove} from './utils/dom';
 import {generatePoints} from './mock/points';
 import {DESTINATIONS} from './mock/points';
+import {TabItem} from './const';
 
 const {
   BEFORE_BEGIN,
@@ -37,10 +37,10 @@ render(tripFilterEventsHeaderElement, tabsView, BEFORE_BEGIN);
 const newPointButtonView = new NewPointButtonView();
 render(tripMainElement, newPointButtonView, BEFORE_END);
 
-const tripEventsElement = document.querySelector(`.trip-events`);
+const bodyContainerElement = document.querySelector(`.page-main`).querySelector(`.page-body__container`);
+const tripEventsElement = bodyContainerElement.querySelector(`.trip-events`);
 
 const tripPresenter = new TripPresenter(tripEventsElement, tripModel, filterModel);
-tripPresenter.init();
 
 const filterPresenter = new FilterPresenter(controlsView, tripModel, filterModel);
 filterPresenter.init();
@@ -56,3 +56,23 @@ newPointButtonElement.addEventListener(`click`, (evt) => {
     newPointButtonElement.disabled = false;
   });
 });
+
+let statisticsView = null;
+
+const tabsClickHandler = (activeTab) => {
+  switch (activeTab) {
+    case TabItem.TABLE:
+      tripPresenter.init();
+      remove(statisticsView);
+      break;
+    case TabItem.STATS:
+      tripPresenter.destroy();
+      statisticsView = new StatisticsView(tripModel.getPoints());
+      render(bodyContainerElement, statisticsView, BEFORE_END);
+      break;
+  }
+};
+
+tabsView.setTabsClickHandler(tabsClickHandler);
+
+tripPresenter.init();

@@ -10,7 +10,7 @@ export const DAY = 24 * HOUR;
 export const TRANSFERS = [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight`];
 export const ACTVITIES = [`Check-in`, `Sightseeing`, `Restaurant`];
 
-const PointGroupType = {
+export const PointGroupType = {
   TRANSFER: `Transfer`,
   ACTVITY: `Activity`,
 };
@@ -38,6 +38,19 @@ export const pointTypeToPreposition = {
   'restaurant': pointGropTypeToPreposition[PointGroupType.ACTVITY],
 };
 
+export const pointTypeToEmoji = {
+  'taxi': `🚕`,
+  'bus': `🚌`,
+  'train': `🚂`,
+  'ship': `🛳`,
+  'transport': `🚊`,
+  'drive': `🚗`,
+  'flight': `✈️`,
+  'check-in': `🏨`,
+  'sightseeing': `🏛`,
+  'restaurant': `🍴`,
+};
+
 export const SortType = {
   EVENT: `Event`,
   TIME: `Time`,
@@ -60,4 +73,9 @@ export const FilterType = {
   EVERYTHING: `Everything`,
   FUTURE: `Future`,
   PAST: `Past`,
+};
+
+export const TabItem = {
+  TABLE: `Table`,
+  STATS: `Stats`,
 };
