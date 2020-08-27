@@ -7,9 +7,10 @@ import {
 
 import {TripModel, FilterModel} from './model';
 import {TripPresenter, FilterPresenter, InfoPresenter} from './presenter';
-import {RenderPosition, render} from './utils/dom';
+import {RenderPosition, render, remove} from './utils/dom';
 import {generatePoints} from './mock/points';
 import {DESTINATIONS} from './mock/points';
+import {TabItem} from './const';
 
 const {
   BEFORE_BEGIN,
@@ -40,16 +41,12 @@ const bodyContainerElement = document.querySelector(`.page-main`).querySelector(
 const tripEventsElement = bodyContainerElement.querySelector(`.trip-events`);
 
 const tripPresenter = new TripPresenter(tripEventsElement, tripModel, filterModel);
-tripPresenter.init();
 
 const filterPresenter = new FilterPresenter(controlsView, tripModel, filterModel);
 filterPresenter.init();
 
 const infoPresenter = new InfoPresenter(tripMainElement, tripModel, filterModel);
 infoPresenter.init();
-
-const statisticsView = new StatisticsView();
-render(bodyContainerElement, statisticsView, BEFORE_END);
 
 const newPointButtonElement = newPointButtonView.getElement();
 newPointButtonElement.addEventListener(`click`, (evt) => {
@@ -59,3 +56,23 @@ newPointButtonElement.addEventListener(`click`, (evt) => {
     newPointButtonElement.disabled = false;
   });
 });
+
+let statisticsView = null;
+
+const tabsClickHandler = (activeTab) => {
+  switch (activeTab) {
+    case TabItem.TABLE:
+      tripPresenter.init();
+      remove(statisticsView);
+      break;
+    case TabItem.STATS:
+      tripPresenter.destroy();
+      statisticsView = new StatisticsView(tripModel.getPoints());
+      render(bodyContainerElement, statisticsView, BEFORE_END);
+      break;
+  }
+};
+
+tabsView.setTabsClickHandler(tabsClickHandler);
+
+tripPresenter.init();
