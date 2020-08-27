@@ -1,22 +1,10 @@
 import AbstractView from '../abstract';
 import {createOfferTemplate} from './templates/create-offer-template';
 import {getPointTypeWithPreposition} from '../../utils/type-preposition';
-import {
-  formatDateISODdMmYyyyHhMm,
-  convertNumberOfDate,
-  convertMsToDHM,
-} from '../../utils/date';
+import {convertDurationValue} from '../../utils/utils';
+import {formatDateISODdMmYyyyHhMm} from '../../utils/date';
 
 const OFFERS_COUNT = 3;
-
-const convertDurationValue = (duration) => {
-  const {days, hours, minutes} = duration;
-  if (days > 0) {
-    return `${convertNumberOfDate(days)}D ${convertNumberOfDate(hours)}H ${convertNumberOfDate(minutes)}M`;
-  }
-
-  return `${hours > 0 ? `${convertNumberOfDate(hours)}H` : ``} ${convertNumberOfDate(minutes)}M`;
-};
 
 const createPointTemplate = (point) => {
   const {
@@ -29,7 +17,7 @@ const createPointTemplate = (point) => {
     destination,
   } = point;
 
-  const durationValue = convertDurationValue(convertMsToDHM(duration));
+  const durationValue = convertDurationValue(duration);
   const formatedStartDate = formatDateISODdMmYyyyHhMm(start);
   const formatedEndDate = formatDateISODdMmYyyyHhMm(end);
 
