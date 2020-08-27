@@ -1,5 +1,5 @@
 import AbstractView from '../abstract';
-import {createOfferTemplate} from './templates';
+import {createOfferTemplate} from './templates/create-offer-template';
 import {getPointTypeWithPreposition} from '../../utils/type-preposition';
 import {
   formatDateISODdMmYyyyHhMm,

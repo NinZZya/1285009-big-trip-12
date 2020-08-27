@@ -77,11 +77,11 @@ const DESTINATIONS = [
 ];
 
 const PHOTOS = [
-  `img/photo/1.jpg`,
-  `img/photo/2.jpg`,
-  `img/photo/3.jpg`,
-  `img/photo/4.jpg`,
-  `img/photo/5.jpg`,
+  `img/photos/1.jpg`,
+  `img/photos/2.jpg`,
+  `img/photos/3.jpg`,
+  `img/photos/4.jpg`,
+  `img/photos/5.jpg`,
 ];
 
 const generateOffers = () => {
@@ -95,7 +95,12 @@ const generateOffers = () => {
 
 
 const generatePoint = () => {
-  const dateStart = getRandomDate(moveDateConfig);
+  const dateStart = getRandomDate(extend(
+      moveDateConfig,
+      {
+        move: getRandomBool() ? MoveDate.PAST : MoveDate.FUTURE,
+      }
+  ));
   const dateEnd = getRandomDate(extend(
       moveDateConfig,
       {

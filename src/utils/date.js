@@ -15,6 +15,8 @@ export const formatDateYyyyMmDdHhMmWithDash = (date) => isDate(date) ? moment(da
  */
 export const formatDateISODdMmYyyyHhMm = (date) => isDate(date) ? moment(date).format(`YYYY-MM-DD[T]HH:mm`) : ``;
 
+export const formatDateMmmDd = (date) => isDate(date) ? moment(date).format(`MMM DD`) : ``;
+
 /**
  * @param {date} date1
  * @param {date} date2
@@ -34,3 +36,18 @@ export const convertMsToDHM = (ms) => {
     minutes: duration.minutes(),
   };
 };
+
+export const isDateAfter = (date1, date2) => {
+  date1 = moment(date1).format(`YYYY-MM-DD`);
+  date2 = moment(date2).format(`YYYY-MM-DD`);
+
+  return moment(date1).isAfter(date2);
+};
+
+export const isDateBefore = (date1, date2) => {
+  date1 = moment(date1).format(`YYYY-MM-DD`);
+  date2 = moment(date2).format(`YYYY-MM-DD`);
+  return moment(date1).isBefore(date2);
+};
+
+export const addDaysToDate = (date, count = 1) => new Date(moment(date).add(count, `day`).format());

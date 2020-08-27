@@ -17,6 +17,11 @@ import {
   isEscPressed,
 } from '../../utils/utils';
 
+import {
+  UpdateType,
+  UserAction,
+} from '../../const';
+
 const Mode = {
   DEFAULT: `DEFAULT`,
   EDITING: `EDITING`
@@ -27,11 +32,11 @@ const {
 } = RenderPosition;
 
 export default class Point {
-  constructor(pointContainerView, changePoint, changeMode, updateTrip) {
+  constructor(pointContainerView, changePoint, changeMode, changeData) {
     this._pointContainerView = pointContainerView;
     this._changePoint = changePoint;
     this._changeMode = changeMode;
-    this._updateTrip = updateTrip;
+    this._changeData = changeData;
     this._destinations = null;
     this._pointView = null;
     this._pointEditView = null;
@@ -42,7 +47,7 @@ export default class Point {
     this._rollupPointHandler = this._rollupPointHandler.bind(this);
     this._rollupPointEditHandler = this._rollupPointEditHandler.bind(this);
     this._submitPointEditHandler = this._submitPointEditHandler.bind(this);
-    this._resetPointEditHandler = this._resetPointEditHandler.bind(this);
+    this._deletePointEditHandler = this._deletePointEditHandler.bind(this);
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
   }
 
@@ -54,12 +59,12 @@ export default class Point {
     const prevPointEditView = this._pointEditView;
 
     this._pointView = new PointView(point);
-    this._pointEditView = new PointEditView(point, this._destinations);
+    this._pointEditView = new PointEditView({point, destinations: this._destinations});
 
     this._pointView.setRollupButtonClickHandler(this._rollupPointHandler);
     this._pointEditView.setFormSubmitHandler(this._submitPointEditHandler);
-    this._pointEditView.setFormResetHandler(this._resetPointEditHandler);
-    this._pointEditView.setRollupButtonClickHandler(this._resetPointEditHandler);
+    this._pointEditView.setFormResetHandler(this._deletePointEditHandler);
+    this._pointEditView.setRollupButtonClickHandler(this._rollupPointEditHandler);
 
     if (prevPointView === null || prevPointEditView === null) {
       render(this._pointContainerView, this._pointView, BEFORE_END);
@@ -120,18 +125,28 @@ export default class Point {
   }
 
   _submitPointEditHandler(point) {
-    this._isShouldUpdateTrip = this._pointEditView.isStartDateUpdate;
-    this._changePoint(point);
+    const updateType = this._pointEditView.isStartDateUpdate
+      ? UpdateType.MINOR
+      : UpdateType.PATCH;
 
-    if (this._isShouldUpdateTrip) {
-      this._updateTrip();
-    }
+    this._changeData(
+        UserAction.UPDATE_POINT,
+        updateType,
+        point
+    );
 
     this._rollupPointEdit();
   }
 
-  _resetPointEditHandler() {
-    this._resetPointEdit();
+  // Use as delede in view
+  _deletePointEditHandler(point) {
+    this._changeData(
+        UserAction.DELETE_POINT,
+        UpdateType.MAJOR,
+        point
+    );
+
+    this._rollupPointEdit();
   }
 
   _escKeyDownHandler(evt) {
