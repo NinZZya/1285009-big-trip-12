@@ -20,7 +20,10 @@ const BLANK_POINT = {
   isFavorite: false,
 };
 
-const checkDestinationOnError = (destinations, destination) => !destinations.includes(destination);
+const checkDestinationOnError = (destinations, activeDestination) => {
+  return destinations.every((destination) => destination.name === activeDestination.name);
+};
+
 const destroyPointDatePicker = (picker) => {
   if (picker) {
     picker.destroy();
@@ -28,21 +31,22 @@ const destroyPointDatePicker = (picker) => {
   }
 };
 
-const createPointEditTemplate = (data, destinations, isAddMode) => {
+const createPointEditTemplate = (data, destinations, offers, isAddMode) => {
 
   return (
     `<form class="trip-events__item event  event--edit" action="#" method="post">
       ${createHeaderTemplate(data, destinations, isAddMode)}
-      ${createDetailsTemplate(data, destinations)}
+      ${createDetailsTemplate(data, offers)}
     </form>`
   );
 };
 
 export default class PointEdit extends AbstractSmartView {
-  constructor({point = BLANK_POINT, destinations, isAddMode = false}) {
+  constructor({point = BLANK_POINT, destinations, offers, isAddMode = false}) {
     super();
     this._data = PointEdit.parsePointToData(point, destinations);
     this._destinations = destinations;
+    this._offers = offers;
     this._isAddMode = isAddMode;
     this._typeListElement = null;
     this._startDatePicker = null;
@@ -85,7 +89,7 @@ export default class PointEdit extends AbstractSmartView {
   }
 
   getTemplate() {
-    return createPointEditTemplate(this._data, this._destinations, this._isAddMode);
+    return createPointEditTemplate(this._data, this._destinations, this._offers, this._isAddMode);
   }
 
   reset(point) {
