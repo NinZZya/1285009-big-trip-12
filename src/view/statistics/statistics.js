@@ -71,7 +71,7 @@ const renderChart = (chartCtx, chartData, chartConfig) => {
         data,
         backgroundColor: `#ffffff`,
         hoverBackgroundColor: `#ffffff`,
-        anchor: `start`,
+        anchor: `start`
       }]
     },
     options: {
@@ -98,7 +98,7 @@ const renderChart = (chartCtx, chartData, chartConfig) => {
           ticks: {
             fontColor: `#000000`,
             padding: 5,
-            fontSize: 13,
+            fontSize: 18,
           },
           gridLines: {
             display: false,
@@ -113,9 +113,10 @@ const renderChart = (chartCtx, chartData, chartConfig) => {
           },
           gridLines: {
             display: false,
-            drawBorder: false
+            drawBorder: false,
           },
-          minBarLength: BAR_HEIGHT
+          barPercentage: 1,
+          minBarLength: BAR_HEIGHT,
         }],
       },
       legend: {
