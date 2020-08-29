@@ -177,6 +177,7 @@ export default class PointEdit extends AbstractSmartView {
     const type = this._getTypeList().querySelector(`#${typeId}`).value.toLowerCase();
     this.updateData({
       type,
+      offers: [],
     });
   }
 
@@ -191,15 +192,20 @@ export default class PointEdit extends AbstractSmartView {
 
   _offersChangeHandler(evt) {
     evt.preventDefault();
-    const offerKey = evt.target.value;
     const isActivated = evt.target.checked;
-    const offers = this._data.offers.map((offer) => {
-      if (offerKey === offer.key) {
-        return extend(offer, {isActivated});
-      }
+    const title = evt.target.dataset.title;
+    const price = Number(evt.target.dataset.price);
 
-      return offer;
-    });
+    let offers = this._data.offers.slice();
+
+    if (isActivated) {
+      offers.push({
+        title,
+        price,
+      });
+    } else {
+      offers = offers.filter((offer) => offer.title !== title);
+    }
 
     this.updateData({
       offers,

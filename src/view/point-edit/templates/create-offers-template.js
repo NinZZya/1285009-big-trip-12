@@ -21,7 +21,8 @@ export const createOffersTemplate = (data, offers) => {
                 <input
                   class="event__offer-checkbox visually-hidden"
                   id="event-offer-${type}-${index}"
-                  value="${title}"
+                  data-title="${title}"
+                  data-price="${price}"
                   type="checkbox" name="event-offer-${type}"
                   ${isOfferIncluded(data.offers, offer) ? `checked` : ``}
                 >

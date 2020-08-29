@@ -261,8 +261,15 @@ export default class Trip {
     this._renderTrip();
   }
 
+  _pointUpdate(updatedPoint) {
+    const destinations = this._getDestinations();
+    const offers = this._getOffers();
+
+    this._pointPresenter[updatedPoint.id].init(updatedPoint, destinations, offers);
+  }
+
   _pointChangeHandler(updatedPoint) {
-    this._pointPresenter[updatedPoint.id].init(updatedPoint, this._getDestinations());
+    this._pointUpdate(updatedPoint);
   }
 
   _clearSort() {
@@ -333,7 +340,7 @@ export default class Trip {
   _modelEventHandler(updateType, data) {
     switch (updateType) {
       case UpdateType.PATCH:
-        this._pointPresenter[data.id].init(data, this._getDestinations());
+        this._pointUpdate(data);
         break;
       case UpdateType.MINOR:
         this._updateTrip();
