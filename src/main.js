@@ -8,21 +8,20 @@ import {
 import {TripModel, FilterModel} from './model';
 import {TripPresenter, FilterPresenter, InfoPresenter} from './presenter';
 import {RenderPosition, render, remove} from './utils/dom';
-import {generatePoints} from './mock/points';
-import {DESTINATIONS} from './mock/points';
-import {TabItem} from './const';
+import Api from './api';
+import {TabItem, UpdateType} from './const';
+
+const AUTHORIZATION = `Basic K5MGq4Ma5mbffTogkBUBv`;
+const END_POINT = `https://12.ecmascript.pages.academy/big-trip`;
 
 const {
   BEFORE_BEGIN,
   BEFORE_END,
 } = RenderPosition;
 
-const POINTS_COUNT = 20;
-const points = generatePoints(POINTS_COUNT);
+const api = new Api(END_POINT, AUTHORIZATION);
 
 const tripModel = new TripModel();
-tripModel.setDestinations(DESTINATIONS);
-tripModel.setPoints(points);
 
 const filterModel = new FilterModel();
 
@@ -41,12 +40,8 @@ const bodyContainerElement = document.querySelector(`.page-main`).querySelector(
 const tripEventsElement = bodyContainerElement.querySelector(`.trip-events`);
 
 const tripPresenter = new TripPresenter(tripEventsElement, tripModel, filterModel);
-
 const filterPresenter = new FilterPresenter(controlsView, tripModel, filterModel);
-filterPresenter.init();
-
 const infoPresenter = new InfoPresenter(tripMainElement, tripModel, filterModel);
-infoPresenter.init();
 
 const newPointButtonElement = newPointButtonView.getElement();
 newPointButtonElement.addEventListener(`click`, (evt) => {
@@ -76,3 +71,21 @@ const tabsClickHandler = (activeTab) => {
 tabsView.setTabsClickHandler(tabsClickHandler);
 
 tripPresenter.init();
+filterPresenter.init();
+infoPresenter.init();
+
+Promise.all([
+  api.getDestinations(),
+  api.getOffers(),
+  api.getPoints()
+])
+  .then((values) => {
+    const [destinations, offers, points] = values;
+
+    tripModel.setDestinations(destinations);
+    tripModel.setOffers(offers);
+    tripModel.setPoints(UpdateType.INIT, points);
+  })
+  .catch(() => {
+    tripModel.setError(UpdateType.ERROR);
+  });
