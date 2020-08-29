@@ -1,10 +1,53 @@
+import {diffDate} from "../../utils/date.js";
 import Observer from "../../utils/observer.js";
 
 export default class Trip extends Observer {
   constructor() {
     super();
     this._destinations = [];
+    this._offers = {};
     this._points = [];
+  }
+
+  static adaptPointToClient(point) {
+    const start = new Date(point.date_from);
+    const end = new Date(point.date_to);
+
+    const adaptedPoint = {
+      id: point.id,
+      type: point.type,
+      destination: point.destination,
+      start,
+      end,
+      duration: diffDate(end, start),
+      price: point.base_price,
+      offers: point.offers,
+      isFavorite: point.is_favorite,
+    };
+
+    return adaptedPoint;
+  }
+
+  static adaptPointToServer(point) {
+    const adaptedPoint = {
+      "id": point.id,
+      "type": point.type,
+      "base_price": point.price,
+      "date_from": point.start.toString(),
+      "date_to": point.end.toString(),
+      "destination": point.destination,
+      "is_favorite": point.isFavorite,
+      "offers": point.offers,
+    };
+
+    return adaptedPoint;
+  }
+
+  static adaptOffersToClient(offers) {
+    return offers.reduce((mapOffer, offer) => {
+      mapOffer[offer.type] = offer.offers;
+      return mapOffer;
+    }, {});
   }
 
   setDestinations(destinations) {
@@ -15,8 +58,21 @@ export default class Trip extends Observer {
     return this._destinations;
   }
 
-  setPoints(points) {
+  setOffers(offers) {
+    this._offers = offers;
+  }
+
+  getOffers() {
+    return this._offers;
+  }
+
+  setPoints(updateType, points) {
     this._points = points.slice();
+    this._notify(updateType);
+  }
+
+  setError(updateType) {
+    this._notify(updateType);
   }
 
   getPoints() {
