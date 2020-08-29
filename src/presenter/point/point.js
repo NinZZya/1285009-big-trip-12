@@ -51,15 +51,21 @@ export default class Point {
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
   }
 
-  init(point, destinations) {
+  init(point, destinations, offers) {
     this._point = point;
     this._destinations = destinations;
+    this._offers = offers;
 
     const prevPointView = this._pointView;
     const prevPointEditView = this._pointEditView;
 
     this._pointView = new PointView(point);
-    this._pointEditView = new PointEditView({point, destinations: this._destinations});
+
+    this._pointEditView = new PointEditView({
+      point,
+      destinations: this._destinations,
+      offers: this._offers,
+    });
 
     this._pointView.setRollupButtonClickHandler(this._rollupPointHandler);
     this._pointEditView.setFormSubmitHandler(this._submitPointEditHandler);

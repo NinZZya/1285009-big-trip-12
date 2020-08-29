@@ -18,7 +18,12 @@ const {
 } = RenderPosition;
 
 const getPeriodTitle = (date) => formatDateMmmDd(date).toLocaleUpperCase();
-const calcCoast = (points) => points.reduce((sum, point) => sum + point.price, 0);
+const calcCoast = (points) => points.reduce((sum, point) => {
+  if (point.offers && point.offers.length > 0) {
+    sum = calcCoast(point.offers);
+  }
+  return sum + point.price;
+}, 0);
 
 const getRoute = (points) => {
   const count = points.length;
@@ -27,10 +32,10 @@ const getRoute = (points) => {
   }
 
   if (count <= 3) {
-    return points.map((point) => point.destination).join(` — `);
+    return points.map((point) => point.destination.name).join(` — `);
   }
 
-  return `${points[0].destination} — ... — ${points[count - 1].destination}`;
+  return `${points[0].destination.name} — ... — ${points[count - 1].destination.name}`;
 };
 
 const getPeriod = (points) => {
