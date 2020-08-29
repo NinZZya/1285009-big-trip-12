@@ -131,7 +131,7 @@ const renderChart = (chartCtx, chartData, chartConfig) => {
 
 const createStatisticsTemplate = () => {
   return (
-    `<section class="statistics statistics--hidden">
+    `<section class="statistics">
       <h2 class="visually-hidden">
         Trip statistics
       </h2>

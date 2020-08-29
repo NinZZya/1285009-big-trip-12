@@ -44,6 +44,7 @@ const filterPresenter = new FilterPresenter(controlsView, tripModel, filterModel
 const infoPresenter = new InfoPresenter(tripMainElement, tripModel, filterModel);
 
 const newPointButtonElement = newPointButtonView.getElement();
+newPointButtonElement.disabled = true;
 newPointButtonElement.addEventListener(`click`, (evt) => {
   evt.preventDefault();
   newPointButtonElement.disabled = true;
@@ -68,11 +69,7 @@ const tabsClickHandler = (activeTab) => {
   }
 };
 
-tabsView.setTabsClickHandler(tabsClickHandler);
-
 tripPresenter.init();
-filterPresenter.init();
-infoPresenter.init();
 
 Promise.all([
   api.getDestinations(),
@@ -85,6 +82,12 @@ Promise.all([
     tripModel.setDestinations(destinations);
     tripModel.setOffers(offers);
     tripModel.setPoints(UpdateType.INIT, points);
+
+    tabsView.setTabsClickHandler(tabsClickHandler);
+    newPointButtonElement.disabled = false;
+
+    filterPresenter.init();
+    infoPresenter.init();
   })
   .catch(() => {
     tripModel.setError(UpdateType.ERROR);
