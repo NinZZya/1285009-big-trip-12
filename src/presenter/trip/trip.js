@@ -62,10 +62,12 @@ const groupPointsByDays = (points) => points
 
 
 export default class Trip {
-  constructor(tripContainer, tripModel, filterModel) {
+  constructor(tripContainer, tripModel, filterModel, api) {
     this._tripContainer = tripContainer;
     this._tripModel = tripModel;
     this._filterModel = filterModel;
+    this._api = api;
+
     this._isLoading = true;
     this._currentSortType = DEFAULT_SORT_TYPE;
     this._pointPresenter = {};
@@ -326,7 +328,9 @@ export default class Trip {
   _viewActionHandler(actionType, updateType, update) {
     switch (actionType) {
       case UserAction.UPDATE_POINT:
-        this._tripModel.updatePoint(updateType, update);
+        this._api.updatePoint(update).then((response) => {
+          this._tripModel.updatePoint(updateType, response);
+        });
         break;
       case UserAction.ADD_POINT:
         this._tripModel.addPoint(updateType, update);

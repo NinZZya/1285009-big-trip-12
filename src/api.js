@@ -50,7 +50,7 @@ export default class Api {
       headers: new Headers({"Content-Type": `application/json`})
     })
     .then(Api.toJSON)
-    .then(TripModel.adaptToClient);
+    .then(TripModel.adaptPointToClient);
   }
 
   _load({

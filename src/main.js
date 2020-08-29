@@ -39,7 +39,7 @@ render(tripMainElement, newPointButtonView, BEFORE_END);
 const bodyContainerElement = document.querySelector(`.page-main`).querySelector(`.page-body__container`);
 const tripEventsElement = bodyContainerElement.querySelector(`.trip-events`);
 
-const tripPresenter = new TripPresenter(tripEventsElement, tripModel, filterModel);
+const tripPresenter = new TripPresenter(tripEventsElement, tripModel, filterModel, api);
 const filterPresenter = new FilterPresenter(controlsView, tripModel, filterModel);
 const infoPresenter = new InfoPresenter(tripMainElement, tripModel, filterModel);
 
