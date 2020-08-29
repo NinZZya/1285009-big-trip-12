@@ -78,7 +78,7 @@ const renderChart = (chartCtx, chartData, chartConfig) => {
       plugins: {
         datalabels: {
           font: {
-            size: 13
+            size: 10
           },
           color: `#000000`,
           anchor: `end`,
