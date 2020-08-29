@@ -18,9 +18,10 @@ const {
 } = RenderPosition;
 
 const getPeriodTitle = (date) => formatDateMmmDd(date).toLocaleUpperCase();
+
 const calcCoast = (points) => points.reduce((sum, point) => {
   if (point.offers && point.offers.length > 0) {
-    sum = calcCoast(point.offers);
+    sum += calcCoast(point.offers);
   }
   return sum + point.price;
 }, 0);
