@@ -114,10 +114,6 @@ export default class PointEdit extends AbstractSmartView {
   _setInnerHandlers() {
     const element = this.getElement();
 
-    if (!this._isAddMode) {
-      element.querySelector(`.event__favorite-checkbox`).addEventListener(`click`, this._favoriteClickHandler);
-    }
-
     element.querySelector(`.event__input--price`).addEventListener(`change`, this._priceChangeHandler);
     element.querySelector(`.event__input--destination`).addEventListener(`change`, this._destinationChangeHandler);
     element.querySelector(`.event__type-list`).addEventListener(`click`, this._typeListClickHandler);
@@ -129,6 +125,7 @@ export default class PointEdit extends AbstractSmartView {
   restoreHandlers() {
     if (!this._isAddMode) {
       this.setRollupButtonClickHandler(this._callback.rollupButtonClick);
+      this.setFavoriteClickHandler(this._callback.favoriteClick);
     }
 
     this.setFormSubmitHandler(this._callback.formSubmit);
@@ -159,9 +156,12 @@ export default class PointEdit extends AbstractSmartView {
 
   _favoriteClickHandler(evt) {
     evt.preventDefault();
+
     this.updateData({
       isFavorite: !this._data.isFavorite,
     });
+
+    this._callback.favoriteClick(PointEdit.parseDataToPoint(this._data));
   }
 
   _priceChangeHandler(evt) {
@@ -284,5 +284,10 @@ export default class PointEdit extends AbstractSmartView {
   setRollupButtonClickHandler(callback) {
     this._callback.rollupButtonClick = callback;
     this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, this._rollupButtonClickHandler);
+  }
+
+  setFavoriteClickHandler(callback) {
+    this._callback.favoriteClick = callback;
+    this.getElement().querySelector(`.event__favorite-checkbox`).addEventListener(`click`, this._favoriteClickHandler);
   }
 }
