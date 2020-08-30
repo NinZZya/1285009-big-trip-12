@@ -1,10 +1,4 @@
-const isOfferIncluded = (offers, currentOffer) => {
-  return offers.reduce((isInclude, offer) => isInclude || offer.title === currentOffer.title, false);
-};
-
-export const createOffersTemplate = (data, offers) => {
-  const {type} = data;
-  const typeOffers = offers[type];
+export const createOffersTemplate = (renderOffers) => {
 
   return (
     `<section class="event__section  event__section--offers">
@@ -12,7 +6,7 @@ export const createOffersTemplate = (data, offers) => {
         Offers
       </h3>
       <div class="event__available-offers">
-        ${typeOffers
+        ${renderOffers
           .map((offer, index) => {
             const {title, price} = offer;
 
@@ -20,13 +14,13 @@ export const createOffersTemplate = (data, offers) => {
               `<div class="event__offer-selector">
                 <input
                   class="event__offer-checkbox visually-hidden"
-                  id="event-offer-${type}-${index}"
+                  id="event-offer-${index}"
                   data-title="${title}"
                   data-price="${price}"
-                  type="checkbox" name="event-offer-${type}"
-                  ${isOfferIncluded(data.offers, offer) ? `checked` : ``}
+                  type="checkbox" name="event-offer-${index}"
+                  ${offer.isActivated ? `checked` : ``}
                 >
-                 <label class="event__offer-label" for="event-offer-${type}-${index}">
+                 <label class="event__offer-label" for="event-offer-${index}">
                   <span class="event__offer-title">
                     ${title}
                   </span>

@@ -7,9 +7,14 @@ import {ACTVITIES} from '../../const';
 import {extend} from '../../utils/utils';
 import {addDaysToDate} from '../../utils/date';
 
+const BLANK_DESTINATION = {
+  name: ``,
+  pictures: [],
+};
+
 const BLANK_POINT = {
   type: ACTVITIES[0].toLowerCase(),
-  destination: ``,
+  destination: BLANK_DESTINATION,
   start: new Date(),
   end: addDaysToDate(new Date()),
   duration: null,
@@ -20,10 +25,6 @@ const BLANK_POINT = {
   isFavorite: false,
 };
 
-const checkDestinationOnError = (destinations, activeDestination) => {
-  return destinations.every((destination) => destination.name === activeDestination.name);
-};
-
 const destroyPointDatePicker = (picker) => {
   if (picker) {
     picker.destroy();
@@ -31,12 +32,46 @@ const destroyPointDatePicker = (picker) => {
   }
 };
 
-const createPointEditTemplate = (data, destinations, offers, isAddMode) => {
+const isOfferInclude = (offers, currentOffer) => Boolean(offers.find((offer) => (
+  offer.title === currentOffer.title && offer.price === currentOffer.price
+)));
+
+const convertToRenderOffers = (offers, activeOffers) => offers.map((offer) => {
+
+  return {
+    title: offer.title,
+    price: offer.price,
+    isActivated: activeOffers.length > 0
+      ? isOfferInclude(activeOffers, offer)
+      : false,
+  };
+});
+
+const convertFromRenderOffers = (renderOffers) => {
+  const offers = [];
+
+  renderOffers.forEach((offer) => {
+    if (offer.isActivated) {
+      offers.push({
+        title: offer.title,
+        price: offer.price,
+      });
+    }
+  });
+
+  return offers;
+};
+
+const getDestination = (destinations, destinationName) => destinations.find(
+    (destination) => destination.name === destinationName
+);
+
+const createPointEditTemplate = (pointData, destinations, isAddMode) => {
 
   return (
     `<form class="trip-events__item event  event--edit" action="#" method="post">
-      ${createHeaderTemplate(data, destinations, isAddMode)}
-      ${createDetailsTemplate(data, offers)}
+      ${createHeaderTemplate(pointData, destinations, isAddMode)}
+      ${createDetailsTemplate(pointData)}
     </form>`
   );
 };
@@ -44,7 +79,7 @@ const createPointEditTemplate = (data, destinations, offers, isAddMode) => {
 export default class PointEdit extends AbstractSmartView {
   constructor({point = BLANK_POINT, destinations, offers, isAddMode = false}) {
     super();
-    this._data = PointEdit.parsePointToData(point, destinations);
+    this._data = PointEdit.parsePointToData(point, destinations, offers);
     this._destinations = destinations;
     this._offers = offers;
     this._isAddMode = isAddMode;
@@ -56,7 +91,7 @@ export default class PointEdit extends AbstractSmartView {
     this._formSubmitHandler = this._formSubmitHandler.bind(this);
     this._formResetHandler = this._formResetHandler.bind(this);
     this._rollupButtonClickHandler = this._rollupButtonClickHandler.bind(this);
-    this._favoriteClickHandler = this._favoriteClickHandler.bind(this);
+    this._favoriteCheckboxClickHandler = this._favoriteCheckboxClickHandler.bind(this);
     this._priceChangeHandler = this._priceChangeHandler.bind(this);
     this._typeListClickHandler = this._typeListClickHandler.bind(this);
     this._destinationChangeHandler = this._destinationChangeHandler.bind(this);
@@ -68,33 +103,42 @@ export default class PointEdit extends AbstractSmartView {
     this._setInnerHandlers();
   }
 
-  static parsePointToData(point, destinations) {
-    const {destination} = point;
+  static parsePointToData(point, destinations, offers) {
+    const {destination, type} = point;
+    const renderOffers = offers[type].length > 0
+      ? convertToRenderOffers(offers[type], point.offers)
+      : [];
 
     return extend(
         point,
         {
-          isDestinationError: checkDestinationOnError(destinations, destination),
+          renderOffers,
+          isDestinationError: !getDestination(destinations, destination.name),
         }
     );
   }
 
   static parseDataToPoint(data) {
-    data = extend(data);
+    data = extend(
+        data,
+        {
+          offers: convertFromRenderOffers(data.renderOffers),
+        }
+    );
 
     delete data.isDestinationError;
-    delete data.isDatesError;
+    delete data.renderOffers;
 
     return data;
   }
 
   getTemplate() {
-    return createPointEditTemplate(this._data, this._destinations, this._offers, this._isAddMode);
+    return createPointEditTemplate(this._data, this._destinations, this._isAddMode);
   }
 
   reset(point) {
     this.updateData(
-        PointEdit.parsePointToData(point, this._destinations)
+        PointEdit.parsePointToData(point, this._destinations, this._offers)
     );
   }
 
@@ -125,7 +169,7 @@ export default class PointEdit extends AbstractSmartView {
   restoreHandlers() {
     if (!this._isAddMode) {
       this.setRollupButtonClickHandler(this._callback.rollupButtonClick);
-      this.setFavoriteClickHandler(this._callback.favoriteClick);
+      this.setFavoriteCheckboxClickHandler(this._callback.favoriteCheckboxClick);
     }
 
     this.setFormSubmitHandler(this._callback.formSubmit);
@@ -154,14 +198,14 @@ export default class PointEdit extends AbstractSmartView {
     this._callback.rollupButtonClick();
   }
 
-  _favoriteClickHandler(evt) {
+  _favoriteCheckboxClickHandler(evt) {
     evt.preventDefault();
 
     this.updateData({
       isFavorite: !this._data.isFavorite,
     });
 
-    this._callback.favoriteClick(PointEdit.parseDataToPoint(this._data));
+    this._callback.favoriteCheckboxClick(PointEdit.parseDataToPoint(this._data));
   }
 
   _priceChangeHandler(evt) {
@@ -175,40 +219,45 @@ export default class PointEdit extends AbstractSmartView {
     evt.preventDefault();
     const typeId = evt.target.htmlFor;
     const type = this._getTypeList().querySelector(`#${typeId}`).value.toLowerCase();
+
+    const renderOffers = this._offers[type].length > 0
+      ? convertToRenderOffers(this._offers[type], [])
+      : [];
+
     this.updateData({
       type,
-      offers: [],
+      renderOffers,
     });
   }
 
   _destinationChangeHandler(evt) {
     evt.preventDefault();
-    const destination = evt.target.value;
+
+    const destination = getDestination(this._destinations, evt.target.value);
     this.updateData({
-      destination,
-      isDestinationError: checkDestinationOnError(this._destinations, destination),
+      destination: !destination ? BLANK_DESTINATION : destination,
+      isDestinationError: !destination,
     });
   }
 
   _offersChangeHandler(evt) {
     evt.preventDefault();
-    const isActivated = evt.target.checked;
     const title = evt.target.dataset.title;
     const price = Number(evt.target.dataset.price);
+    const renderOffers = this._data.renderOffers.map((offer) => {
+      if (offer.isActivated) {
+        return offer;
+      }
 
-    let offers = this._data.offers.slice();
-
-    if (isActivated) {
-      offers.push({
-        title,
-        price,
-      });
-    } else {
-      offers = offers.filter((offer) => offer.title !== title);
-    }
+      return {
+        title: offer.title,
+        price: offer.price,
+        isActivated: offer.title === title && offer.price === price,
+      };
+    });
 
     this.updateData({
-      offers,
+      renderOffers,
     }, true);
   }
 
@@ -286,8 +335,8 @@ export default class PointEdit extends AbstractSmartView {
     this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, this._rollupButtonClickHandler);
   }
 
-  setFavoriteClickHandler(callback) {
-    this._callback.favoriteClick = callback;
-    this.getElement().querySelector(`.event__favorite-checkbox`).addEventListener(`click`, this._favoriteClickHandler);
+  setFavoriteCheckboxClickHandler(callback) {
+    this._callback.favoriteCheckboxClick = callback;
+    this.getElement().querySelector(`.event__favorite-checkbox`).addEventListener(`click`, this._favoriteCheckboxClickHandler);
   }
 }

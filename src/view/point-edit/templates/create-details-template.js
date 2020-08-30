@@ -1,13 +1,13 @@
 import {createOffersTemplate} from './create-offers-template';
 import {createDestinationTemplate} from './create-destination-template';
 
-export const createDetailsTemplate = (data, offers) => {
-  const {destination, type} = data;
+export const createDetailsTemplate = (pointData) => {
+  const {destination, renderOffers} = pointData;
 
   return (
     `<section class="event__details">
-      ${offers[type].length > 0 ? createOffersTemplate(data, offers) : ``}
-      ${destination ? createDestinationTemplate(destination) : ``}
+      ${renderOffers.length > 0 ? createOffersTemplate(renderOffers) : ``}
+      ${destination.name !== `` ? createDestinationTemplate(destination) : ``}
     </section>`
   );
 };

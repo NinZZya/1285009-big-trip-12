@@ -7,7 +7,7 @@ import {createResetButtonTemplate} from './create-reset-button-template';
 import {createFavoriteTemplate} from './create-favorite-template';
 import {createRollupButtonTemplate} from './create-rollup-button-template';
 
-export const createHeaderTemplate = (data, destinations, isAddMode) => {
+export const createHeaderTemplate = (pointData, destinations, isAddMode) => {
   const {
     type,
     destination,
@@ -16,7 +16,7 @@ export const createHeaderTemplate = (data, destinations, isAddMode) => {
     price,
     isFavorite,
     isDestinationError,
-  } = data;
+  } = pointData;
 
   const isDisabled = isDestinationError;
 
