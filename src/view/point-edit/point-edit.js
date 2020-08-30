@@ -5,7 +5,7 @@ import flatpickr from 'flatpickr';
 import '../../../node_modules/flatpickr/dist/flatpickr.min.css';
 import {ACTVITIES} from '../../const';
 import {extend} from '../../utils/utils';
-import {diffDate, addDaysToDate} from '../../utils/date';
+import {addDaysToDate} from '../../utils/date';
 
 const BLANK_POINT = {
   type: ACTVITIES[0].toLowerCase(),
@@ -226,7 +226,7 @@ export default class PointEdit extends AbstractSmartView {
 
     this.updateData({
       start,
-      duration: diffDate(end, start),
+      duration: end - start,
     }, true);
 
     this._endDatePicker.set(`minDate`, start);
@@ -251,7 +251,7 @@ export default class PointEdit extends AbstractSmartView {
 
     this.updateData({
       end,
-      duration: diffDate(end, start),
+      duration: end - start,
     }, true);
 
     this._startDatePicker.set(`maxDate`, end);
