@@ -92,11 +92,11 @@ export default class Trip {
     this._tripModel.addObserver(this._modelEventHandler);
     this._filterModel.addObserver(this._modelEventHandler);
 
-    this._renderTrip();
+    this._render();
   }
 
   destroy() {
-    this._clearTrip({isResetSortType: true});
+    this._clear({isResetSortType: true});
 
     this._tripModel.removeObserver(this._modelEventHandler);
     this._filterModel.removeObserver(this._modelEventHandler);
@@ -104,9 +104,10 @@ export default class Trip {
 
   createPoint(callback) {
     this._currentSortType = SortType.EVENT;
-    this._filterModel.setFilter(UpdateType.MINOR, FilterType.EVERYTHING);
     const destinations = this._tripModel.getDestinations();
-    this._pointNewPresenter.init(destinations, callback);
+    const offers = this._tripModel.getOffers();
+    this._filterModel.setFilter(UpdateType.MINOR, FilterType.EVERYTHING);
+    this._pointNewPresenter.init(destinations, offers, callback);
   }
 
   _getPoints() {
@@ -140,7 +141,7 @@ export default class Trip {
     }
     this._currentSortType = sortType;
     this._clearEvents();
-    this._renderTrip();
+    this._render();
   }
 
   _renderSort() {
@@ -177,11 +178,13 @@ export default class Trip {
   }
 
   _createEventDay(points, date, counter) {
+    const dayCount = counter + 1;
+    const tripPointsCount = this._getPoints().length;
 
     const dayView = new DayView({
-      dayCount: counter !== undefined ? counter + 1 : null,
-      isCountRender: counter !== undefined && this._getPoints().length > 1,
-      date: date !== undefined ? date : null,
+      dayCount,
+      isCountRender: tripPointsCount > 1 && points.length < tripPointsCount,
+      date,
     });
 
     const pointsListView = new PointsListView();
@@ -229,14 +232,14 @@ export default class Trip {
     render(this._tripContainer, this._pointMessageErrorView, BEFORE_END);
   }
 
-  _renderTrip() {
+  _render() {
     if (this._isLoading) {
       this._renderLoading();
       return;
     }
-    const points = this._getPoints();
 
-    if (points.length > 0) {
+    if (!this._tripModel.isEmpty()) {
+      const points = this._getPoints();
       this._renderEvents(points);
       return;
     }
@@ -248,7 +251,7 @@ export default class Trip {
     this._renderNoEvents();
   }
 
-  _clearTrip({isResetSortType} = {isResetSortType: false}) {
+  _clear({isResetSortType} = {isResetSortType: false}) {
     if (isResetSortType) {
       this._resetSortType();
     }
@@ -258,12 +261,12 @@ export default class Trip {
     this._clearEvents();
   }
 
-  _updateTrip({isResetSortType} = {isResetSortType: false}) {
-    this._clearTrip({isResetSortType});
-    this._renderTrip();
+  _update({isResetSortType} = {isResetSortType: false}) {
+    this._clear({isResetSortType});
+    this._render();
   }
 
-  _pointUpdate(updatedPoint) {
+  _updatePoint(updatedPoint) {
     const destinations = this._getDestinations();
     const offers = this._getOffers();
 
@@ -271,11 +274,11 @@ export default class Trip {
   }
 
   _pointChangeHandler(updatedPoint) {
-    this._pointUpdate(updatedPoint);
+    this._updatePoint(updatedPoint);
   }
 
   _clearSort() {
-    if (this._sortView) {
+    if (this._sortView !== null) {
       remove(this._sortView);
       this._sortView = null;
     }
@@ -287,7 +290,7 @@ export default class Trip {
       .forEach((presenter) => presenter.destroy());
     this._pointPresenter = {};
 
-    this._dayViews.forEach((dayView) => remove(dayView));
+    this._dayViews.forEach(remove);
     this._dayViews = [];
     this._clearSort();
   }
@@ -300,14 +303,14 @@ export default class Trip {
   }
 
   _clearLoading() {
-    if (this._pointMessageLoadingView) {
+    if (this._pointMessageLoadingView !== null) {
       remove(this._pointMessageLoadingView);
       this._pointMessageLoadingView = null;
     }
   }
 
   _clearError() {
-    if (this._pointMessageErrorView) {
+    if (this._pointMessageErrorView !== null) {
       remove(this._pointMessageErrorView);
       this._pointMessageErrorView = null;
     }
@@ -341,21 +344,21 @@ export default class Trip {
     }
   }
 
-  _modelEventHandler(updateType, data) {
+  _modelEventHandler(updateType, pointData) {
     switch (updateType) {
       case UpdateType.PATCH:
-        this._pointUpdate(data);
+        this._updatePoint(pointData);
         break;
       case UpdateType.MINOR:
-        this._updateTrip();
+        this._update();
         break;
       case UpdateType.MAJOR:
-        this._updateTrip({isResetSortType: true});
+        this._update({isResetSortType: true});
         break;
       case UpdateType.INIT:
         this._isLoading = false;
         this._clearLoading();
-        this._renderTrip();
+        this._render();
         break;
       case UpdateType.ERROR:
         this._clearLoading();
