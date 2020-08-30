@@ -17,11 +17,15 @@ const {
   AFTER_BEGIN,
 } = RenderPosition;
 
+const DESTINATION_COUNT = 3;
+
 const getPeriodTitle = (date) => formatDateMmmDd(date).toLocaleUpperCase();
 
-const calcCoast = (points) => points.reduce((sum, point) => {
-  if (point.offers && point.offers.length > 0) {
-    sum += calcCoast(point.offers);
+const calcOffersCost = (offers) => offers.reduce((sum, offer) => sum + offer.price, 0);
+
+const calcCost = (points) => points.reduce((sum, point) => {
+  if (point.offers.length > 0) {
+    sum += calcOffersCost(point.offers);
   }
   return sum + point.price;
 }, 0);
@@ -32,7 +36,7 @@ const getRoute = (points) => {
     return ``;
   }
 
-  if (count <= 3) {
+  if (count <= DESTINATION_COUNT) {
     return points.map((point) => point.destination.name).join(` — `);
   }
 
@@ -72,7 +76,7 @@ export default class Info {
       ? points
       : filter[filterType](points);
 
-    const coast = calcCoast(filteredPoints);
+    const coast = calcCost(filteredPoints);
     const route = getRoute(filteredPoints);
     const period = getPeriod(filteredPoints);
 
