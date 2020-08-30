@@ -1,4 +1,3 @@
-import {diffDate} from "../../utils/date.js";
 import Observer from "../../utils/observer.js";
 
 export default class Trip extends Observer {
@@ -13,23 +12,21 @@ export default class Trip extends Observer {
     const start = new Date(point.date_from);
     const end = new Date(point.date_to);
 
-    const adaptedPoint = {
+    return {
       id: point.id,
       type: point.type,
       destination: point.destination,
       start,
       end,
-      duration: diffDate(end, start),
+      duration: end - start,
       price: point.base_price,
       offers: point.offers,
       isFavorite: point.is_favorite,
     };
-
-    return adaptedPoint;
   }
 
   static adaptPointToServer(point) {
-    const adaptedPoint = {
+    return {
       "id": point.id,
       "type": point.type,
       "base_price": point.price,
@@ -39,8 +36,6 @@ export default class Trip extends Observer {
       "is_favorite": point.isFavorite,
       "offers": point.offers,
     };
-
-    return adaptedPoint;
   }
 
   static adaptOffersToClient(offers) {
