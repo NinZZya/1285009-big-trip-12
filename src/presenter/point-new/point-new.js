@@ -15,7 +15,6 @@ export default class PointNew {
     this._changeData = changeData;
 
     this._pointEditView = null;
-    this._destinations = null;
     this._destroyCallback = null;
 
     this._formSubmitHandler = this._formSubmitHandler.bind(this);
@@ -23,12 +22,12 @@ export default class PointNew {
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
   }
 
-  init(destinations, callback) {
+  init(destinations, offers, callback) {
     if (this._pointEditView !== null) {
       return;
     }
 
-    this._renderPointEdit(destinations, callback);
+    this._renderPointEdit(destinations, offers, callback);
   }
 
   destroy() {
@@ -42,11 +41,10 @@ export default class PointNew {
     document.removeEventListener(`keydown`, this._escKeyDownHandler);
   }
 
-  _renderPointEdit(destinations, callback) {
+  _renderPointEdit(destinations, offers, callback) {
     this._destroyCallback = callback;
-    this._destinations = destinations;
 
-    this._pointEditView = new PointEditView({destinations: this._destinations, isAddMode: true});
+    this._pointEditView = new PointEditView({destinations, offers, isAddMode: true});
     this._pointEditView.setFormSubmitHandler(this._formSubmitHandler);
     this._pointEditView.setFormResetHandler(this._formRresetHandler);
 
