@@ -25,13 +25,6 @@ const BLANK_POINT = {
   isFavorite: false,
 };
 
-const destroyPointDatePicker = (picker) => {
-  if (picker) {
-    picker.destroy();
-    picker = null;
-  }
-};
-
 const isOfferInclude = (offers, currentOffer) => Boolean(offers.find((offer) => (
   offer.title === currentOffer.title && offer.price === currentOffer.price
 )));
@@ -99,7 +92,6 @@ export default class PointEdit extends AbstractSmartView {
     this._startDateChangeHandler = this._startDateChangeHandler.bind(this);
     this._endDateChangeHandler = this._endDateChangeHandler.bind(this);
 
-    this._destroyPointDatePickers();
     this._setInnerHandlers();
   }
 
@@ -178,9 +170,23 @@ export default class PointEdit extends AbstractSmartView {
     this._setInnerHandlers();
   }
 
+  _destroyStartDatePicker() {
+    if (this._startDatePicker !== null) {
+      this._startDatePicker.destroy();
+      this._startDatePicker = null;
+    }
+  }
+
+  _destroyEndDatePicker() {
+    if (this._endDatePicker !== null) {
+      this._endDatePicker.destroy();
+      this._endDatePicker = null;
+    }
+  }
+
   _destroyPointDatePickers() {
-    destroyPointDatePicker(this._startDatePicker);
-    destroyPointDatePicker(this._endDatePicker);
+    this._destroyStartDatePicker();
+    this._destroyEndDatePicker();
   }
 
   _formSubmitHandler(evt) {
@@ -282,6 +288,7 @@ export default class PointEdit extends AbstractSmartView {
   }
 
   _setStartDateChangeHandler() {
+    this._destroyStartDatePicker();
     this._startDatePicker = flatpickr(
         this.getElement().querySelector(`#event-start-time-1`),
         {
@@ -307,6 +314,7 @@ export default class PointEdit extends AbstractSmartView {
   }
 
   _setEndDateChangeHandler() {
+    this._destroyEndDatePicker();
     this._endDatePicker = flatpickr(
         this.getElement().querySelector(`#event-end-time-1`),
         {
