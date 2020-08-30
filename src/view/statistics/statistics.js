@@ -4,7 +4,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {toFirstUpperCase, convertDurationValue} from '../../utils/utils';
 import {TRANSFERS, pointTypeToEmoji, PointGroupType} from '../../const';
 
-const BAR_HEIGHT = 55;
+const BAR_HEIGHT = 70;
 
 const moneyChartConfig = {
   key: `price`,
@@ -71,7 +71,9 @@ const renderChart = (chartCtx, chartData, chartConfig) => {
         data,
         backgroundColor: `#ffffff`,
         hoverBackgroundColor: `#ffffff`,
-        anchor: `start`
+        anchor: `start`,
+        barThickness: 50,
+        minBarLength: 50,
       }]
     },
     options: {
@@ -104,7 +106,6 @@ const renderChart = (chartCtx, chartData, chartConfig) => {
             display: false,
             drawBorder: false
           },
-          barThickness: 35,
         }],
         xAxes: [{
           ticks: {
@@ -115,8 +116,6 @@ const renderChart = (chartCtx, chartData, chartConfig) => {
             display: false,
             drawBorder: false,
           },
-          barPercentage: 1,
-          minBarLength: BAR_HEIGHT,
         }],
       },
       legend: {
