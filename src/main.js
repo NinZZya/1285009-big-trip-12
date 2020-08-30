@@ -43,15 +43,15 @@ const tripPresenter = new TripPresenter(tripEventsElement, tripModel, filterMode
 const filterPresenter = new FilterPresenter(controlsView, tripModel, filterModel);
 const infoPresenter = new InfoPresenter(tripMainElement, tripModel, filterModel);
 
-const newPointButtonElement = newPointButtonView.getElement();
-newPointButtonElement.disabled = true;
-newPointButtonElement.addEventListener(`click`, (evt) => {
-  evt.preventDefault();
-  newPointButtonElement.disabled = true;
+const newPointButtonClickHandler = () => {
+  newPointButtonView.disabled(true);
   tripPresenter.createPoint(() => {
-    newPointButtonElement.disabled = false;
+    newPointButtonView.disabled(false);
   });
-});
+};
+
+newPointButtonView.disabled(true);
+newPointButtonView.setNewPointButtonClickHandler(newPointButtonClickHandler);
 
 let statisticsView = null;
 
@@ -84,7 +84,7 @@ Promise.all([
     tripModel.setPoints(UpdateType.INIT, points);
 
     tabsView.setTabsClickHandler(tabsClickHandler);
-    newPointButtonElement.disabled = false;
+    newPointButtonView.disabled(false);
 
     filterPresenter.init();
     infoPresenter.init();
