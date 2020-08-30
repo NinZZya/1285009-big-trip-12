@@ -48,7 +48,7 @@ export default class Point {
     this._rollupPointEditHandler = this._rollupPointEditHandler.bind(this);
     this._submitPointEditHandler = this._submitPointEditHandler.bind(this);
     this._deletePointEditHandler = this._deletePointEditHandler.bind(this);
-    this._favoriteClickHandler = this._favoriteClickHandler.bind(this);
+    this._favoriteCheckboxClickHandler = this._favoriteCheckboxClickHandler.bind(this);
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
   }
 
@@ -72,7 +72,7 @@ export default class Point {
     this._pointEditView.setFormSubmitHandler(this._submitPointEditHandler);
     this._pointEditView.setFormResetHandler(this._deletePointEditHandler);
     this._pointEditView.setRollupButtonClickHandler(this._rollupPointEditHandler);
-    this._pointEditView.setFavoriteClickHandler(this._favoriteClickHandler);
+    this._pointEditView.setFavoriteCheckboxClickHandler(this._favoriteCheckboxClickHandler);
 
     if (prevPointView === null || prevPointEditView === null) {
       render(this._pointContainerView, this._pointView, BEFORE_END);
@@ -142,7 +142,7 @@ export default class Point {
     this._rollupPointEdit();
   }
 
-  _favoriteClickHandler(point) {
+  _favoriteCheckboxClickHandler(point) {
     this._changeData(
         UserAction.UPDATE_POINT,
         UpdateType.PATCH,
