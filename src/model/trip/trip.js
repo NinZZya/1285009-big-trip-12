@@ -1,5 +1,6 @@
 import Observer from "../../utils/observer.js";
 
+const getPointIndex = (points, point) => points.findIndex((item) => item.id === point.id);
 export default class Trip extends Observer {
   constructor() {
     super();
@@ -75,7 +76,7 @@ export default class Trip extends Observer {
   }
 
   updatePoint(updateType, update) {
-    const index = this._points.findIndex((point) => point.id === update.id);
+    const index = getPointIndex(this._points, update);
 
     if (index === -1) {
       throw new Error(`Can't update unexisting point`);
@@ -100,7 +101,7 @@ export default class Trip extends Observer {
   }
 
   deletePoint(updateType, update) {
-    const index = this._points.findIndex((point) => point.id === update.id);
+    const index = getPointIndex(this._points, update);
 
     if (index === -1) {
       throw new Error(`Can't delete unexisting point`);
@@ -112,5 +113,9 @@ export default class Trip extends Observer {
     ];
 
     this._notify(updateType);
+  }
+
+  isEmpty() {
+    return this._points.length === 0;
   }
 }
