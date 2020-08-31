@@ -84,12 +84,12 @@ export default class PointEdit extends AbstractSmartView {
     this._formResetHandler = this._formResetHandler.bind(this);
     this._rollupButtonClickHandler = this._rollupButtonClickHandler.bind(this);
     this._favoriteCheckboxClickHandler = this._favoriteCheckboxClickHandler.bind(this);
-    this._priceChangeHandler = this._priceChangeHandler.bind(this);
-    this._typeListClickHandler = this._typeListClickHandler.bind(this);
-    this._destinationChangeHandler = this._destinationChangeHandler.bind(this);
-    this._offersChangeHandler = this._offersChangeHandler.bind(this);
-    this._startDateChangeHandler = this._startDateChangeHandler.bind(this);
-    this._endDateChangeHandler = this._endDateChangeHandler.bind(this);
+    this._priceInputChangeHandler = this._priceInputChangeHandler.bind(this);
+    this._typeInputChangeHandler = this._typeInputChangeHandler.bind(this);
+    this._destinationInputChangeHandler = this._destinationInputChangeHandler.bind(this);
+    this._offerCheckboxChangeHandler = this._offerCheckboxChangeHandler.bind(this);
+    this._startDateInputChangeHandler = this._startDateInputChangeHandler.bind(this);
+    this._endDateInputChangeHandler = this._endDateInputChangeHandler.bind(this);
 
     this._setInnerHandlers();
   }
@@ -140,23 +140,15 @@ export default class PointEdit extends AbstractSmartView {
     this._destroyPointDatePickers();
   }
 
-  _getTypeList() {
-    if (!this._typeListElement !== null) {
-      this._typeListElement = this.getElement().querySelector(`.event__type-list`);
-    }
-
-    return this._typeListElement;
-  }
-
   _setInnerHandlers() {
     const element = this.getElement();
 
-    element.querySelector(`.event__input--price`).addEventListener(`change`, this._priceChangeHandler);
-    element.querySelector(`.event__input--destination`).addEventListener(`change`, this._destinationChangeHandler);
-    element.querySelector(`.event__type-list`).addEventListener(`click`, this._typeListClickHandler);
-    this._setOffersChangeHandlers();
-    this._setStartDateChangeHandler();
-    this._setEndDateChangeHandler();
+    element.querySelector(`.event__input--price`).addEventListener(`change`, this._priceInputChangeHandler);
+    element.querySelector(`.event__input--destination`).addEventListener(`change`, this._destinationInputChangeHandler);
+    this._setTypeInputChangeHandlers();
+    this._setOfferCheckboxChangeHandlers();
+    this._setStartDateInputChangeHandler();
+    this._setEndDateInputChangeHandler();
   }
 
   restoreHandlers() {
@@ -217,17 +209,16 @@ export default class PointEdit extends AbstractSmartView {
     this._callback.favoriteCheckboxClick(PointEdit.parseDataToPoint(this._data));
   }
 
-  _priceChangeHandler(evt) {
+  _priceInputChangeHandler(evt) {
     evt.preventDefault();
     this.updateData({
       price: Number(evt.target.value),
     }, true);
   }
 
-  _typeListClickHandler(evt) {
+  _typeInputChangeHandler(evt) {
     evt.preventDefault();
-    const typeId = evt.target.htmlFor;
-    const type = this._getTypeList().querySelector(`#${typeId}`).value.toLowerCase();
+    const type = evt.target.value.toLowerCase();
     const typeOffers = this._offers[type];
 
     const renderedOffers = typeOffers.length > 0
@@ -240,7 +231,15 @@ export default class PointEdit extends AbstractSmartView {
     });
   }
 
-  _destinationChangeHandler(evt) {
+  _setTypeInputChangeHandlers() {
+    const typeElements = this.getElement().querySelectorAll(`.event__type-input`);
+    typeElements.forEach((typeElement) => {
+      typeElement.addEventListener(`change`, this._typeInputChangeHandler);
+    });
+  }
+
+
+  _destinationInputChangeHandler(evt) {
     evt.preventDefault();
 
     const destination = getDestination(this._destinations, evt.target.value);
@@ -250,7 +249,7 @@ export default class PointEdit extends AbstractSmartView {
     });
   }
 
-  _offersChangeHandler(evt) {
+  _offerCheckboxChangeHandler(evt) {
     evt.preventDefault();
     const title = evt.target.dataset.title;
     const price = Number(evt.target.dataset.price);
@@ -271,14 +270,14 @@ export default class PointEdit extends AbstractSmartView {
     }, true);
   }
 
-  _setOffersChangeHandlers() {
+  _setOfferCheckboxChangeHandlers() {
     const offerElements = this.getElement().querySelectorAll(`.event__offer-checkbox`);
     offerElements.forEach((offerElement) => {
-      offerElement.addEventListener(`change`, this._offersChangeHandler);
+      offerElement.addEventListener(`change`, this._offerCheckboxChangeHandler);
     });
   }
 
-  _startDateChangeHandler([start]) {
+  _startDateInputChangeHandler([start]) {
     const end = this._data.end;
 
     this.isStartDateUpdate = start !== this._data.start;
@@ -291,7 +290,7 @@ export default class PointEdit extends AbstractSmartView {
     this._endDatePicker.set(`minDate`, start);
   }
 
-  _setStartDateChangeHandler() {
+  _setStartDateInputChangeHandler() {
     this._destroyStartDatePicker();
     this._startDatePicker = flatpickr(
         this.getElement().querySelector(`#event-start-time-1`),
@@ -301,12 +300,12 @@ export default class PointEdit extends AbstractSmartView {
           'dateFormat': `d/m/y H:i`,
           'defaultDate': this._data.start || new Date(),
           'maxDate': this._data.end,
-          'onChange': this._startDateChangeHandler,
+          'onChange': this._startDateInputChangeHandler,
         }
     );
   }
 
-  _endDateChangeHandler([end]) {
+  _endDateInputChangeHandler([end]) {
     const start = this._data.start;
 
     this.updateData({
@@ -317,7 +316,7 @@ export default class PointEdit extends AbstractSmartView {
     this._startDatePicker.set(`maxDate`, end);
   }
 
-  _setEndDateChangeHandler() {
+  _setEndDateInputChangeHandler() {
     this._destroyEndDatePicker();
     this._endDatePicker = flatpickr(
         this.getElement().querySelector(`#event-end-time-1`),
@@ -327,7 +326,7 @@ export default class PointEdit extends AbstractSmartView {
           'dateFormat': `d/m/y H:i`,
           'defaultDate': this._data.end || new Date(),
           'minDate': this._data.start,
-          'onChange': this._endDateChangeHandler,
+          'onChange': this._endDateInputChangeHandler,
         }
     );
   }
