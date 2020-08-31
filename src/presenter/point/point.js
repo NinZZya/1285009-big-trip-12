@@ -48,23 +48,31 @@ export default class Point {
     this._rollupPointEditHandler = this._rollupPointEditHandler.bind(this);
     this._submitPointEditHandler = this._submitPointEditHandler.bind(this);
     this._deletePointEditHandler = this._deletePointEditHandler.bind(this);
+    this._favoriteCheckboxClickHandler = this._favoriteCheckboxClickHandler.bind(this);
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
   }
 
-  init(point, destinations) {
+  init(point, destinations, offers) {
     this._point = point;
     this._destinations = destinations;
+    this._offers = offers;
 
     const prevPointView = this._pointView;
     const prevPointEditView = this._pointEditView;
 
     this._pointView = new PointView(point);
-    this._pointEditView = new PointEditView({point, destinations: this._destinations});
+
+    this._pointEditView = new PointEditView({
+      point,
+      destinations: this._destinations,
+      offers: this._offers,
+    });
 
     this._pointView.setRollupButtonClickHandler(this._rollupPointHandler);
     this._pointEditView.setFormSubmitHandler(this._submitPointEditHandler);
     this._pointEditView.setFormResetHandler(this._deletePointEditHandler);
     this._pointEditView.setRollupButtonClickHandler(this._rollupPointEditHandler);
+    this._pointEditView.setFavoriteCheckboxClickHandler(this._favoriteCheckboxClickHandler);
 
     if (prevPointView === null || prevPointEditView === null) {
       render(this._pointContainerView, this._pointView, BEFORE_END);
@@ -110,17 +118,13 @@ export default class Point {
     document.removeEventListener(`keydown`, this._escKeyDownHandler);
   }
 
-  _resetPointEdit() {
-    this._pointEditView.reset(this._point);
-    this._rollupPointEdit();
-  }
-
   _rollupPointHandler() {
     this._replacePointToPointEdit();
     document.addEventListener(`keydown`, this._escKeyDownHandler);
   }
 
   _rollupPointEditHandler() {
+    this._pointEditView.reset(this._point);
     this._rollupPointEdit();
   }
 
@@ -136,6 +140,14 @@ export default class Point {
     );
 
     this._rollupPointEdit();
+  }
+
+  _favoriteCheckboxClickHandler(point) {
+    this._changeData(
+        UserAction.UPDATE_POINT,
+        UpdateType.PATCH,
+        point
+    );
   }
 
   // Use as delede in view

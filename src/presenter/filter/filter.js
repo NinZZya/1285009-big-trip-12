@@ -25,12 +25,12 @@ export default class Filter {
     this._modelEventHandler = this._modelEventHandler.bind(this);
     this._filterTypeChangeHandler = this._filterTypeChangeHandler.bind(this);
 
-    this._tripModel.addObserver(this._modelEventHandler);
-    this._filterModel.addObserver(this._modelEventHandler);
+    this._tripModel.add(this._modelEventHandler);
+    this._filterModel.add(this._modelEventHandler);
   }
 
   init() {
-    this._currentFilter = this._filterModel.getFilter();
+    this._currentFilter = this._filterModel.get();
     const prevFilterView = this._filterView;
     const points = this._tripModel.getPoints();
     const filtersStatus = {
@@ -40,7 +40,7 @@ export default class Filter {
     };
 
     this._filterView = new FiltersView(this._currentFilter, filtersStatus);
-    this._filterView.setFilterTypeChangeHandler(this._filterTypeChangeHandler);
+    this._filterView.setChangeHandler(this._filterTypeChangeHandler);
 
     if (prevFilterView === null) {
       render(this._filterContainer, this._filterView, BEFORE_END);
@@ -60,6 +60,6 @@ export default class Filter {
       return;
     }
 
-    this._filterModel.setFilter(UpdateType.MAJOR, filterType);
+    this._filterModel.set(UpdateType.MAJOR, filterType);
   }
 }

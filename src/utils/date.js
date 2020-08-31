@@ -18,13 +18,6 @@ export const formatDateISODdMmYyyyHhMm = (date) => isDate(date) ? moment(date).f
 export const formatDateMmmDd = (date) => isDate(date) ? moment(date).format(`MMM DD`) : ``;
 
 /**
- * @param {date} date1
- * @param {date} date2
- * @return {number} milliseconds
- */
-export const diffDate = (date1, date2) => ((+date1) - (+date2));
-
-/**
  * @param {number} ms
  * @return {object} {days: number, hours: number, minutes: number}
  */

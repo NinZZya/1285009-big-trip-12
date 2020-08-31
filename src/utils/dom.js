@@ -1,19 +1,19 @@
 
 import {AbstractView} from '../view/';
 
+export const RenderPosition = {
+  BEFORE_BEGIN: `BEFORE_BEGIN`,
+  AFTER_BEGIN: `AFTER_BEGIN`,
+  BEFORE_END: `BEFORE_END`,
+  AFTER_END: `AFTER_END`,
+};
+
 const getElement = (element) => {
   if (element instanceof AbstractView) {
     return element.getElement();
   }
 
   return element;
-};
-
-export const RenderPosition = {
-  BEFORE_BEGIN: `BEFORE_BEGIN`,
-  AFTER_BEGIN: `AFTER_BEGIN`,
-  BEFORE_END: `BEFORE_END`,
-  AFTER_END: `AFTER_END`,
 };
 
 export const render = (element1, element2, place = RenderPosition.BEFORE_END) => {
@@ -58,28 +58,7 @@ export const replace = (newChild, oldChild) => {
   parent.replaceChild(newChild, oldChild);
 };
 
-export const createRenderFragment = (elements) => {
-  const fragment = document.createDocumentFragment();
-
-  if (!Array.isArray(elements)) {
-    elements = [elements];
-  }
-
-  elements.forEach(function (element) {
-    element = getElement(element);
-    fragment.appendChild(element);
-  });
-
-  return fragment;
-};
-
-
 export const remove = (element) => {
-  if (element instanceof AbstractView) {
-    element.getElement().remove();
-    element.removeElement();
-    return;
-  }
-
-  element.remove();
+  element.getElement().remove();
+  element.removeElement();
 };

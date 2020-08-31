@@ -1,11 +1,8 @@
 export const PointMessage = {
   LOADING: `Loading...`,
   NO_EVENTS: `Click New Event to create your first point`,
+  ERROR: `Error loading data, try again later..`,
 };
-
-export const MINUTE = 60 * 1000;
-export const HOUR = 60 * MINUTE;
-export const DAY = 24 * HOUR;
 
 export const TRANSFERS = [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight`];
 export const ACTVITIES = [`Check-in`, `Sightseeing`, `Restaurant`];
@@ -66,7 +63,9 @@ export const UserAction = {
 export const UpdateType = {
   PATCH: `PATCH`,
   MINOR: `MINOR`,
-  MAJOR: `MAJOR`
+  MAJOR: `MAJOR`,
+  INIT: `INIT`,
+  ERROR: `ERROR`,
 };
 
 export const FilterType = {

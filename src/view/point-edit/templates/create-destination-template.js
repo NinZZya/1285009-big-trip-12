@@ -1,4 +1,5 @@
-export const createDestinationTemplate = ({photos, description}) => {
+export const createDestinationTemplate = (pointData) => {
+  const {pictures, description} = pointData;
 
   return (
     `<section class="event__section  event__section--destination">
@@ -9,8 +10,8 @@ export const createDestinationTemplate = ({photos, description}) => {
 
       <div class="event__photos-container">
         <div class="event__photos-tape">
-          ${photos
-            .map((photo) => `<img class="event__photo" src="${photo}" alt="Event photo">`)
+          ${pictures
+            .map((picture) => `<img class="event__photo" src="${picture.src}" alt="${picture.description}">`)
             .join(``)}
         </div>
       </div>

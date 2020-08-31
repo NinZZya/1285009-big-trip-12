@@ -10,12 +10,12 @@ export const createHeaderDestinationTemplate = (currentType, destination, destin
       <input
         class="event__input  event__input--destination"
         id="event-destination-1" type="text" name="event-destination"
-        value="${destination}"
+        value="${destination.name}"
         list="destination-list-1"
       >
       <datalist id="destination-list-1">
         ${destinations
-          .map((item) => `<option value="${item}"></option>`)
+          .map((item) => `<option value="${item.name}"></option>`)
           .join(``)}
       </datalist>
     </div>`

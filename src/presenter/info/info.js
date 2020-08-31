@@ -17,8 +17,18 @@ const {
   AFTER_BEGIN,
 } = RenderPosition;
 
+const DESTINATION_COUNT = 3;
+
 const getPeriodTitle = (date) => formatDateMmmDd(date).toLocaleUpperCase();
-const calcCoast = (points) => points.reduce((sum, point) => sum + point.price, 0);
+
+const calcOffersCost = (offers) => offers.reduce((sum, offer) => sum + offer.price, 0);
+
+const calcCost = (points) => points.reduce((sum, point) => {
+  if (point.offers.length > 0) {
+    sum += calcOffersCost(point.offers);
+  }
+  return sum + point.price;
+}, 0);
 
 const getRoute = (points) => {
   const count = points.length;
@@ -26,11 +36,11 @@ const getRoute = (points) => {
     return ``;
   }
 
-  if (count <= 3) {
-    return points.map((point) => point.destination).join(` — `);
+  if (count <= DESTINATION_COUNT) {
+    return points.map((point) => point.destination.name).join(` — `);
   }
 
-  return `${points[0].destination} — ... — ${points[count - 1].destination}`;
+  return `${points[0].destination.name} — ... — ${points[count - 1].destination.name}`;
 };
 
 const getPeriod = (points) => {
@@ -55,18 +65,18 @@ export default class Info {
 
     this._modelEventHandler = this._modelEventHandler.bind(this);
 
-    this._tripModel.addObserver(this._modelEventHandler);
-    this._filterModel.addObserver(this._modelEventHandler);
+    this._tripModel.add(this._modelEventHandler);
+    this._filterModel.add(this._modelEventHandler);
   }
 
   init() {
     const points = this._tripModel.getPoints();
-    const filterType = this._filterModel.getFilter();
+    const filterType = this._filterModel.get();
     const filteredPoints = filterType === FilterType.EVERYTHING
       ? points
       : filter[filterType](points);
 
-    const coast = calcCoast(filteredPoints);
+    const coast = calcCost(filteredPoints);
     const route = getRoute(filteredPoints);
     const period = getPeriod(filteredPoints);
 

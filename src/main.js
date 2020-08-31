@@ -8,21 +8,20 @@ import {
 import {TripModel, FilterModel} from './model';
 import {TripPresenter, FilterPresenter, InfoPresenter} from './presenter';
 import {RenderPosition, render, remove} from './utils/dom';
-import {generatePoints} from './mock/points';
-import {DESTINATIONS} from './mock/points';
-import {TabItem} from './const';
+import Api from './api';
+import {TabItem, UpdateType} from './const';
+
+const AUTHORIZATION = `Basic K5MGq4Ma5mbffTogkBUBv`;
+const END_POINT = `https://12.ecmascript.pages.academy/big-trip`;
 
 const {
   BEFORE_BEGIN,
   BEFORE_END,
 } = RenderPosition;
 
-const POINTS_COUNT = 20;
-const points = generatePoints(POINTS_COUNT);
+const api = new Api(END_POINT, AUTHORIZATION);
 
 const tripModel = new TripModel();
-tripModel.setDestinations(DESTINATIONS);
-tripModel.setPoints(points);
 
 const filterModel = new FilterModel();
 
@@ -30,9 +29,9 @@ const tripMainElement = document.querySelector(`.trip-main`);
 
 const controlsView = new ControlsView();
 render(tripMainElement, controlsView, BEFORE_END);
-const tripFilterEventsHeaderElement = controlsView.getFilterEventsHeaderElement();
+
 const tabsView = new TabsView();
-render(tripFilterEventsHeaderElement, tabsView, BEFORE_BEGIN);
+render(controlsView.getFilterEventsHeaderElement(), tabsView, BEFORE_BEGIN);
 
 const newPointButtonView = new NewPointButtonView();
 render(tripMainElement, newPointButtonView, BEFORE_END);
@@ -40,22 +39,19 @@ render(tripMainElement, newPointButtonView, BEFORE_END);
 const bodyContainerElement = document.querySelector(`.page-main`).querySelector(`.page-body__container`);
 const tripEventsElement = bodyContainerElement.querySelector(`.trip-events`);
 
-const tripPresenter = new TripPresenter(tripEventsElement, tripModel, filterModel);
-
+const tripPresenter = new TripPresenter(tripEventsElement, tripModel, filterModel, api);
 const filterPresenter = new FilterPresenter(controlsView, tripModel, filterModel);
-filterPresenter.init();
-
 const infoPresenter = new InfoPresenter(tripMainElement, tripModel, filterModel);
-infoPresenter.init();
 
-const newPointButtonElement = newPointButtonView.getElement();
-newPointButtonElement.addEventListener(`click`, (evt) => {
-  evt.preventDefault();
-  newPointButtonElement.disabled = true;
+const newPointButtonClickHandler = () => {
+  newPointButtonView.disable();
   tripPresenter.createPoint(() => {
-    newPointButtonElement.disabled = false;
+    newPointButtonView.enable();
   });
-});
+};
+
+newPointButtonView.disable();
+newPointButtonView.setClickHandler(newPointButtonClickHandler);
 
 let statisticsView = null;
 
@@ -73,6 +69,26 @@ const tabsClickHandler = (activeTab) => {
   }
 };
 
-tabsView.setTabsClickHandler(tabsClickHandler);
-
 tripPresenter.init();
+
+Promise.all([
+  api.getDestinations(),
+  api.getOffers(),
+  api.getPoints()
+])
+  .then((values) => {
+    const [destinations, offers, points] = values;
+
+    tripModel.setDestinations(destinations);
+    tripModel.setOffers(offers);
+    tripModel.setPoints(UpdateType.INIT, points);
+
+    tabsView.setClickHandler(tabsClickHandler);
+    newPointButtonView.enable();
+
+    filterPresenter.init();
+    infoPresenter.init();
+  })
+  .catch(() => {
+    tripModel.setError(UpdateType.ERROR);
+  });

@@ -4,7 +4,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {toFirstUpperCase, convertDurationValue} from '../../utils/utils';
 import {TRANSFERS, pointTypeToEmoji, PointGroupType} from '../../const';
 
-const BAR_HEIGHT = 55;
+const BAR_HEIGHT = 70;
 
 const moneyChartConfig = {
   key: `price`,
@@ -72,13 +72,15 @@ const renderChart = (chartCtx, chartData, chartConfig) => {
         backgroundColor: `#ffffff`,
         hoverBackgroundColor: `#ffffff`,
         anchor: `start`,
+        barThickness: 50,
+        minBarLength: 50,
       }]
     },
     options: {
       plugins: {
         datalabels: {
           font: {
-            size: 13
+            size: 10
           },
           color: `#000000`,
           anchor: `end`,
@@ -98,13 +100,12 @@ const renderChart = (chartCtx, chartData, chartConfig) => {
           ticks: {
             fontColor: `#000000`,
             padding: 5,
-            fontSize: 13,
+            fontSize: 18,
           },
           gridLines: {
             display: false,
             drawBorder: false
           },
-          barThickness: 35,
         }],
         xAxes: [{
           ticks: {
@@ -113,9 +114,8 @@ const renderChart = (chartCtx, chartData, chartConfig) => {
           },
           gridLines: {
             display: false,
-            drawBorder: false
+            drawBorder: false,
           },
-          minBarLength: BAR_HEIGHT
         }],
       },
       legend: {
@@ -130,7 +130,7 @@ const renderChart = (chartCtx, chartData, chartConfig) => {
 
 const createStatisticsTemplate = () => {
   return (
-    `<section class="statistics statistics--hidden">
+    `<section class="statistics">
       <h2 class="visually-hidden">
         Trip statistics
       </h2>

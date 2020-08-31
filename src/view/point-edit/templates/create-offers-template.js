@@ -1,26 +1,28 @@
-export const createOffersTemplate = (offers) => {
+export const createOffersTemplate = (renderedOffers) => {
+
   return (
     `<section class="event__section  event__section--offers">
       <h3 class="event__section-title  event__section-title--offers">
         Offers
       </h3>
       <div class="event__available-offers">
-        ${offers
-          .map((offer) => {
-            const {key, name, price} = offer;
+        ${renderedOffers
+          .map((offer, index) => {
+            const {title, price} = offer;
 
             return (
               `<div class="event__offer-selector">
                 <input
                   class="event__offer-checkbox visually-hidden"
-                  id="event-offer-${key}-1"
-                  value="${key}"
-                  type="checkbox" name="event-offer-${key}"
+                  id="event-offer-${index}"
+                  data-title="${title}"
+                  data-price="${price}"
+                  type="checkbox" name="event-offer-${index}"
                   ${offer.isActivated ? `checked` : ``}
                 >
-                 <label class="event__offer-label" for="event-offer-${key}-1">
+                 <label class="event__offer-label" for="event-offer-${index}">
                   <span class="event__offer-title">
-                    ${name}
+                    ${title}
                   </span>
                   &plus;
                   &euro;&nbsp;<span class="event__offer-price">

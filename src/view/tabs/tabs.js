@@ -46,7 +46,7 @@ export default class Tabs extends AbstractView {
     }
   }
 
-  setTabsClickHandler(callback) {
+  setClickHandler(callback) {
     this._callback.tabsClick = callback;
     this.getElement().addEventListener(`click`, this._tabsClickHandler);
   }

@@ -3,6 +3,7 @@ import {formatDateYyyyMmDdHhMmWithDash} from '../../../utils/date';
 export const createTimeTemplate = ({start, end}) => {
   const timeStart = formatDateYyyyMmDdHhMmWithDash(start);
   const timeEnd = formatDateYyyyMmDdHhMmWithDash(end);
+
   return (
     `<div class="event__field-group  event__field-group--time">
       <label class="visually-hidden" for="event-start-time-1">
