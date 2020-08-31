@@ -29,16 +29,16 @@ const getBlankPoint = () => {
   };
 };
 
-const isOfferInclude = (offers, currentOffer) => Boolean(offers.find((offer) => (
+const isOfferInclude = (offers, currentOffer) => offers.some((offer) => (
   offer.title === currentOffer.title && offer.price === currentOffer.price
-)));
+));
 
 const convertToRenderedOffers = (offers, activeOffers) => offers.map((offer) => {
 
   return {
     title: offer.title,
     price: offer.price,
-    isActivated: isOfferInclude(activeOffers, offer),
+    isActivated: activeOffers.length > 0 && isOfferInclude(activeOffers, offer),
   };
 });
 
