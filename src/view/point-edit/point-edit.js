@@ -43,10 +43,10 @@ const convertToRenderedOffers = (offers, activeOffers) => offers.map((offer) => 
   };
 });
 
-const convertFromRenderOffers = (renderOffers) => {
+const convertFromRenderedOffers = (renderedOffers) => {
   const offers = [];
 
-  renderOffers.forEach((offer) => {
+  renderedOffers.forEach((offer) => {
     if (offer.isActivated) {
       offers.push({
         title: offer.title,
@@ -117,12 +117,12 @@ export default class PointEdit extends AbstractSmartView {
     data = extend(
         data,
         {
-          offers: convertFromRenderOffers(data.renderOffers),
+          offers: convertFromRenderedOffers(data.renderedOffers),
         }
     );
 
     delete data.isDestinationError;
-    delete data.renderOffers;
+    delete data.renderedOffers;
 
     return data;
   }
@@ -143,7 +143,7 @@ export default class PointEdit extends AbstractSmartView {
   }
 
   _getTypeList() {
-    if (!this._typeListElement) {
+    if (!this._typeListElement !== null) {
       this._typeListElement = this.getElement().querySelector(`.event__type-list`);
     }
 
@@ -253,7 +253,7 @@ export default class PointEdit extends AbstractSmartView {
     evt.preventDefault();
     const title = evt.target.dataset.title;
     const price = Number(evt.target.dataset.price);
-    const renderOffers = this._data.renderOffers.map((offer) => {
+    const renderedOffers = this._data.renderedOffers.map((offer) => {
       if (offer.isActivated) {
         return offer;
       }
@@ -266,7 +266,7 @@ export default class PointEdit extends AbstractSmartView {
     });
 
     this.updateData({
-      renderOffers,
+      renderedOffers,
     }, true);
   }
 
