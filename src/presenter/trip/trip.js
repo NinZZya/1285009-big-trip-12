@@ -89,8 +89,8 @@ export default class Trip {
   }
 
   init() {
-    this._tripModel.addObserver(this._modelEventHandler);
-    this._filterModel.addObserver(this._modelEventHandler);
+    this._tripModel.add(this._modelEventHandler);
+    this._filterModel.add(this._modelEventHandler);
 
     this._render();
   }
@@ -98,8 +98,8 @@ export default class Trip {
   destroy() {
     this._clear({isResetSortType: true});
 
-    this._tripModel.removeObserver(this._modelEventHandler);
-    this._filterModel.removeObserver(this._modelEventHandler);
+    this._tripModel.remove(this._modelEventHandler);
+    this._filterModel.remove(this._modelEventHandler);
   }
 
   createPoint(callback) {

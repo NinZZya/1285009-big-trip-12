@@ -65,8 +65,8 @@ export default class Info {
 
     this._modelEventHandler = this._modelEventHandler.bind(this);
 
-    this._tripModel.addObserver(this._modelEventHandler);
-    this._filterModel.addObserver(this._modelEventHandler);
+    this._tripModel.add(this._modelEventHandler);
+    this._filterModel.add(this._modelEventHandler);
   }
 
   init() {
