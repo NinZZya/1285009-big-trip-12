@@ -17,7 +17,6 @@ import {
 import {
   RenderPosition,
   render,
-  createRenderFragment,
   remove,
 } from '../../utils/dom';
 
@@ -190,9 +189,15 @@ export default class Trip {
     const pointsListView = new PointsListView();
     const pointsItemsViews = points.map((point) => this._createPointsItem(point));
 
+    const fragment = document.createDocumentFragment();
+
+    pointsItemsViews.forEach((pointsItem) => {
+      fragment.appendChild(pointsItem.getElement());
+    });
+
     render(
         pointsListView,
-        createRenderFragment(pointsItemsViews),
+        fragment,
         BEFORE_END
     );
 
@@ -208,9 +213,15 @@ export default class Trip {
       ? this._createEventDays(points)
       : [this._createEventDay(points)];
 
+    const fragment = document.createDocumentFragment();
+
+    this._dayViews.forEach((dayView) => {
+      fragment.appendChild(dayView.getElement());
+    });
+
     render(
         this._daysView,
-        createRenderFragment(this._dayViews),
+        fragment,
         BEFORE_END
     );
 
