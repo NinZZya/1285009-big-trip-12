@@ -51,7 +51,7 @@ const newPointButtonClickHandler = () => {
 };
 
 newPointButtonView.setDisabled();
-newPointButtonView.setNewPointButtonClickHandler(newPointButtonClickHandler);
+newPointButtonView.setClickHandler(newPointButtonClickHandler);
 
 let statisticsView = null;
 
