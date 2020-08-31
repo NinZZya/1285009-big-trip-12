@@ -4,10 +4,6 @@ export const PointMessage = {
   ERROR: `Error loading data, try again later..`,
 };
 
-export const MINUTE = 60 * 1000;
-export const HOUR = 60 * MINUTE;
-export const DAY = 24 * HOUR;
-
 export const TRANSFERS = [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight`];
 export const ACTVITIES = [`Check-in`, `Sightseeing`, `Restaurant`];
 

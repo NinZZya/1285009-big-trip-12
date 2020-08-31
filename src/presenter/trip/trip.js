@@ -146,7 +146,7 @@ export default class Trip {
   _renderSort() {
     this._sortView = new SortView(this._currentSortType);
     render(this._tripContainer, this._sortView, BEFORE_END);
-    this._sortView.setChangeSortHandler(this._sortChangeHandler);
+    this._sortView.setChangeHandler(this._sortChangeHandler);
   }
 
   _createPointsItem(point) {

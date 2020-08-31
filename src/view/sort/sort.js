@@ -60,7 +60,7 @@ export default class Sort extends AbstractView {
     this._callback.formChangeHandler(evt.target.dataset.sortType);
   }
 
-  setChangeSortHandler(callback) {
+  setChangeHandler(callback) {
     this._callback.formChangeHandler = callback;
     this.getElement().addEventListener(`change`, this._formChangeHandler);
   }

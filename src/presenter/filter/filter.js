@@ -40,7 +40,7 @@ export default class Filter {
     };
 
     this._filterView = new FiltersView(this._currentFilter, filtersStatus);
-    this._filterView.setFilterTypeChangeHandler(this._filterTypeChangeHandler);
+    this._filterView.setChangeHandler(this._filterTypeChangeHandler);
 
     if (prevFilterView === null) {
       render(this._filterContainer, this._filterView, BEFORE_END);

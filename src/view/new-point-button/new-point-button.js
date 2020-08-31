@@ -20,11 +20,11 @@ export default class NewPointButton extends AbstractView {
     return createNewPointButtonTemplate();
   }
 
-  setDisabled() {
+  disable() {
     this.getElement().disabled = true;
   }
 
-  setEnabled() {
+  enable() {
     this.getElement().disabled = false;
   }
 

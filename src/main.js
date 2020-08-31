@@ -29,9 +29,9 @@ const tripMainElement = document.querySelector(`.trip-main`);
 
 const controlsView = new ControlsView();
 render(tripMainElement, controlsView, BEFORE_END);
-const tripFilterEventsHeaderElement = controlsView.getFilterEventsHeaderElement();
+
 const tabsView = new TabsView();
-render(tripFilterEventsHeaderElement, tabsView, BEFORE_BEGIN);
+render(controlsView.getFilterEventsHeaderElement(), tabsView, BEFORE_BEGIN);
 
 const newPointButtonView = new NewPointButtonView();
 render(tripMainElement, newPointButtonView, BEFORE_END);
@@ -44,13 +44,13 @@ const filterPresenter = new FilterPresenter(controlsView, tripModel, filterModel
 const infoPresenter = new InfoPresenter(tripMainElement, tripModel, filterModel);
 
 const newPointButtonClickHandler = () => {
-  newPointButtonView.setDisabled();
+  newPointButtonView.disable();
   tripPresenter.createPoint(() => {
-    newPointButtonView.setEnabled();
+    newPointButtonView.enable();
   });
 };
 
-newPointButtonView.setDisabled();
+newPointButtonView.disable();
 newPointButtonView.setClickHandler(newPointButtonClickHandler);
 
 let statisticsView = null;
@@ -83,8 +83,8 @@ Promise.all([
     tripModel.setOffers(offers);
     tripModel.setPoints(UpdateType.INIT, points);
 
-    tabsView.setTabsClickHandler(tabsClickHandler);
-    newPointButtonView.setEnabled();
+    tabsView.setClickHandler(tabsClickHandler);
+    newPointButtonView.enable();
 
     filterPresenter.init();
     infoPresenter.init();
