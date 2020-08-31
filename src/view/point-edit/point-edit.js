@@ -75,6 +75,7 @@ export default class PointEdit extends AbstractSmartView {
   constructor({point = getBlankPoint(), destinations, offers, isAddMode = false}) {
     super();
     this._data = PointEdit.parsePointToData(point, destinations, offers);
+    this._point = point;
     this._destinations = destinations;
     this._offers = offers;
     this._isAddMode = isAddMode;
@@ -211,9 +212,11 @@ export default class PointEdit extends AbstractSmartView {
   _favoriteCheckboxClickHandler(evt) {
     evt.preventDefault();
 
-    this.updateData({
-      isFavorite: !this._data.isFavorite,
-    });
+    this.updateData(extend(this._point,
+        {
+          isFavorite: evt.target.checked,
+        })
+    );
 
     this._callback.favoriteCheckboxClick(PointEdit.parseDataToPoint(this._data));
   }
