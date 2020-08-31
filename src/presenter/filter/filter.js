@@ -30,7 +30,7 @@ export default class Filter {
   }
 
   init() {
-    this._currentFilter = this._filterModel.getFilter();
+    this._currentFilter = this._filterModel.get();
     const prevFilterView = this._filterView;
     const points = this._tripModel.getPoints();
     const filtersStatus = {
@@ -60,6 +60,6 @@ export default class Filter {
       return;
     }
 
-    this._filterModel.setFilter(UpdateType.MAJOR, filterType);
+    this._filterModel.set(UpdateType.MAJOR, filterType);
   }
 }

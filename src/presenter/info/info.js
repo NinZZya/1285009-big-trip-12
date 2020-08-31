@@ -71,7 +71,7 @@ export default class Info {
 
   init() {
     const points = this._tripModel.getPoints();
-    const filterType = this._filterModel.getFilter();
+    const filterType = this._filterModel.get();
     const filteredPoints = filterType === FilterType.EVERYTHING
       ? points
       : filter[filterType](points);

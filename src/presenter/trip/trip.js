@@ -105,13 +105,13 @@ export default class Trip {
     this._currentSortType = SortType.EVENT;
     const destinations = this._tripModel.getDestinations();
     const offers = this._tripModel.getOffers();
-    this._filterModel.setFilter(UpdateType.MINOR, FilterType.EVERYTHING);
+    this._filterModel.set(UpdateType.MINOR, FilterType.EVERYTHING);
     this._pointNewPresenter.init(destinations, offers, callback);
   }
 
   _getPoints() {
     const points = this._tripModel.getPoints();
-    const filterType = this._filterModel.getFilter();
+    const filterType = this._filterModel.get();
     const filteredPoints = filterType === FilterType.EVERYTHING
       ? points
       : filter[filterType](points);
