@@ -42,20 +42,16 @@ const convertToRenderedOffers = (offers, activeOffers) => offers.map((offer) => 
   };
 });
 
-const convertFromRenderedOffers = (renderedOffers) => {
-  const offers = [];
-
-  renderedOffers.forEach((offer) => {
-    if (offer.isActivated) {
-      offers.push({
-        title: offer.title,
-        price: offer.price,
-      });
-    }
-  });
+const convertFromRenderedOffers = (renderedOffers) => renderedOffers.reduce((offers, offer) => {
+  if (offer.isActivated) {
+    offers.push({
+      title: offer.title,
+      price: offer.price,
+    });
+  }
 
   return offers;
-};
+}, []);
 
 const getDestination = (destinations, destinationName) => destinations.find(
     (destination) => destination.name === destinationName
@@ -259,14 +255,14 @@ export default class PointEdit extends AbstractSmartView {
     const title = evt.target.dataset.title;
     const price = Number(evt.target.dataset.price);
     const renderedOffers = this._data.renderedOffers.map((offer) => {
-      if (offer.isActivated) {
+      if (offer.title !== title && offer.price !== price) {
         return offer;
       }
 
       return {
-        title: offer.title,
-        price: offer.price,
-        isActivated: offer.title === title && offer.price === price,
+        title,
+        price,
+        isActivated: evt.target.checked,
       };
     });
 
