@@ -100,8 +100,10 @@ export default class PointEdit extends AbstractSmartView {
 
   static parsePointToData(point, destinations, offers) {
     const {destination, type} = point;
-    const renderedOffers = offers[type].length > 0
-      ? convertToRenderedOffers(offers[type], point.offers)
+    const typeOffers = offers[type];
+
+    const renderedOffers = typeOffers.length > 0
+      ? convertToRenderedOffers(typeOffers, point.offers)
       : [];
 
     return extend(
@@ -113,18 +115,18 @@ export default class PointEdit extends AbstractSmartView {
     );
   }
 
-  static parseDataToPoint(data) {
-    data = extend(
-        data,
+  static parseDataToPoint(pointData) {
+    pointData = extend(
+        pointData,
         {
-          offers: convertFromRenderedOffers(data.renderedOffers),
+          offers: convertFromRenderedOffers(pointData.renderedOffers),
         }
     );
 
-    delete data.isDestinationError;
-    delete data.renderedOffers;
+    delete pointData.isDestinationError;
+    delete pointData.renderedOffers;
 
-    return data;
+    return pointData;
   }
 
   getTemplate() {
@@ -228,9 +230,10 @@ export default class PointEdit extends AbstractSmartView {
     evt.preventDefault();
     const typeId = evt.target.htmlFor;
     const type = this._getTypeList().querySelector(`#${typeId}`).value.toLowerCase();
+    const typeOffers = this._offers[type];
 
-    const renderedOffers = this._offers[type].length > 0
-      ? convertToRenderedOffers(this._offers[type], [])
+    const renderedOffers = typeOffers.length > 0
+      ? convertToRenderedOffers(typeOffers, [])
       : [];
 
     this.updateData({

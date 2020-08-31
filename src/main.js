@@ -89,6 +89,6 @@ Promise.all([
     filterPresenter.init();
     infoPresenter.init();
   })
-  // .catch(() => {
-  //   tripModel.setError(UpdateType.ERROR);
-  // });
+  .catch(() => {
+    tripModel.setError(UpdateType.ERROR);
+  });
