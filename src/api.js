@@ -3,6 +3,8 @@ import {TripModel} from './model';
 const Method = {
   GET: `GET`,
   PUT: `PUT`,
+  POST: `POST`,
+  DELETE: `DELETE`,
 };
 
 const SuccessHTTPStatusRange = {
@@ -16,6 +18,7 @@ const Url = {
   OFFERS: `offers`,
 };
 
+const HEADER = {"Content-Type": `application/json`};
 
 export default class Api {
   constructor(endPoint, authorization) {
@@ -47,10 +50,28 @@ export default class Api {
       url: `${Url.POINTS}/${point.id}`,
       method: Method.PUT,
       body: JSON.stringify(TripModel.adaptPointToServer(point)),
-      headers: new Headers({"Content-Type": `application/json`})
+      headers: new Headers(HEADER)
     })
     .then(Api.toJSON)
     .then(TripModel.adaptPointToClient);
+  }
+
+  addPoint(point) {
+    return this._load({
+      url: Url.POINTS,
+      method: Method.POST,
+      body: JSON.stringify(TripModel.adaptPointToServer(point)),
+      headers: new Headers(HEADER)
+    })
+      .then(Api.toJSON)
+      .then(TripModel.adaptPointToClient);
+  }
+
+  deletePoint(point) {
+    return this._load({
+      url: `${Url.POINTS}/${point.id}`,
+      method: Method.DELETE
+    });
   }
 
   _load({
