@@ -44,13 +44,13 @@ const filterPresenter = new FilterPresenter(controlsView, tripModel, filterModel
 const infoPresenter = new InfoPresenter(tripMainElement, tripModel, filterModel);
 
 const newPointButtonClickHandler = () => {
-  newPointButtonView.disabled(true);
+  newPointButtonView.setDisabled();
   tripPresenter.createPoint(() => {
-    newPointButtonView.disabled(false);
+    newPointButtonView.setEnabled();
   });
 };
 
-newPointButtonView.disabled(true);
+newPointButtonView.setDisabled();
 newPointButtonView.setNewPointButtonClickHandler(newPointButtonClickHandler);
 
 let statisticsView = null;
@@ -84,7 +84,7 @@ Promise.all([
     tripModel.setPoints(UpdateType.INIT, points);
 
     tabsView.setTabsClickHandler(tabsClickHandler);
-    newPointButtonView.disabled(false);
+    newPointButtonView.setEnabled();
 
     filterPresenter.init();
     infoPresenter.init();

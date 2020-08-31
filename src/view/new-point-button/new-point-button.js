@@ -20,8 +20,12 @@ export default class NewPointButton extends AbstractView {
     return createNewPointButtonTemplate();
   }
 
-  disabled(isDisabled) {
-    this.getElement().disabled = isDisabled;
+  setDisabled() {
+    this.getElement().disabled = true;
+  }
+
+  setEnabled() {
+    this.getElement().disabled = false;
   }
 
   _newPointButtonClickHandler(evt) {
