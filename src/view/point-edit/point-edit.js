@@ -107,6 +107,9 @@ export default class PointEdit extends AbstractSmartView {
         {
           renderedOffers,
           isDestinationError: !getDestination(destinations, destination.name),
+          isDisabled: false,
+          isSaving: false,
+          isDeleting: false,
         }
     );
   }
@@ -121,6 +124,9 @@ export default class PointEdit extends AbstractSmartView {
 
     delete pointData.isDestinationError;
     delete pointData.renderedOffers;
+    delete pointData.isDisabled;
+    delete pointData.isSaving;
+    delete pointData.isDeleting;
 
     return pointData;
   }

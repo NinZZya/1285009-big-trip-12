@@ -16,9 +16,12 @@ export const createHeaderTemplate = (pointData, destinations, isAddMode) => {
     price,
     isFavorite,
     isDestinationError,
+    isDisabled,
+    isSaving,
+    isDeleting,
   } = pointData;
 
-  const isDisabled = isDestinationError;
+  const isDisabledSaveButton = isDestinationError || isDisabled;
 
   return (
     `<header class="event__header">
@@ -26,8 +29,8 @@ export const createHeaderTemplate = (pointData, destinations, isAddMode) => {
       ${createHeaderDestinationTemplate(type, destination, destinations)}
       ${createTimeTemplate({start, end})}
       ${createPriceTemplate(price)}
-      ${createSaveButtonTemplate(isDisabled)}
-      ${createResetButtonTemplate(isAddMode)}
+      ${createSaveButtonTemplate(isDisabledSaveButton, isSaving)}
+      ${createResetButtonTemplate(isAddMode, isDeleting)}
       ${isAddMode ? `` : createFavoriteTemplate(isFavorite)}
       ${isAddMode ? `` : createRollupButtonTemplate()}
     </header>`

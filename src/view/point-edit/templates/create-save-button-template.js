@@ -1,11 +1,11 @@
-export const createSaveButtonTemplate = (isDisabled) => {
+export const createSaveButtonTemplate = (isDisabledSaveButton, isSaving) => {
   return (
     `<button
       class="event__save-btn  btn  btn--blue"
       type="submit"
-      ${isDisabled ? `disabled` : ``}
+      ${isDisabledSaveButton ? `disabled` : ``}
     >
-      Save
+      ${isSaving ? `Saving...` : `Save`}
     </button>`
   );
 };

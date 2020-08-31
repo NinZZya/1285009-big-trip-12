@@ -1,7 +1,15 @@
-export const createResetButtonTemplate = (isAddMode) => {
+const getCaption = (isAddMode, isDeleting) => {
+  if (isAddMode) {
+    return `Cancel`;
+  }
+
+  return `${isDeleting ? `Deleting...` : `Delete`}`;
+};
+
+export const createResetButtonTemplate = (isAddMode, isDeleting) => {
   return (
     `<button class="event__reset-btn" type="reset">
-      ${isAddMode ? `Cancel` : `Delete`}
+      ${getCaption(isAddMode, isDeleting)}
     </button>`
   );
 };
