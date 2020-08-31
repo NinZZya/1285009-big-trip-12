@@ -1,4 +1,4 @@
-export const createOffersTemplate = (renderOffers) => {
+export const createOffersTemplate = (renderedOffers) => {
 
   return (
     `<section class="event__section  event__section--offers">
@@ -6,7 +6,7 @@ export const createOffersTemplate = (renderOffers) => {
         Offers
       </h3>
       <div class="event__available-offers">
-        ${renderOffers
+        ${renderedOffers
           .map((offer, index) => {
             const {title, price} = offer;
 
