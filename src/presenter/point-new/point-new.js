@@ -1,8 +1,7 @@
-import {nanoid} from 'nanoid';
 import {AbstractView, PointEditView} from '../../view';
 import {remove, render, RenderPosition} from '../../utils/dom';
 import {UserAction, UpdateType} from '../../const';
-import {extend, isEscPressed} from '../../utils/utils';
+import {isEscPressed} from '../../utils/utils';
 
 const {
   AFTER_BEGIN,
@@ -67,7 +66,7 @@ export default class PointNew {
     this._changeData(
         UserAction.ADD_POINT,
         UpdateType.MAJOR,
-        extend({id: nanoid()}, point)
+        point
     );
     this.destroy();
   }
