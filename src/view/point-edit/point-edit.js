@@ -10,6 +10,7 @@ import {addDaysToDate} from '../../utils/date';
 const BLANK_DESTINATION = {
   name: ``,
   pictures: [],
+  description: ``,
 };
 
 const getBlankPoint = () => {
