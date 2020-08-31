@@ -38,9 +38,7 @@ const convertToRenderedOffers = (offers, activeOffers) => offers.map((offer) => 
   return {
     title: offer.title,
     price: offer.price,
-    isActivated: activeOffers.length > 0
-      ? isOfferInclude(activeOffers, offer)
-      : false,
+    isActivated: isOfferInclude(activeOffers, offer),
   };
 });
 
