@@ -80,6 +80,7 @@ export default class PointEdit extends AbstractSmartView {
     this._endDatePicker = null;
     this.isStartDateUpdate = false;
 
+    this.resetFormState = this.resetFormState.bind(this);
     this._formSubmitHandler = this._formSubmitHandler.bind(this);
     this._formResetHandler = this._formResetHandler.bind(this);
     this._rollupButtonClickHandler = this._rollupButtonClickHandler.bind(this);
@@ -153,6 +154,10 @@ export default class PointEdit extends AbstractSmartView {
       isSaving: false,
       isDeleting: false,
     });
+  }
+
+  shakeForm() {
+    this.shake(this.resetFormState);
   }
 
   _setInnerHandlers() {

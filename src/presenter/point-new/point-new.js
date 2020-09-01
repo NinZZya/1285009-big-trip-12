@@ -48,11 +48,7 @@ export default class PointNew {
   }
 
   setAborting() {
-    const resetFormState = () => {
-      this._pointEditView.resetFormState();
-    };
-
-    this._pointEditView.shake(resetFormState);
+    this._pointEditView.shakeForm();
   }
 
   _renderPointEdit(destinations, offers, callback) {

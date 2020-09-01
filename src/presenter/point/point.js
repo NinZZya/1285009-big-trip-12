@@ -105,10 +105,6 @@ export default class Point {
   }
 
   setViewState(state) {
-    const resetFormState = () => {
-      this._pointEditView.resetFormState();
-    };
-
     switch (state) {
       case State.SAVING:
         this._pointEditView.updateData({
@@ -123,7 +119,7 @@ export default class Point {
         });
         break;
       case State.ABORTING:
-        this._pointEditView.shake(resetFormState);
+        this._pointEditView.shakeForm();
         break;
     }
   }
