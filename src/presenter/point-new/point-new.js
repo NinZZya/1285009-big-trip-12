@@ -40,6 +40,21 @@ export default class PointNew {
     document.removeEventListener(`keydown`, this._escKeyDownHandler);
   }
 
+  setSaving() {
+    this._pointEditView.updateData({
+      isDisabled: true,
+      isSaving: true,
+    });
+  }
+
+  setAborting() {
+    const resetFormState = () => {
+      this._pointEditView.resetFormState();
+    };
+
+    this._pointEditView.shake(resetFormState);
+  }
+
   _renderPointEdit(destinations, offers, callback) {
     this._destroyCallback = callback;
 
@@ -68,7 +83,6 @@ export default class PointNew {
         UpdateType.MAJOR,
         point
     );
-    this.destroy();
   }
 
   _formRresetHandler() {

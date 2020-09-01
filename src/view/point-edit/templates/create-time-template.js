@@ -1,6 +1,6 @@
 import {formatDateYyyyMmDdHhMmWithDash} from '../../../utils/date';
 
-export const createTimeTemplate = ({start, end}) => {
+export const createTimeTemplate = ({start, end, isDisabled}) => {
   const timeStart = formatDateYyyyMmDdHhMmWithDash(start);
   const timeEnd = formatDateYyyyMmDdHhMmWithDash(end);
 
@@ -15,6 +15,7 @@ export const createTimeTemplate = ({start, end}) => {
         type="text"
         name="event-start-time"
         value="${timeStart}"
+        ${isDisabled ? `disabled` : ``}
       >
       &mdash;
       <label class="visually-hidden" for="event-end-time-1">
@@ -25,6 +26,7 @@ export const createTimeTemplate = ({start, end}) => {
         id="event-end-time-1"
         type="text" name="event-end-time"
         value="${timeEnd}"
+        ${isDisabled ? `disabled` : ``}
       >
     </div>`
   );

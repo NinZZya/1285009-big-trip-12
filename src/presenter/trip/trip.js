@@ -31,6 +31,7 @@ import {
   SortType,
   UpdateType,
   UserAction,
+  State,
 } from '../../const';
 
 import {filter} from '../../utils/filter';
@@ -342,19 +343,36 @@ export default class Trip {
   _viewActionHandler(actionType, updateType, update) {
     switch (actionType) {
       case UserAction.UPDATE_POINT:
-        this._api.updatePoint(update).then((response) => {
-          this._tripModel.updatePoint(updateType, response);
-        });
+        this._pointPresenter[update.id].setViewState(State.SAVING);
+        this._api.updatePoint(update)
+            .then((response) => {
+              this._tripModel.updatePoint(updateType, response);
+              this._pointPresenter[update.id].successHandler();
+            })
+            .catch(() => {
+              this._pointPresenter[update.id].setViewState(State.ABORTING);
+            });
         break;
       case UserAction.ADD_POINT:
-        this._api.addPoint(update).then((response) => {
-          this._tripModel.addPoint(updateType, response);
-        });
+        this._pointNewPresenter.setSaving();
+        this._api.addPoint(update)
+            .then((response) => {
+              this._tripModel.addPoint(updateType, response);
+              this._pointNewPresenter.destroy();
+            })
+            .catch(() => {
+              this._pointNewPresenter.setAborting();
+            });
         break;
       case UserAction.DELETE_POINT:
-        this._api.deletePoint(update).then(() => {
-          this._tripModel.deletePoint(updateType, update);
-        });
+        this._pointPresenter[update.id].setViewState(State.DELETING);
+        this._api.deletePoint(update)
+            .then(() => {
+              this._tripModel.deletePoint(updateType, update);
+            })
+            .catch(() => {
+              this._pointPresenter[update.id].setViewState(State.ABORTING);
+            });
         break;
     }
   }

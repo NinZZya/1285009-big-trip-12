@@ -78,3 +78,9 @@ export const TabItem = {
   TABLE: `Table`,
   STATS: `Stats`,
 };
+
+export const State = {
+  SAVING: `SAVING`,
+  DELETING: `DELETING`,
+  ABORTING: `ABORTING`,
+};

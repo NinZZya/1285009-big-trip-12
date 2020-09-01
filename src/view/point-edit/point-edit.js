@@ -146,6 +146,15 @@ export default class PointEdit extends AbstractSmartView {
     this._destroyPointDatePickers();
   }
 
+  resetFormState() {
+    this.updateData({
+      isFavorite: this._point.isFavorite,
+      isDisabled: false,
+      isSaving: false,
+      isDeleting: false,
+    });
+  }
+
   _setInnerHandlers() {
     const element = this.getElement();
 
