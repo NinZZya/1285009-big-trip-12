@@ -4,7 +4,43 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import {toFirstUpperCase, convertDurationValue} from '../../utils/utils';
 import {TRANSFERS, pointTypeToEmoji, PointGroupType} from '../../const';
 
-const BAR_HEIGHT = 70;
+const CHAR_TYPE = `horizontalBar`;
+const COUNT = 1;
+
+const HeightGap = {
+  MONEY: 6,
+  TRANSPORT: 4,
+  TIME: 6,
+};
+
+const Bar = {
+  HEIGHT: 70,
+  THICKNESS: 50,
+  MIN_LENGTH: 50,
+  BACKGROUND: `#ffffff`,
+  HOVER_BACKGROUND: `#ffffff`,
+  ANCHOR: `start`,
+};
+
+const Tick = {
+  COLOR: `#000000`,
+  PADDING: 5,
+  FONT_SIZE: 18,
+};
+
+const Title = {
+  FONT_COLOR: `#000000`,
+  FONT_SIZE: 15,
+  POSITION: `left`,
+};
+
+const Label = {
+  FONT_COLOR: `#000000`,
+  PADDING: 5,
+  FONT_SIZE: 10,
+  ANCHOR: `end`,
+  ALIGN: `start`,
+};
 
 const moneyChartConfig = {
   key: `price`,
@@ -32,7 +68,7 @@ const convertToData = (points) => {
         label: pointTypeToEmoji[point.type],
         price: point.price,
         duration: point.duration,
-        count: 1,
+        count: COUNT,
         groupType: TRANSFERS.includes(toFirstUpperCase(point.type))
           ? PointGroupType.TRANSFER
           : PointGroupType.ACTVITY,
@@ -64,43 +100,44 @@ const renderChart = (chartCtx, chartData, chartConfig) => {
 
   return new Chart(chartCtx, {
     plugins: [ChartDataLabels],
-    type: `horizontalBar`,
+    type: CHAR_TYPE,
     data: {
       labels,
       datasets: [{
         data,
-        backgroundColor: `#ffffff`,
-        hoverBackgroundColor: `#ffffff`,
-        anchor: `start`,
-        barThickness: 50,
-        minBarLength: 50,
+        backgroundColor: Bar.BACKGROUND,
+        hoverBackgroundColor: Bar.HOVER_BACKGROUND,
+        anchor: Bar.ANCHOR,
+        barThickness: Bar.THICKNESS,
+        minBarLength: Bar.MIN_LENGTH,
       }]
     },
     options: {
       plugins: {
         datalabels: {
           font: {
-            size: 10
+            size: Label.FONT_SIZE,
           },
-          color: `#000000`,
-          anchor: `end`,
-          align: `start`,
+          color: Label.FONT_COLOR,
+          padding: Label.PADDING,
+          anchor: Label.ANCHOR,
+          align: Label.ALIGN,
           formatter: datalabelsFormater,
         }
       },
       title: {
         display: true,
         text: title,
-        fontColor: `#000000`,
-        fontSize: 23,
-        position: `left`
+        fontColor: Title.FONT_COLOR,
+        fontSize: Title.FONT_SIZE,
+        position: Title.POSITION,
       },
       scales: {
         yAxes: [{
           ticks: {
-            fontColor: `#000000`,
-            padding: 5,
-            fontSize: 18,
+            fontColor: Tick.FONT_COLOR,
+            padding: Tick.PADDING,
+            fontSize: Tick.FONT_SIZE,
           },
           gridLines: {
             display: false,
@@ -184,9 +221,9 @@ export default class Statistics extends AbstractView {
     const transportCtx = element.querySelector(`.statistics__chart--transport`);
     const timeSpendCtx = element.querySelector(`.statistics__chart--time`);
 
-    moneyCtx.height = BAR_HEIGHT * 6;
-    transportCtx.height = BAR_HEIGHT * 4;
-    timeSpendCtx.height = BAR_HEIGHT * 6;
+    moneyCtx.height = Bar.HEIGHT * HeightGap.MONEY;
+    transportCtx.height = Bar.HEIGHT * HeightGap.MONEY;
+    timeSpendCtx.height = Bar.HEIGHT * HeightGap.MONEY;
 
     this._moneyChart = renderChart(
         moneyCtx,
