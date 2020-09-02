@@ -1,10 +1,12 @@
-const getCaption = (isAddMode, isDeleting) => {
-  if (isAddMode) {
-    return `Cancel`;
-  }
-
-  return `${isDeleting ? `Deleting...` : `Delete`}`;
+const ButtonName = {
+  CANCEL: `Cancel`,
+  DELETING: `Deleting...`,
+  DELETE: `Delete`,
 };
+
+const getResetCaption = (isDeleting) => `${
+  isDeleting ? ButtonName.DELETING : ButtonName.DELETE
+}`;
 
 export const createResetButtonTemplate = (isAddMode, isDeleting, isDisabled) => {
   return (
@@ -13,7 +15,7 @@ export const createResetButtonTemplate = (isAddMode, isDeleting, isDisabled) => 
       type="reset"
       ${isDisabled ? `disabled` : ``}
     >
-      ${getCaption(isAddMode, isDeleting)}
+      ${isAddMode ? ButtonName.CANCEL : getResetCaption(isDeleting)}
     </button>`
   );
 };
