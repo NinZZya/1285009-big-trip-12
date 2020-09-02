@@ -340,17 +340,24 @@ export default class Trip {
       .forEach((presenter) => presenter.resetView());
   }
 
-  _viewActionHandler(actionType, updateType, update) {
+  _viewActionHandler(
+      actionType,
+      updateType,
+      update,
+      successHandler = () => {},
+      errorHandler = () => {}
+  ) {
     switch (actionType) {
       case UserAction.UPDATE_POINT:
         this._pointPresenter[update.id].setViewState(State.SAVING);
         this._api.updatePoint(update)
             .then((response) => {
               this._tripModel.updatePoint(updateType, response);
-              this._pointPresenter[update.id].successHandler();
+              successHandler();
             })
             .catch(() => {
               this._pointPresenter[update.id].setViewState(State.ABORTING);
+              errorHandler();
             });
         break;
       case UserAction.ADD_POINT:
@@ -359,9 +366,11 @@ export default class Trip {
             .then((response) => {
               this._tripModel.addPoint(updateType, response);
               this._pointNewPresenter.destroy();
+              successHandler();
             })
             .catch(() => {
               this._pointNewPresenter.setAborting();
+              errorHandler();
             });
         break;
       case UserAction.DELETE_POINT:
@@ -369,9 +378,11 @@ export default class Trip {
         this._api.deletePoint(update)
             .then(() => {
               this._tripModel.deletePoint(updateType, update);
+              successHandler();
             })
             .catch(() => {
               this._pointPresenter[update.id].setViewState(State.ABORTING);
+              errorHandler();
             });
         break;
     }

@@ -150,10 +150,6 @@ export default class Point {
     this._rollupPointEdit();
   }
 
-  successHandler() {
-    this._rollupPointEdit();
-  }
-
   _submitPointEditHandler(point) {
     const updateType = this._pointEditView.isStartDateUpdate
       ? UpdateType.MINOR
@@ -162,7 +158,8 @@ export default class Point {
     this._changeData(
         UserAction.UPDATE_POINT,
         updateType,
-        point
+        point,
+        this._rollupPointEdit
     );
   }
 
