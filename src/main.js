@@ -13,8 +13,8 @@ import {
 
 import {TripModel, FilterModel} from './model';
 import {RenderPosition, render} from './utils/dom';
-import Api from './api';
 import {TabItem, UpdateType} from './const';
+import Api from './api';
 
 const AUTHORIZATION = `Basic K5MGq4Ma5mbffTogkBUBv`;
 const END_POINT = `https://12.ecmascript.pages.academy/big-trip`;
@@ -27,7 +27,6 @@ const {
 const api = new Api(END_POINT, AUTHORIZATION);
 
 const tripModel = new TripModel();
-
 const filterModel = new FilterModel();
 
 const tripMainElement = document.querySelector(`.trip-main`);

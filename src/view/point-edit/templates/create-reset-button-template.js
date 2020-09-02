@@ -4,7 +4,7 @@ const ButtonName = {
   DELETE: `Delete`,
 };
 
-const getResetCaption = (isDeleting) => `${
+const getDeleteCaption = (isDeleting) => `${
   isDeleting ? ButtonName.DELETING : ButtonName.DELETE
 }`;
 
@@ -15,7 +15,7 @@ export const createResetButtonTemplate = (isAddMode, isDeleting, isDisabled) => 
       type="reset"
       ${isDisabled ? `disabled` : ``}
     >
-      ${isAddMode ? ButtonName.CANCEL : getResetCaption(isDeleting)}
+      ${isAddMode ? ButtonName.CANCEL : getDeleteCaption(isDeleting)}
     </button>`
   );
 };

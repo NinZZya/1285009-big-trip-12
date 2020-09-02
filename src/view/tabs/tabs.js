@@ -32,6 +32,11 @@ export default class Tabs extends AbstractView {
     return createTabsTemplate();
   }
 
+  setClickHandler(callback) {
+    this._callback.tabsClick = callback;
+    this.getElement().addEventListener(`click`, this._tabsClickHandler);
+  }
+
   _tabsClickHandler(evt) {
     evt.preventDefault();
     const prevActiveTabElement = this.getElement().querySelector(`.${ACTIVE_TAB_CLASS}`);
@@ -44,10 +49,5 @@ export default class Tabs extends AbstractView {
     if (activeTab !== prevActiveTab) {
       this._callback.tabsClick(activeTab);
     }
-  }
-
-  setClickHandler(callback) {
-    this._callback.tabsClick = callback;
-    this.getElement().addEventListener(`click`, this._tabsClickHandler);
   }
 }
