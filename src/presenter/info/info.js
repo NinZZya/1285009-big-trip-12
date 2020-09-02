@@ -80,18 +80,18 @@ export default class Info {
     const route = getRoute(filteredPoints);
     const period = getPeriod(filteredPoints);
 
-    const prevFilterInfoView = this._infoView;
+    const prevInfoView = this._infoView;
 
 
     this._infoView = new InfoView(route, period, coast);
 
-    if (prevFilterInfoView === null) {
+    if (prevInfoView === null) {
       render(this._infoContainer, this._infoView, AFTER_BEGIN);
       return;
     }
 
-    replace(this._infoView, prevFilterInfoView);
-    remove(prevFilterInfoView);
+    replace(this._infoView, prevInfoView);
+    remove(prevInfoView);
   }
 
   _modelEventHandler() {
