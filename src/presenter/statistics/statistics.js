@@ -4,6 +4,7 @@ import {
   render,
   RenderPosition,
   remove,
+  getElement,
 } from '../../utils/dom';
 
 import {FilterType, TabItem} from '../../const';
@@ -15,7 +16,7 @@ const {
 
 export default class Statistics {
   constructor(statisticsContainer, tripModel, filterModel, mode) {
-    this._statisticsContainer = statisticsContainer;
+    this._statisticsContainerElement = getElement(statisticsContainer);
     this._tripModel = tripModel;
     this._filterModel = filterModel;
     this._mode = mode;
@@ -39,7 +40,7 @@ export default class Statistics {
 
       this._clear();
       this._statisticsView = new StatisticsView(filteredPoints);
-      render(this._statisticsContainer, this._statisticsView, BEFORE_END);
+      render(this._statisticsContainerElement, this._statisticsView, BEFORE_END);
     }
   }
 

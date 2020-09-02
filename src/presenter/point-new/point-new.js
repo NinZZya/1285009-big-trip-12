@@ -1,7 +1,12 @@
 import {AbstractView, PointEditView} from '../../view';
-import {remove, render, RenderPosition} from '../../utils/dom';
 import {UserAction, UpdateType} from '../../const';
 import {isEscPressed} from '../../utils/utils';
+import {
+  remove,
+  render,
+  RenderPosition,
+  getElement,
+} from '../../utils/dom';
 
 const {
   AFTER_BEGIN,
@@ -10,7 +15,7 @@ const {
 
 export default class PointNew {
   constructor(tripContainer, changeData) {
-    this._tripContainer = tripContainer;
+    this._tripContainerElement = getElement(tripContainer);
     this._changeData = changeData;
 
     this._pointEditView = null;
@@ -58,16 +63,16 @@ export default class PointNew {
     this._pointEditView.setFormSubmitHandler(this._formSubmitHandler);
     this._pointEditView.setFormResetHandler(this._formRresetHandler);
 
-    if (this._tripContainer instanceof AbstractView) {
-      this._tripContainer = this._tripContainer.getElement();
+    if (this._tripContainerElement instanceof AbstractView) {
+      this._tripContainerElement = this._tripContainerElement.getElement();
     }
 
-    const sortTripElement = this._tripContainer.querySelector(`.trip-sort`);
+    const sortTripElement = this._tripContainerElement.querySelector(`.trip-sort`);
 
     if (sortTripElement) {
       render(sortTripElement, this._pointEditView, AFTER_END);
     } else {
-      render(this._tripContainer, this._pointEditView, AFTER_BEGIN);
+      render(this._tripContainerElement, this._pointEditView, AFTER_BEGIN);
     }
 
     document.addEventListener(`keydown`, this._escKeyDownHandler);

@@ -18,6 +18,7 @@ import {
   RenderPosition,
   render,
   remove,
+  getElement,
 } from '../../utils/dom';
 
 import {
@@ -63,7 +64,7 @@ const groupPointsByDays = (points) => points
 
 export default class Trip {
   constructor(tripContainer, tripModel, filterModel, api) {
-    this._tripContainer = tripContainer;
+    this._tripContainerElement = getElement(tripContainer);
     this._tripModel = tripModel;
     this._filterModel = filterModel;
     this._api = api;
@@ -85,7 +86,7 @@ export default class Trip {
     this._viewActionHandler = this._viewActionHandler.bind(this);
     this._modelEventHandler = this._modelEventHandler.bind(this);
 
-    this._pointNewPresenter = new PointNewPresenter(this._tripContainer, this._viewActionHandler);
+    this._pointNewPresenter = new PointNewPresenter(this._tripContainerElement, this._viewActionHandler);
   }
 
   init() {
@@ -146,7 +147,7 @@ export default class Trip {
 
   _renderSort() {
     this._sortView = new SortView(this._currentSortType);
-    render(this._tripContainer, this._sortView, BEFORE_END);
+    render(this._tripContainerElement, this._sortView, BEFORE_END);
     this._sortView.setChangeHandler(this._sortChangeHandler);
   }
 
@@ -226,22 +227,22 @@ export default class Trip {
         BEFORE_END
     );
 
-    render(this._tripContainer, this._daysView, BEFORE_END);
+    render(this._tripContainerElement, this._daysView, BEFORE_END);
   }
 
   _renderNoEvents() {
     this._pointMessageNoEventsView = new PointMessageView(PointMessage.NO_EVENTS);
-    render(this._tripContainer, this._pointMessageNoEventsView, BEFORE_END);
+    render(this._tripContainerElement, this._pointMessageNoEventsView, BEFORE_END);
   }
 
   _renderLoading() {
     this._pointMessageLoadingView = new PointMessageView(PointMessage.LOADING);
-    render(this._tripContainer, this._pointMessageLoadingView, BEFORE_END);
+    render(this._tripContainerElement, this._pointMessageLoadingView, BEFORE_END);
   }
 
   _renderError() {
     this._pointMessageErrorView = new PointMessageView(PointMessage.ERROR);
-    render(this._tripContainer, this._pointMessageErrorView, BEFORE_END);
+    render(this._tripContainerElement, this._pointMessageErrorView, BEFORE_END);
   }
 
   _render() {

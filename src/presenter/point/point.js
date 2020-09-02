@@ -11,6 +11,7 @@ import {
   render,
   replace,
   remove,
+  getElement,
 } from '../../utils/dom';
 
 import {
@@ -33,8 +34,8 @@ const {
 } = RenderPosition;
 
 export default class Point {
-  constructor(pointContainerView, changePoint, changeMode, changeData) {
-    this._pointContainerView = pointContainerView;
+  constructor(pointContainer, changePoint, changeMode, changeData) {
+    this._pointContainerElement = getElement(pointContainer);
     this._changePoint = changePoint;
     this._changeMode = changeMode;
     this._changeData = changeData;
@@ -77,7 +78,7 @@ export default class Point {
     this._pointEditView.setFavoriteCheckboxClickHandler(this._favoriteCheckboxClickHandler);
 
     if (prevPointView === null || prevPointEditView === null) {
-      render(this._pointContainerView, this._pointView, BEFORE_END);
+      render(this._pointContainerElement, this._pointView, BEFORE_END);
       return;
     }
 
