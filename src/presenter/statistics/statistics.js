@@ -29,14 +29,14 @@ export default class Statistics {
     this._tripModel.add(this._modelEventHandler);
     this._filterModel.add(this._modelEventHandler);
 
-    const points = this._tripModel.getPoints();
-    const filterType = this._filterModel.get();
-
-    const filteredPoints = filterType === FilterType.EVERYTHING
-      ? points
-      : filter[filterType](points);
-
     if (this._mode === TabItem.STATS) {
+      const points = this._tripModel.getPoints();
+      const filterType = this._filterModel.get();
+
+      const filteredPoints = filterType === FilterType.EVERYTHING
+        ? points
+        : filter[filterType](points);
+
       this._clear();
       this._statisticsView = new StatisticsView(filteredPoints);
       render(this._statisticsContainer, this._statisticsView, BEFORE_END);
