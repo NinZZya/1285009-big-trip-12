@@ -264,16 +264,6 @@ export default class Trip {
     this._renderNoEvents();
   }
 
-  _clear({isResetSortType} = {isResetSortType: false}) {
-    if (isResetSortType) {
-      this._resetSortType();
-    }
-
-    this._pointNewPresenter.destroy();
-    this._clearNoEvents();
-    this._clearEvents();
-  }
-
   _update({isResetSortType} = {isResetSortType: false}) {
     this._clear({isResetSortType});
     this._render();
@@ -286,8 +276,18 @@ export default class Trip {
     this._pointPresenter[updatedPoint.id].init(updatedPoint, destinations, offers);
   }
 
-  _pointChangeHandler(updatedPoint) {
-    this._updatePoint(updatedPoint);
+  _resetSortType() {
+    this._currentSortType = DEFAULT_SORT_TYPE;
+  }
+
+  _clear({isResetSortType} = {isResetSortType: false}) {
+    if (isResetSortType) {
+      this._resetSortType();
+    }
+
+    this._pointNewPresenter.destroy();
+    this._clearNoEvents();
+    this._clearEvents();
   }
 
   _clearSort() {
@@ -329,8 +329,8 @@ export default class Trip {
     }
   }
 
-  _resetSortType() {
-    this._currentSortType = DEFAULT_SORT_TYPE;
+  _pointChangeHandler(updatedPoint) {
+    this._updatePoint(updatedPoint);
   }
 
   _changeModeHandler() {
