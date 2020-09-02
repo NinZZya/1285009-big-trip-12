@@ -1,3 +1,8 @@
+const ButtonName = {
+  SAVE: `Save`,
+  SAVING: `Saving...`,
+};
+
 export const createSaveButtonTemplate = (isDisabledSaveButton, isSaving) => {
   return (
     `<button
@@ -5,7 +10,7 @@ export const createSaveButtonTemplate = (isDisabledSaveButton, isSaving) => {
       type="submit"
       ${isDisabledSaveButton ? `disabled` : ``}
     >
-      ${isSaving ? `Saving...` : `Save`}
+      ${isSaving ? ButtonName.SAVING : ButtonName.SAVE}
     </button>`
   );
 };
