@@ -14,7 +14,9 @@ import {
 import {TripModel, FilterModel} from './model';
 import {RenderPosition, render} from './utils/dom';
 import {TabItem, UpdateType} from './const';
-import {Api, Provider, Store} from './api/';
+import Provider from './api/provider';
+import Store from './api/store';
+import Api from './api/api';
 
 const AUTHORIZATION = `Basic K5MGq4Ma5mbffTogkBUBv`;
 const END_POINT = `https://12.ecmascript.pages.academy/big-trip`;
