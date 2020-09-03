@@ -5,6 +5,7 @@ const Key = {
   POINTS: `points`,
   OFFERS: `offers`,
   DESTINATIONS: `destinations`,
+  SYNC_REQUIRED: `sync_required`,
 };
 
 
@@ -26,17 +27,8 @@ export default class Store {
     return this._getItems()[Key.OFFERS];
   }
 
-  setItem(key, value) {
-    const store = this._getItems();
-
-    this._storage.setItem(
-        this._storeKey,
-        JSON.stringify(
-            extend(store, {
-              [key]: value,
-            })
-        )
-    );
+  getSyncFlag() {
+    return this._getItems()[Key.SYNC_REQUIRED];
   }
 
   setPoint(id, point) {
@@ -48,21 +40,38 @@ export default class Store {
   }
 
   setPoints(points) {
-    this.setItem(Key.POINTS, points);
+    this._setItem(Key.POINTS, points);
   }
 
   setOffers(offers) {
-    this.setItem(Key.OFFERS, offers);
+    this._setItem(Key.OFFERS, offers);
   }
 
   setDestinations(destinations) {
-    this.setItem(Key.DESTINATIONS, destinations);
+    this._setItem(Key.DESTINATIONS, destinations);
+  }
+
+  setSyncFlag(value) {
+    this._setItem(Key.SYNC_REQUIRED, value);
   }
 
   removePoint(id) {
     const storedPoints = this.getPoints();
     delete storedPoints[id];
     this.setPoints(storedPoints);
+  }
+
+  _setItem(key, value) {
+    const store = this._getItems();
+
+    this._storage.setItem(
+        this._storeKey,
+        JSON.stringify(
+            extend(store, {
+              [key]: value,
+            })
+        )
+    );
   }
 
   _getItems() {
