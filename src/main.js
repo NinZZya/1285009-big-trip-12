@@ -14,10 +14,13 @@ import {
 import {TripModel, FilterModel} from './model';
 import {RenderPosition, render} from './utils/dom';
 import {TabItem, UpdateType} from './const';
-import Api from './api';
+import {Api, Provider, Store} from './api/';
 
 const AUTHORIZATION = `Basic K5MGq4Ma5mbffTogkBUBv`;
 const END_POINT = `https://12.ecmascript.pages.academy/big-trip`;
+const STORE_PREFIX = `big-trip`;
+const STORE_VER = `v1`;
+const STORE_NAME = `${STORE_PREFIX}-${STORE_VER}`;
 
 const {
   BEFORE_BEGIN,
@@ -25,6 +28,8 @@ const {
 } = RenderPosition;
 
 const api = new Api(END_POINT, AUTHORIZATION);
+const store = new Store(STORE_NAME, window.localStorage);
+const apiWithProvider = new Provider(api, store);
 
 const tripModel = new TripModel();
 const filterModel = new FilterModel();
@@ -43,7 +48,7 @@ render(tripMainElement, newPointButtonView, BEFORE_END);
 const bodyContainerElement = document.querySelector(`.page-main`).querySelector(`.page-body__container`);
 const tripEventsElement = bodyContainerElement.querySelector(`.trip-events`);
 
-const tripPresenter = new TripPresenter(tripEventsElement, tripModel, filterModel, api);
+const tripPresenter = new TripPresenter(tripEventsElement, tripModel, filterModel, apiWithProvider);
 const filterPresenter = new FilterPresenter(controlsView, tripModel, filterModel);
 const infoPresenter = new InfoPresenter(tripMainElement, tripModel, filterModel);
 const statisticsPresenter = new StatisticsPresenter(bodyContainerElement, tripModel, filterModel);
@@ -76,9 +81,9 @@ const tabsClickHandler = (activeTab) => {
 tripPresenter.init();
 
 Promise.all([
-  api.getDestinations(),
-  api.getOffers(),
-  api.getPoints()
+  apiWithProvider.getDestinations(),
+  apiWithProvider.getOffers(),
+  apiWithProvider.getPoints()
 ])
   .then((values) => {
     const [destinations, offers, points] = values;
@@ -96,3 +101,21 @@ Promise.all([
   .catch(() => {
     tripModel.setError(UpdateType.ERROR);
   });
+
+window.addEventListener(`load`, () => {
+  navigator.serviceWorker.register(`/sw.js`)
+      .then(() => {
+        console.log(`ServiceWorker available`); // eslint-disable-line
+      }).catch(() => {
+        console.error(`ServiceWorker isn't available`); // eslint-disable-line
+      });
+});
+
+window.addEventListener(`online`, () => {
+  document.title = document.title.replace(` [offline]`, ``);
+  apiWithProvider.sync();
+});
+
+window.addEventListener(`offline`, () => {
+  document.title += ` [offline]`;
+});
