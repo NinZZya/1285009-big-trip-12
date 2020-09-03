@@ -1,4 +1,4 @@
-import {TripModel} from './model';
+import {TripModel} from '../model';
 
 const Method = {
   GET: `GET`,
@@ -16,6 +16,7 @@ const Url = {
   POINTS: `points`,
   DESTINATIONS: `destinations`,
   OFFERS: `offers`,
+  SYNC: `points/sync`,
 };
 
 const HEADER = {"Content-Type": `application/json`};
@@ -72,6 +73,16 @@ export default class Api {
       url: `${Url.POINTS}/${point.id}`,
       method: Method.DELETE
     });
+  }
+
+  sync(data) {
+    return this._load({
+      url: Url.SYNC,
+      method: Method.POST,
+      body: JSON.stringify(data),
+      headers: new Headers(HEADER)
+    })
+      .then(Api.toJSON);
   }
 
   _load({

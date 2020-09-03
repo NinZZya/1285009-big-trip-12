@@ -9,43 +9,6 @@ export default class Trip extends Observer {
     this._points = [];
   }
 
-  static adaptPointToClient(point) {
-    const start = new Date(point.date_from);
-    const end = new Date(point.date_to);
-
-    return {
-      id: point.id,
-      type: point.type,
-      destination: point.destination,
-      start,
-      end,
-      duration: end - start,
-      price: point.base_price,
-      offers: point.offers,
-      isFavorite: point.is_favorite,
-    };
-  }
-
-  static adaptPointToServer(point) {
-    return {
-      "id": point.id,
-      "type": point.type,
-      "base_price": point.price,
-      "date_from": point.start.toString(),
-      "date_to": point.end.toString(),
-      "destination": point.destination,
-      "is_favorite": point.isFavorite,
-      "offers": point.offers,
-    };
-  }
-
-  static adaptOffersToClient(offers) {
-    return offers.reduce((mapOffer, offer) => {
-      mapOffer[offer.type] = offer.offers;
-      return mapOffer;
-    }, {});
-  }
-
   setDestinations(destinations) {
     this._destinations = destinations.slice();
   }
@@ -117,5 +80,53 @@ export default class Trip extends Observer {
 
   isEmpty() {
     return this._points.length === 0;
+  }
+
+  static adaptPointToClient(point) {
+    const start = new Date(point.date_from);
+    const end = new Date(point.date_to);
+
+    return {
+      id: point.id,
+      type: point.type,
+      destination: point.destination,
+      start,
+      end,
+      duration: end - start,
+      price: point.base_price,
+      offers: point.offers,
+      isFavorite: point.is_favorite,
+    };
+  }
+
+  static adaptPointToServer(point) {
+    return {
+      "id": point.id,
+      "type": point.type,
+      "base_price": point.price,
+      "date_from": point.start.toString(),
+      "date_to": point.end.toString(),
+      "destination": point.destination,
+      "is_favorite": point.isFavorite,
+      "offers": point.offers,
+    };
+  }
+
+  static adaptOffersToClient(offers) {
+    return offers.reduce((mapOffer, offer) => {
+      mapOffer[offer.type] = offer.offers;
+      return mapOffer;
+    }, {});
+  }
+
+  static adaptOffersToServer(offers) {
+    return Object
+        .keys(offers)
+        .map((key) => {
+          return {
+            type: key,
+            offers: offers[key],
+          };
+        });
   }
 }
