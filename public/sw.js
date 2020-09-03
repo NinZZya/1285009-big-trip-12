@@ -17,7 +17,6 @@ self.addEventListener(`install`, (evt) => {
             `/img/header-bg.png`,
             `/img/header-bg@2x.png`,
             `/img/logo.png`,
-            `/img/wave.svg`,
             `/img/icons/bus.png`,
             `/img/icons/drive.png`,
             `/img/icons/restaurant.png`,
