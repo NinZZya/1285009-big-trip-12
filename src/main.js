@@ -2,14 +2,19 @@ import {
   ControlsView,
   TabsView,
   NewPointButtonView,
-  StatisticsView,
 } from './view/';
 
+import {
+  TripPresenter,
+  FilterPresenter,
+  InfoPresenter,
+  StatisticsPresenter,
+} from './presenter';
+
 import {TripModel, FilterModel} from './model';
-import {TripPresenter, FilterPresenter, InfoPresenter} from './presenter';
-import {RenderPosition, render, remove} from './utils/dom';
-import Api from './api';
+import {RenderPosition, render} from './utils/dom';
 import {TabItem, UpdateType} from './const';
+import Api from './api';
 
 const AUTHORIZATION = `Basic K5MGq4Ma5mbffTogkBUBv`;
 const END_POINT = `https://12.ecmascript.pages.academy/big-trip`;
@@ -22,7 +27,6 @@ const {
 const api = new Api(END_POINT, AUTHORIZATION);
 
 const tripModel = new TripModel();
-
 const filterModel = new FilterModel();
 
 const tripMainElement = document.querySelector(`.trip-main`);
@@ -42,6 +46,7 @@ const tripEventsElement = bodyContainerElement.querySelector(`.trip-events`);
 const tripPresenter = new TripPresenter(tripEventsElement, tripModel, filterModel, api);
 const filterPresenter = new FilterPresenter(controlsView, tripModel, filterModel);
 const infoPresenter = new InfoPresenter(tripMainElement, tripModel, filterModel);
+const statisticsPresenter = new StatisticsPresenter(bodyContainerElement, tripModel, filterModel);
 
 const newPointButtonClickHandler = () => {
   newPointButtonView.disable();
@@ -53,18 +58,17 @@ const newPointButtonClickHandler = () => {
 newPointButtonView.disable();
 newPointButtonView.setClickHandler(newPointButtonClickHandler);
 
-let statisticsView = null;
-
 const tabsClickHandler = (activeTab) => {
+  statisticsPresenter.changeMode(activeTab);
+
   switch (activeTab) {
     case TabItem.TABLE:
       tripPresenter.init();
-      remove(statisticsView);
+      statisticsPresenter.destroy();
       break;
     case TabItem.STATS:
       tripPresenter.destroy();
-      statisticsView = new StatisticsView(tripModel.getPoints());
-      render(bodyContainerElement, statisticsView, BEFORE_END);
+      statisticsPresenter.init();
       break;
   }
 };

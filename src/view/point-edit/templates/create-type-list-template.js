@@ -35,7 +35,7 @@ const createTypeGroupTemplate = (groupName, types, currentType) => {
   );
 };
 
-export const createTypeListTemplate = (currentType) => {
+export const createTypeListTemplate = (currentType, isDisabled) => {
   return (
     `<div class="event__type-wrapper">
       <label class="event__type  event__type-btn" for="event-type-toggle-1">
@@ -53,6 +53,7 @@ export const createTypeListTemplate = (currentType) => {
         visually-hidden"
         id="event-type-toggle-1"
         type="checkbox"
+        ${isDisabled ? `disabled` : ``}
       >
       <div class="event__type-list">
         ${groupTypes

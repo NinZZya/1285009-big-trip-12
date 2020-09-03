@@ -1,6 +1,6 @@
 import {getPointTypeWithPreposition} from '../../../utils/type-preposition';
 
-export const createHeaderDestinationTemplate = (currentType, destination, destinations) => {
+export const createHeaderDestinationTemplate = (currentType, destination, destinations, isDisabled) => {
 
   return (
     `<div class="event__field-group  event__field-group--destination">
@@ -12,6 +12,7 @@ export const createHeaderDestinationTemplate = (currentType, destination, destin
         id="event-destination-1" type="text" name="event-destination"
         value="${destination.name}"
         list="destination-list-1"
+        ${isDisabled ? `disabled` : ``}
       >
       <datalist id="destination-list-1">
         ${destinations

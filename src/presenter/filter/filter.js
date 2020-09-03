@@ -7,6 +7,7 @@ import {
 } from '../../utils/dom';
 
 import {filter} from '../../utils/filter';
+import {getElement} from '../../utils/dom';
 import {UpdateType, FilterType} from '../../const';
 
 const {
@@ -15,7 +16,7 @@ const {
 
 export default class Filter {
   constructor(filterContainer, tripModel, filterModel) {
-    this._filterContainer = filterContainer;
+    this._filterContainerElement = getElement(filterContainer);
     this._tripModel = tripModel;
     this._filterModel = filterModel;
     this._currentFilter = null;
@@ -43,7 +44,7 @@ export default class Filter {
     this._filterView.setChangeHandler(this._filterTypeChangeHandler);
 
     if (prevFilterView === null) {
-      render(this._filterContainer, this._filterView, BEFORE_END);
+      render(this._filterContainerElement, this._filterView, BEFORE_END);
       return;
     }
 

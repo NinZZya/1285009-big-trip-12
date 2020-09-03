@@ -3,7 +3,9 @@ import {InfoView} from '../../view';
 import {
   render,
   RenderPosition,
-  replace, remove,
+  replace,
+  remove,
+  getElement,
 } from '../../utils/dom';
 
 import {
@@ -56,7 +58,7 @@ const getPeriod = (points) => {
 
 export default class Info {
   constructor(infoContainer, tripModel, filterModel) {
-    this._infoContainer = infoContainer;
+    this._infoContainerElement = getElement(infoContainer);
     this._tripModel = tripModel;
     this._filterModel = filterModel;
 
@@ -80,18 +82,18 @@ export default class Info {
     const route = getRoute(filteredPoints);
     const period = getPeriod(filteredPoints);
 
-    const prevFilterInfoView = this._infoView;
+    const prevInfoView = this._infoView;
 
 
     this._infoView = new InfoView(route, period, coast);
 
-    if (prevFilterInfoView === null) {
-      render(this._infoContainer, this._infoView, AFTER_BEGIN);
+    if (prevInfoView === null) {
+      render(this._infoContainerElement, this._infoView, AFTER_BEGIN);
       return;
     }
 
-    replace(this._infoView, prevFilterInfoView);
-    remove(prevFilterInfoView);
+    replace(this._infoView, prevInfoView);
+    remove(prevInfoView);
   }
 
   _modelEventHandler() {

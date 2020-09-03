@@ -51,17 +51,18 @@ export default class Sort extends AbstractView {
     this._sortType = sortType;
     this._formChangeHandler = this._formChangeHandler.bind(this);
   }
+
   getTemplate() {
     return createSortTemplate(this._sortType);
-  }
-
-  _formChangeHandler(evt) {
-    evt.preventDefault();
-    this._callback.formChangeHandler(evt.target.dataset.sortType);
   }
 
   setChangeHandler(callback) {
     this._callback.formChangeHandler = callback;
     this.getElement().addEventListener(`change`, this._formChangeHandler);
+  }
+
+  _formChangeHandler(evt) {
+    evt.preventDefault();
+    this._callback.formChangeHandler(evt.target.dataset.sortType);
   }
 }

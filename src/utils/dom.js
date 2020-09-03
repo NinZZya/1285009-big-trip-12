@@ -8,7 +8,7 @@ export const RenderPosition = {
   AFTER_END: `AFTER_END`,
 };
 
-const getElement = (element) => {
+export const getElement = (element) => {
   if (element instanceof AbstractView) {
     return element.getElement();
   }

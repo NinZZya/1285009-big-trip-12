@@ -28,13 +28,13 @@ export default class NewPointButton extends AbstractView {
     this.getElement().disabled = false;
   }
 
-  _newPointButtonClickHandler(evt) {
-    evt.preventDefault();
-    this._callback.newPointButtonClick();
-  }
-
   setClickHandler(callback) {
     this._callback.newPointButtonClick = callback;
     this.getElement().addEventListener(`click`, this._newPointButtonClickHandler);
+  }
+
+  _newPointButtonClickHandler(evt) {
+    evt.preventDefault();
+    this._callback.newPointButtonClick();
   }
 }

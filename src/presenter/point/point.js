@@ -11,6 +11,7 @@ import {
   render,
   replace,
   remove,
+  getElement,
 } from '../../utils/dom';
 
 import {
@@ -20,6 +21,7 @@ import {
 import {
   UpdateType,
   UserAction,
+  State,
 } from '../../const';
 
 const Mode = {
@@ -32,8 +34,8 @@ const {
 } = RenderPosition;
 
 export default class Point {
-  constructor(pointContainerView, changePoint, changeMode, changeData) {
-    this._pointContainerView = pointContainerView;
+  constructor(pointContainer, changePoint, changeMode, changeData) {
+    this._pointContainerElement = getElement(pointContainer);
     this._changePoint = changePoint;
     this._changeMode = changeMode;
     this._changeData = changeData;
@@ -44,6 +46,7 @@ export default class Point {
     this._mode = Mode.DEFAULT;
     this._isShouldUpdateTrip = null;
 
+    this._rollupPointEdit = this._rollupPointEdit.bind(this);
     this._rollupPointHandler = this._rollupPointHandler.bind(this);
     this._rollupPointEditHandler = this._rollupPointEditHandler.bind(this);
     this._submitPointEditHandler = this._submitPointEditHandler.bind(this);
@@ -75,7 +78,7 @@ export default class Point {
     this._pointEditView.setFavoriteCheckboxClickHandler(this._favoriteCheckboxClickHandler);
 
     if (prevPointView === null || prevPointEditView === null) {
-      render(this._pointContainerView, this._pointView, BEFORE_END);
+      render(this._pointContainerElement, this._pointView, BEFORE_END);
       return;
     }
 
@@ -99,6 +102,26 @@ export default class Point {
   resetView() {
     if (this._mode !== Mode.DEFAULT) {
       this._replacePointEditToPoint();
+    }
+  }
+
+  setViewState(state) {
+    switch (state) {
+      case State.SAVING:
+        this._pointEditView.updateData({
+          isDisabled: true,
+          isSaving: true,
+        });
+        break;
+      case State.DELETING:
+        this._pointEditView.updateData({
+          isDisabled: true,
+          isDeleting: true,
+        });
+        break;
+      case State.ABORTING:
+        this._pointEditView.shakeForm();
+        break;
     }
   }
 
@@ -136,10 +159,9 @@ export default class Point {
     this._changeData(
         UserAction.UPDATE_POINT,
         updateType,
-        point
+        point,
+        this._rollupPointEdit
     );
-
-    this._rollupPointEdit();
   }
 
   _favoriteCheckboxClickHandler(point) {
@@ -157,8 +179,6 @@ export default class Point {
         UpdateType.MAJOR,
         point
     );
-
-    this._rollupPointEdit();
   }
 
   _escKeyDownHandler(evt) {
