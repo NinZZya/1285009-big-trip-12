@@ -51,7 +51,7 @@ const getPeriod = (points) => {
     ? `${
       getPeriodTitle(points[0].start)
     } — ${
-      getPeriodTitle(points[points.length - 1].end)
+      getPeriodTitle(points[count - 1].end)
     }`
     : ``;
 };

@@ -122,11 +122,9 @@ export default class Trip extends Observer {
   static adaptOffersToServer(offers) {
     return Object
         .keys(offers)
-        .map((key) => {
-          return {
-            type: key,
-            offers: offers[key],
-          };
-        });
+        .map((key) => ({
+          type: key,
+          offers: offers[key],
+        }));
   }
 }
