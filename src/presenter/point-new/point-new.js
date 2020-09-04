@@ -22,7 +22,7 @@ export default class PointNew {
     this._destroyCallback = null;
 
     this._formSubmitHandler = this._formSubmitHandler.bind(this);
-    this._formRresetHandler = this._formRresetHandler.bind(this);
+    this._formResetHandler = this._formResetHandler.bind(this);
     this._escKeyDownHandler = this._escKeyDownHandler.bind(this);
   }
 
@@ -61,7 +61,7 @@ export default class PointNew {
 
     this._pointEditView = new PointEditView({destinations, offers, isAddMode: true});
     this._pointEditView.setFormSubmitHandler(this._formSubmitHandler);
-    this._pointEditView.setFormResetHandler(this._formRresetHandler);
+    this._pointEditView.setFormResetHandler(this._formResetHandler);
 
     if (this._tripContainerElement instanceof AbstractView) {
       this._tripContainerElement = this._tripContainerElement.getElement();
@@ -86,7 +86,7 @@ export default class PointNew {
     );
   }
 
-  _formRresetHandler() {
+  _formResetHandler() {
     this.destroy();
   }
 
