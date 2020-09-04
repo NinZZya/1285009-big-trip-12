@@ -97,10 +97,12 @@ export default class Point {
   destroy() {
     remove(this._pointView);
     remove(this._pointEditView);
+    document.removeEventListener(`keydown`, this._escKeyDownHandler);
   }
 
   resetView() {
     if (this._mode !== Mode.DEFAULT) {
+      document.removeEventListener(`keydown`, this._escKeyDownHandler);
       this._replacePointEditToPoint();
     }
   }
