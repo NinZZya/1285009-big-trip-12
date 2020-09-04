@@ -3,7 +3,7 @@ import {createHeaderTemplate} from './templates/create-header-template';
 import {createDetailsTemplate} from './templates/create-details-template';
 import flatpickr from 'flatpickr';
 import '../../../node_modules/flatpickr/dist/flatpickr.min.css';
-import {ACTVITIES} from '../../const';
+import {ACTIVITIES} from '../../const';
 import {extend} from '../../utils/utils';
 import {addDaysToDate} from '../../utils/date';
 
@@ -18,7 +18,7 @@ const getBlankPoint = () => {
   const end = addDaysToDate(new Date());
 
   return {
-    type: ACTVITIES[0].toLowerCase(),
+    type: ACTIVITIES[0].toLowerCase(),
     destination: BLANK_DESTINATION,
     start,
     end,

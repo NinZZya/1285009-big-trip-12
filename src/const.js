@@ -5,7 +5,7 @@ export const PointMessage = {
 };
 
 export const TRANSFERS = [`Taxi`, `Bus`, `Train`, `Ship`, `Transport`, `Drive`, `Flight`];
-export const ACTVITIES = [`Check-in`, `Sightseeing`, `Restaurant`];
+export const ACTIVITIES = [`Check-in`, `Sightseeing`, `Restaurant`];
 
 export const PointGroupType = {
   TRANSFER: `Transfer`,
@@ -14,7 +14,7 @@ export const PointGroupType = {
 
 export const pointGroupToTypes = {
   [PointGroupType.TRANSFER]: TRANSFERS,
-  [PointGroupType.ACTVITY]: ACTVITIES,
+  [PointGroupType.ACTVITY]: ACTIVITIES,
 };
 
 const pointGropTypeToPreposition = {
