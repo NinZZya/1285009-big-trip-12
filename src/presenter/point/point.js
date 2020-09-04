@@ -141,14 +141,18 @@ export default class Point {
     document.removeEventListener(`keydown`, this._escKeyDownHandler);
   }
 
+  _resetPointEdit() {
+    this._pointEditView.reset(this._point);
+    this._rollupPointEdit();
+  }
+
   _rollupPointHandler() {
     this._replacePointToPointEdit();
     document.addEventListener(`keydown`, this._escKeyDownHandler);
   }
 
   _rollupPointEditHandler() {
-    this._pointEditView.reset(this._point);
-    this._rollupPointEdit();
+    this._resetPointEdit();
   }
 
   _submitPointEditHandler(point) {
